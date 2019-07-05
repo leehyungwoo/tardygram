@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * CustomerController
  */
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600) //리액트포트
 @RestController
 @RequestMapping("/contents")
+
 public class CustomerController {
     @Autowired CustomerRepository repo;
     @Autowired CustomerDTO customer;
