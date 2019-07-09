@@ -1,11 +1,11 @@
 package com.tardygram.web.controller;
 
-
 import com.tardygram.web.domain.CustomerDTO;
 import com.tardygram.web.repositories.CustomerRepository;
 
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
