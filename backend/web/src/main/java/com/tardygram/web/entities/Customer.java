@@ -35,8 +35,15 @@ public class Customer implements Serializable {
     
     @Override
     public String toString(){
-        return "Customer :[id:"+id+",customerId:" +customerId+", customerName:"+customerName+", password:"+password+", ssn:"+ssn+
-        ", city:"+city+", address:"+address+", postalcode:"+postalcode+", photo:"+photo+"]";
+        return "Customer :[id:"+id+",customerId:" +customerId
+        +", customerName:"+customerName
+        +", password:"+password
+        +", ssn:"+ssn
+        +", city:"+city
+        +", address:"
+        +address+", postalcode:"
+        +postalcode+", photo:"
+        +photo+"]";
     }
 
     //public Customer(){}  이런식으로 set으로 셋팅해야하지만
