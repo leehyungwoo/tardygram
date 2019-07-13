@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 @Data @Component @Lazy
-public class ProfileDTO {
+public class MeetingPeople {
 
-    private String proid, proimage,
-    protimes, prorate, projoindate, pronow, prolast, procash;
+    private int roomno, leader;
+    private String memberid;
 }
