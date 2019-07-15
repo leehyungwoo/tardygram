@@ -16,10 +16,7 @@
     <java.version>1.8</java.version>
   </properties>
   <dependencies>
-
-
-
-<dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
@@ -27,15 +24,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <dependency>
+    <dependency>  
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -47,78 +39,42 @@
       <artifactId>spring-boot-starter-web-services</artifactId>
       <scope>compile</scope>
     </dependency>
-   <!--  <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-    </dependency> -->
     <dependency>
-        <groupId>javax.xml.bind</groupId>
-        <artifactId>jaxb-api</artifactId>
-        <version>2.3.0</version>
-</dependency>
-    <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <scope>runtime</scope>
-  </dependency>
-   <dependency>
-        <groupId>org.mariadb.jdbc</groupId>
-        <artifactId>mariadb-java-client</artifactId>
-        <version>2.1.2</version>
-    </dependency>
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-entitymanager</artifactId>
-    <version>5.2.3.Final</version>
-</dependency>
-<!-- querydsl -->
-<dependency>
-  <groupId>com.querydsl</groupId>
-  <artifactId>querydsl-apt</artifactId>
-  <version>${querydsl.version}</version>
-  <scope>provided</scope>
-</dependency>
-
-<dependency>
-  <groupId>com.querydsl</groupId>
-  <artifactId>querydsl-jpa</artifactId>
-  <version>${querydsl.version}</version>
-</dependency>
-
-<!-- <dependency>
-  <groupId>org.slf4j</groupId>
-  <artifactId>slf4j-log4j12</artifactId>
-  <version>1.6.1</version>
-</dependency> -->
-
-    <!-- <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.0</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit-dep</artifactId>
-      <version>4.10</version>
-      <scope>test</scope>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-library</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
-    </dependency> -->
+      <groupId>org.mariadb.jdbc</groupId>
+      <artifactId>mariadb-java-client</artifactId>
+      <version>2.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>5.2.3.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>com.querydsl</groupId>
+      <artifactId>querydsl-apt</artifactId>
+      <version>${querydsl.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.querydsl</groupId>
+      <artifactId>querydsl-jpa</artifactId>
+      <version>${querydsl.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.modelmapper</groupId>
       <artifactId>modelmapper</artifactId>
       <version>2.3.0</version>
     </dependency>
-
-
-
-
-
   </dependencies>
   <build>
     <plugins>

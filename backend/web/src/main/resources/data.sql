@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS customers;
-DROP TABLE customers;
+-- DROP TABLE IF EXISTS customers;
+-- DROP TABLE customers;
 -- CREATE TABLE customers (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
 -- customer_id VARCHAR(15) UNIQUE NOT NULL,

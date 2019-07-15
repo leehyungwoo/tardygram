@@ -1,5 +1,7 @@
 package com.tardygram.web.entities;
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -28,45 +30,16 @@ public class Meeting implements Serializable {
     @Column(name="meetingtitle") private String meetingtitle;
     @Column(name="meetingdate") private String meetingdate;
     @Column(name="meetingplace") private String meetingplace;
-    @Column(name="meetingintro") private String meetingintro;
     @Column(name="meetingdetail") private String meetingdetail;
 
     @ColumnDefault("true")
     @Column(name="meetingprogress") private boolean meetingprogress;
     @Column(name="meetingcharge") private int meetingcharge;
-   
-    @Override
-    public String toString(){
-        return "Met :[roomno:"+ roomno + "category:"+category+",meetingtitle:" +meetingtitle
-        +", meetingdate:"+meetingdate
-        +", meetingplace:"+meetingplace
-        +", meetingintro:"+meetingintro
-        +", meetingdetail:"+meetingdetail
-        +", meetingprogress:"+meetingprogress
-        +", meetingcharge:"+meetingcharge
-        +"]";
-    }
+    @Column(name="meetingphoto") private String meetingphoto;
 
-    @Builder
-    public Meeting(
-        String category,
-        String meetingtitle,
-        String meetingdate,
-        String meetingplace,
-        String meetingintro,
-        String meetingdetail,
-        boolean meetingprogress,
-        int meetingcharge
-    )
-    {
-        this.category = category;
-        this.meetingtitle = meetingtitle;
-        this.meetingdate = meetingdate;
-        this.meetingplace = meetingplace;
-        this.meetingintro = meetingintro;
-        this.meetingdetail = meetingdetail;
-        this.meetingprogress = meetingprogress;
-        this.meetingcharge = meetingcharge;
-    }
+    // @OneToMany(mappedBy = "meeting", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // private List<MeetingPeople> jointest;
+   
+
 }
  

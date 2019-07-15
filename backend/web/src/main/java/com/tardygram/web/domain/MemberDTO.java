@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 public class MemberDTO {
 
     private String memberid, pwd,
-    name,phone,email,birthday,gender;
+    name,phone,email,birthday,gender,profileimage;
     private int money;
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class MeetingDTO {
 
     private String category, meetingtitle,
-    meetingdate, meetingplace, meetingintro, meetingdetail;
+    meetingdate, meetingplace, meetingdetail, meetingphoto;
     private boolean meetingprogress;
     private int meetingcharge;
 }
