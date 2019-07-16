@@ -32,8 +32,9 @@ public class Meeting implements Serializable {
     @Column(name="meetingplace") private String meetingplace;
     @Column(name="meetingdetail") private String meetingdetail;
 
-    @ColumnDefault("true")
-    @Column(name="meetingprogress") private boolean meetingprogress;
+    @ColumnDefault("0")
+    @Column(name="meetingprogress") private int meetingprogress;
+    
     @Column(name="meetingcharge") private int meetingcharge;
     @Column(name="meetingphoto") private String meetingphoto;
 

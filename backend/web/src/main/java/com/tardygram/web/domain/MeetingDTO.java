@@ -7,6 +7,5 @@ public class MeetingDTO {
 
     private String category, meetingtitle,
     meetingdate, meetingplace, meetingdetail, meetingphoto;
-    private boolean meetingprogress;
-    private int meetingcharge;
+    private int meetingcharge, meetingprogress;
 }

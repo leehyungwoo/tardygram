@@ -51,11 +51,11 @@ public class MemberController {
 
         Member member = new Member();
         member.setBirthday("931229");
-        member.setEmail("test2@test");
+        member.setEmail("kz1324@naver.com");
         member.setGender("남");       
-        member.setMemberid("test2");
-        member.setName("테스트2");
-        member.setPhone("01011111111");
+        member.setMemberid("kz1324");
+        member.setName("문호");
+        member.setPhone("01022222222");
         member.setPwd("1234");
         memberrepo.save(member);
        
@@ -81,8 +81,7 @@ public class MemberController {
      
         for(int i = 0; i <result.size(); i++){
             for(int j=0; j<result.get(i).length; j++){
-                System.out.println(result.get(i)[j]);
-                
+                System.out.println(result.get(i)[j]);              
             }
             System.out.println("---------------");
         }
