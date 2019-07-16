@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,9 +34,12 @@ public class MemberController {
  
 
     //해당 memberid에 해당하는 레코드출력
-    @GetMapping("getmember")
-    public MemberDTO getMember(){
+    @PostMapping("getmember")
+    public MemberDTO getMember(@RequestBody MemberDTO dto){
         System.out.println("겟매핑 테스트");
+        System.out.println("프론트에서 전해준 memberid : " + dto.getMemberid());
+        System.out.println("프론트에서 전해준 pwd : " + dto.getPwd());
+
         Iterable<Member> member = memberrepo.findByMemberid("test1");
         
         System.out.println("member? : " + member);
