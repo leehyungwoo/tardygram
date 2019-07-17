@@ -9,6 +9,7 @@ import Foods from './components/foods/Foods'
 import Lifestyle from './components/lifestyle/Lifestyle'
 // import Single from './components/single/Single'
 // import Test from './components/test/Test'
+import Kakaopay from './components/kakaopay/Kakaopay'
 
 
 import Host from './components/host/Host'
@@ -47,6 +48,7 @@ function App() {
                   <li className="nav-item"><Link className="nav-link" to="/search">Search</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/mypage">Mypage</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
+                  <li className="nav-item"><Link className="nav-link" to="/kakaopay">Kakaopay</Link></li>
                 </ul>
               </div>
             </div>
@@ -56,7 +58,7 @@ function App() {
           <Route exact path="/search" component={Search} />
           <Route exact path="/mypage" component={Mypage} />
           <Route exact path="/login" component={Login} />
-
+          <Route exact path="/kakaopay" component={Kakaopay} />
 
 
 
