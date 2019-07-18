@@ -1,5 +1,9 @@
 package com.tardygram.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.tardygram.web.domain.KakaoPayApprovalVO;
 import com.tardygram.web.service.KakaoPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,20 +34,21 @@ public class SampleController {
     }
     
     @PostMapping("/kakaoPay")
-    public String kakaoPay() {
+    public String kakaoPay(@RequestBody HashMap<String, String> data) {
         System.out.println("kakaopay 컨트롤러 매핑");
-        //log.info("kakaoPay post............................................");
-        System.out.println("리턴값 : " + kakaopay.kakaoPayReady());
-        System.out.println("redirect:" + kakaopay.kakaoPayReady());
+        System.out.println("data : " + data);
+        System.out.println("amount : " + data.get("amount"));
+        System.out.println("memberid : " + data.get("memberid"));
         //return "redirect:" + kakaopay.kakaoPayReady();
-        return kakaopay.kakaoPayReady();
+        return kakaopay.kakaoPayReady(data);
     }
     
     @GetMapping("/kakaoPaySuccess")
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
-        log.info("kakaoPaySuccess get............................................");
+        System.out.println("성공시 컨트롤러");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
-        
+
+        System.out.println("성공시 컨트롤러 마지막");
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
         
     }

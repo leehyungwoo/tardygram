@@ -23,61 +23,69 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * MemberController
- */
+* MemberController
+*/
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/meeting")
 public class MeetingController {
-    @Autowired MemberRepository memberrepo;
-    @Autowired MeetingPeopleRepository peopleRepo;
-    @Autowired MeetingRepository meetingrepo;
+   @Autowired MemberRepository memberrepo;
+   @Autowired MeetingPeopleRepository peopleRepo;
+   @Autowired MeetingRepository meetingrepo;
 
-    //모임방 개설 (meeting테이블 insert, meetingpeople테이블도 insert)
-    @GetMapping("putmember")
-    public MemberDTO insertMember(){
-        System.out.println("meeting insert");
+   //모임방 개설 (meeting테이블 insert, meetingpeople테이블도 insert)
+   @GetMapping("putmeeting")
+   public void insertMeeting(){
+       System.out.println("meeting insert");
 
-        Meeting meet = new Meeting();
-        meet.setCategory("세미나");
-        meet.setMeetingcharge(3000);
-        meet.setMeetingdate("19/07/17");
-        meet.setMeetingdetail("상세내용~~~~~~");
-        meet.setMeetingplace("세미나하는곳");
-        meet.setMeetingtitle("세미나는 힘들어");
-        meet.setMeetingprogress(1);
-        meetingrepo.save(meet);
+       Meeting meet = new Meeting();
+       meet.setCategory("공부");
+       meet.setMeetingcharge(3000);
+       meet.setMeetingdate("19/07/17");
+       meet.setMeetingdetail("상세내용~~~~~~");
+       meet.setMeetingplace("세미나하는곳");
+       meet.setMeetingtitle("세미나는 힘들엉");
+       meet.setMeetingprogress(1);
+       meetingrepo.save(meet);
 
-        MeetingPeople mp = new MeetingPeople();
-        Member member = new Member();
-        member.setMemberid("kz1324"); //현재 로그인한 memberid
-        
-        mp.setLeader(1);
-        mp.setMember(member);       
-        mp.setRoomno(meet);
-        
-        peopleRepo.save(mp);
-       
-        return null;
-    }
+       MeetingPeople mp = new MeetingPeople();
+       Member member = new Member();
+       member.setMemberid("kz1324"); //현재 로그인한 memberid
 
-    @GetMapping("getmeeting")
-    public void getmeeting(){
-        System.out.println("join테스트");
-        List<Object[]> result = meetingrepo.joinlist("kz1324");
-        System.out.println("result.get(0) "+result.get(0)); 
-        System.out.println("Arrays.deepToString(result.get(0)) "+Arrays.deepToString(result.get(0))); 
-        for(int i = 0; i <result.size(); i++){
-            for(int j=0; j<result.get(i).length; j++){
-                System.out.println(result.get(i)[j]);              
-            }
-            System.out.println("---------------");
-        }
-    }
- 
+       mp.setLeader(1);
+       mp.setMember(member);
+       mp.setRoomno(meet);
 
-    
+       peopleRepo.save(mp);
 
 
-    
+   }
+
+   //해당 id에 해당하는 user의 meeting + meetingpeople 2개의 테이블 조인
+   @GetMapping("getmeeting")
+   public void getmeeting(){
+       System.out.println("join테스트");
+       List<Object[]> result = meetingrepo.joinlist("kz1324");
+       System.out.println("result.get(0) "+result.get(0));
+       System.out.println("Arrays.deepToString(result.get(0)) "+Arrays.deepToString(result.get(0)));
+       for(int i = 0; i <result.size(); i++){
+           for(int j=0; j<result.get(i).length; j++){
+               System.out.println(result.get(i)[j]);
+           }
+           System.out.println("---------------");
+       }
+   }
+
+
+
+
+
+   //해당 모임 삭제
+
+
+
+
+
+
+
 }

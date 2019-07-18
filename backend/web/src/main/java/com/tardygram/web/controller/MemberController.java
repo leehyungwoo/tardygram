@@ -13,6 +13,7 @@ import com.tardygram.web.repositories.MeetingPeopleRepository;
 import com.tardygram.web.repositories.MemberRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,7 @@ public class MemberController {
  
 
     //해당 memberid에 해당하는 레코드출력
-    @PostMapping("getmember")
+    @PostMapping("/getmember")
     public MemberDTO getMember(@RequestBody MemberDTO dto){
         System.out.println("겟매핑 테스트");
         System.out.println("프론트에서 전해준 memberid : " + dto.getMemberid());
@@ -49,7 +50,7 @@ public class MemberController {
     }
 
     //회원가입
-    @GetMapping("putmember")
+    @GetMapping("/putmember")
     public MemberDTO insertMember(){
         System.out.println("회원가입 test");
 
@@ -66,15 +67,15 @@ public class MemberController {
         return null;
     }
 
+
+ 
+
     //테이블 조인해서 리스트 출력
-    @GetMapping("getmemberjoin")
+    @GetMapping("/getmemberjoin")
     public MemberDTO getMemberjoin(){
         System.out.println("겟join매핑 테스트");
         Member m = new Member();
-        //List<MeetingPeople> mlist =  m.getJointest();
-        //System.out.println("list[0] : " + mlist.get(0));
-        //System.out.println("list[1] : " + mlist.get(1));
-        // String memberid = "kz1324";
+
         List<Object[]> result = memberrepo.joinlist();
 
 
@@ -92,6 +93,11 @@ public class MemberController {
             
         return null;
     }
+
+
+
+
+
 
 
     
