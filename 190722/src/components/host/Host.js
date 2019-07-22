@@ -73,10 +73,10 @@ formFunc=()=>{
             <div className="container">
               <h2>Basic Progress Bar</h2>
               <div className="progress">
-                <div className="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style={{
+                <div className="progress-bar" role="progressbar" aria-valuenow={(100/this.state.query.length)*this.state.pageIndex} aria-valuemin="0" aria-valuemax="100" style={{
                   background:"#fd5f00",
                   width:(100/this.state.query.length)*this.state.pageIndex+"%"}}>
-                  <span className="sr-only">0% Complete</span>
+                  <span className="sr-only">{(100/this.state.query.length)*this.state.pageIndex} Complete</span>
                 </div>
               </div>
             </div>
