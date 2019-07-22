@@ -42,7 +42,7 @@ componentDidMount(){
      'Content-Type': 'application/json',
  }
 
- let id ="a";
+ let id ="moonho";
  axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
      .then(res =>{
          //alert('통신성공  url:')
@@ -91,28 +91,24 @@ componentDidMount(){
        <section className="ftco-counter ftco-section ftco-no-pt ftco-no-pb img" id="section-counter">
          <div className="container">
            <div className="row d-flex">
-             <div className="col-md-3 d-flex">
+             <div className="col-md-4 d-flex">
                 <div className="sidebar-wrap">
                   <div className="sidebar-box p-4 about text-center ftco-animate">
                     <h2 className="heading mb-4">About Me</h2>
                     <img src={author} className="img-fluid" alt="Colorlib Template" />
                     <div className="text pt-4">
-                      <p>Hi! My name is <strong>Cathy Deon</strong>, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                      <p>
+                      <strong>name : {this.state.name}</strong><br/> email :{this.state.email}<br/> gender : {this.state.gender}<br/> phone : {this.state.phone}<br/> birthday : {this.state.birthday}<br/> tardycash : {this.state.money}<br/>
+                      <button type="button" className="btn btn-outline-warning">충전하기</button>
+                      </p>
                     </div>
                   </div>
-                  <div className="sidebar-box p-4 ftco-animate">
-                    <form action="#" className="search-form">
-                      <div className="form-group">
-                        {/* <span className="icon icon-search" /> */}
-                        <input type="text" className="form-control" placeholder="Search" />
-                      </div>
-                    </form>
-                  </div>
+              
                 </div>
        
 
              </div>
-             <div className="col-md-9 pl-md-5 py-5">
+             <div className="col-md-8 pl-md-5 py-5">
                <div className="row justify-content-start pb-3">
                  <div className="col-md-12 heading-section ftco-animate">
                    <h2 className="mb-4"><span>About Stories</span></h2>
@@ -159,7 +155,7 @@ componentDidMount(){
        </section>
        <section className="ftco-section">
           <div className="container">
-            <div className="col-md-12" style={{border:"1px solid red",width:"100%",height:"100px"}}>
+            <div className="col-md-4" style={{border:"1px solid red",width:"100%",height:"100px"}}>
               테스트
             </div>
           </div>
