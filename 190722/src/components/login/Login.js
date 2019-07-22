@@ -58,7 +58,7 @@ class Login extends Component{
         .then(res=>{
           const result = res.data;
           if(result.status==="sucess"){
-            localStorage.setItem("loginTf",res.data.dataid);
+            localStorage.setItem("loginId",res.data.dataid);
             alert("로그인성공 라우터이동");
              this.props.history.push("/")
           }else{

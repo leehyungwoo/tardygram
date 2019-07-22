@@ -32,17 +32,17 @@ class Search extends Component {
  render(){
    return(
      <div>
-       <div class="btn-group">
-         <button type="button" class="btn btn-danger">Action</button>
-         <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           <span class="sr-only">Toggle Dropdown</span>
+       <div className="btn-group">
+         <button type="button" className="btn btn-danger">Action</button>
+         <button type="button" className="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <span className="sr-only">Toggle Dropdown</span>
          </button>
-         <div class="dropdown-menu">
-           <a class="dropdown-item" href="#">Action</a>
-           <a class="dropdown-item" href="#">Another action</a>
-           <a class="dropdown-item" href="#">Something else here</a>
-           <div class="dropdown-divider"></div>
-           <a class="dropdown-item" href="#">Separated link</a>
+         <div className="dropdown-menu">
+           <a className="dropdown-item" href="#">Action</a>
+           <a className="dropdown-item" href="#">Another action</a>
+           <a className="dropdown-item" href="#">Something else here</a>
+           <div className="dropdown-divider"></div>
+           <a className="dropdown-item" href="#">Separated link</a>
          </div>
        </div>
      </div>

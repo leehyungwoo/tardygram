@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,24 +32,28 @@ public class MeetingController {
 
    //방장이 모임방 개설
    @PostMapping("/create")
-   public void insertMeeting(){
+   public void insertMeeting(@RequestBody Meeting fd ){
 
-        String hostName = "a";
+    System.out.println(fd);
 
-       System.out.println("meeting insert");
+    //     String hostName = "a";
+
+    //    System.out.println("meeting insert");
        Meeting meeting = new Meeting();
-       meeting.setCategory("a의 모임");
-       meeting.setMeetingcharge(3000);
-       meeting.setMeetingdate("19/07/32");
-       meeting.setMeetingdetail("파티");
-       meeting.setHostid(hostName);
-       meeting.setMeetingplace("a의 모임");
-       meeting.setMeetingprogress(0);              //생성시 방진행
-       meeting.setMeetingtitle("모임으어");     
-       Member member1 = memberrepo.findById(hostName).get(); // 방장추가
-       //meeting.addMember(member1);
-       member1.addMeeting(meeting);
-       meetingrepo.save(meeting);
+ 
+    //    meeting.setCategory("a의 동창회");
+    //    meeting.setMeetingcharge(3000);
+    //    meeting.setMeetingdate("19/07/02");
+    //    meeting.setMeetingdetail("파티");
+    //    meeting.setHostid(hostName);
+    //    meeting.setMeetingplace("강남 비트캠프");
+       meeting.setMeetingprogress(1);              //생성시 방진행
+    //    meeting.setMeetingtitle(" 동창회");     
+    //    Member member1 = memberrepo.findById(hostName).get(); // 방장추가
+    //    //meeting.addMember(member1);
+    //    member1.addMeeting(meeting);
+       meetingrepo.save(fd);
+ 
 
    }
 
