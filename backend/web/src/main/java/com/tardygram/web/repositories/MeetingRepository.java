@@ -42,19 +42,19 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>{
         value = "select * from tbl_meeting mt JOIN tbl_members_meetings mm ON mt.roomno=mm.meetings_roomno where mt.meetingprogress=0 and mt.hostid= mm.members_memberid and mm.members_memberid=:memberid"
         , nativeQuery = true
     )
-    public List<Object []> selectMypage3(String memberid);
+    public List<Meeting> selectMypage3(String memberid);
 
 
     @Query(
         value = "select * from tbl_meeting mt JOIN tbl_members_meetings mm ON mt.roomno=mm.meetings_roomno where mt.meetingprogress=1 and mt.hostid!= mm.members_memberid and mm.members_memberid=:memberid"
         , nativeQuery = true
     )
-    public List<Object []> selectMypage4(String memberid);
+    public List<Meeting> selectMypage4(String memberid);
 
 
     @Query(
         value = "select * from tbl_meeting mt JOIN tbl_members_meetings mm ON mt.roomno=mm.meetings_roomno where mt.meetingprogress=0 and mt.hostid!= mm.members_memberid and mm.members_memberid=:memberid"
         , nativeQuery = true
     )
-    public List<Object []> selectMypage5(String memberid);
+    public List<Meeting> selectMypage5(String memberid);
 }

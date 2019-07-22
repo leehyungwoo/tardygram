@@ -27,18 +27,18 @@ public class MeetingController {
    @PostMapping("/create")
    public void insertMeeting(){
 
-        String hostName = "moonho";
+        String hostName = "a";
 
        System.out.println("meeting insert");
        Meeting meeting = new Meeting();
-       meeting.setCategory("c의 동창회");
+       meeting.setCategory("a의 동창회");
        meeting.setMeetingcharge(3000);
-       meeting.setMeetingdate("19/07/01");
-       meeting.setMeetingdetail("c와함께 엤날 즐거운 동창회");
+       meeting.setMeetingdate("19/07/02");
+       meeting.setMeetingdetail("파티");
        meeting.setHostid(hostName);
-       meeting.setMeetingplace("서울 비트캠프");
-       meeting.setMeetingprogress(1);              //생성시 방진행
-       meeting.setMeetingtitle(" 엤날 동창회으어");     
+       meeting.setMeetingplace("강남 비트캠프");
+       meeting.setMeetingprogress(0);              //생성시 방진행
+       meeting.setMeetingtitle(" 동창회");     
        Member member1 = memberrepo.findById(hostName).get(); // 방장추가
        //meeting.addMember(member1);
        member1.addMeeting(meeting);
@@ -50,8 +50,8 @@ public class MeetingController {
    @PostMapping("/enter")
    public void enter(){
        Member m = new Member();
-       m.setMemberid("a");         //m이라는 친구가
-       enterrepo.enter(m, "1");  // 4번방에 추가
+       m.setMemberid("b");         //m이라는 친구가
+       enterrepo.enter(m, "4");  // 4번방에 추가
    }
 
    //연관테이블 레코드 삭제후 meeting테이블 레코드 삭제

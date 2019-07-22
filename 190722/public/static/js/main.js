@@ -312,8 +312,6 @@ observer.observe(target, config); // 감시할 대상 등록
 document.getElementsByClassName('App')[0].addEventListener('click', function() {
   setTimeout(function(){
     console.log("실행")
-    window.scroll(0,0)
-    
     main(jQuery);
   },300)
 });

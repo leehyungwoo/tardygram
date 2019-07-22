@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
  
 
  
@@ -35,9 +35,13 @@ import image_5 from '../../images/image_5.jpg'
 import './Home.css';
 
  
-function Home() {
+class Home extends Component{
  
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
   
+  render(){
   return (
     <div className="wrap">
        <section className="home-slider owl-carousel">
@@ -320,7 +324,7 @@ function Home() {
       
     </div>                                                                                                                                               
   );
-  
+}
 }
 
 export default Home;
