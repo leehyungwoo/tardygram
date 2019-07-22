@@ -1,13 +1,18 @@
 package com.tardygram.web.controller;
 
+import java.util.List;
+
 import com.tardygram.web.entities.Meeting;
 import com.tardygram.web.entities.Member;
 import com.tardygram.web.repositories.EnterRepository;
 import com.tardygram.web.repositories.MeetingRepository;
 import com.tardygram.web.repositories.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,7 +67,15 @@ public class MeetingController {
    }
 
 
+    //모임방 전체출력
+    @GetMapping("/selectall")
+    public  ResponseEntity<List<Meeting>> selectall(){
+        System.out.println("모임방전체출력 컨트롤러 ");
+        List<Meeting> mList = meetingrepo.selectall();
+        System.out.println("mList : " + mList);
 
+        return new ResponseEntity<List<Meeting>>(mList, HttpStatus.OK);
+    }
 
    //해당 id에 해당하는 user의 meeting + meetingpeople 2개의 테이블 조인
    /* @GetMapping("getmeeting")

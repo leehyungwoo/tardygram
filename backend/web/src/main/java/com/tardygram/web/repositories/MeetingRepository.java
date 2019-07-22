@@ -35,26 +35,33 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>{
         value = "select * from tbl_meeting m where m.meetingprogress=1 and m.hostid=:hostid "
         , nativeQuery = true
     )
-    public List<Meeting> selectMypage2(String hostid);
+    public List<Meeting> hostProgressEx(String hostid);
 
 
     @Query(
         value = "select * from tbl_meeting mt JOIN tbl_members_meetings mm ON mt.roomno=mm.meetings_roomno where mt.meetingprogress=0 and mt.hostid= mm.members_memberid and mm.members_memberid=:memberid"
         , nativeQuery = true
     )
-    public List<Meeting> selectMypage3(String memberid);
+    public List<Meeting> hostNotProgressEx(String memberid);
 
 
     @Query(
         value = "select * from tbl_meeting mt JOIN tbl_members_meetings mm ON mt.roomno=mm.meetings_roomno where mt.meetingprogress=1 and mt.hostid!= mm.members_memberid and mm.members_memberid=:memberid"
         , nativeQuery = true
     )
-    public List<Meeting> selectMypage4(String memberid);
+    public List<Meeting> MemberProgressEx(String memberid);
 
 
     @Query(
         value = "select * from tbl_meeting mt JOIN tbl_members_meetings mm ON mt.roomno=mm.meetings_roomno where mt.meetingprogress=0 and mt.hostid!= mm.members_memberid and mm.members_memberid=:memberid"
         , nativeQuery = true
     )
-    public List<Meeting> selectMypage5(String memberid);
+    public List<Meeting> MemberNotProgressEx(String memberid);
+
+    //모임테이블 전체 조회
+    @Query(
+        value = "select * from tbl_meeting where meetingprogress=1"
+        , nativeQuery = true
+    )
+    public List<Meeting> selectall();
 }
