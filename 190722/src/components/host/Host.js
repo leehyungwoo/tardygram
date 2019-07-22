@@ -2,7 +2,7 @@ import React,{Component,createRef} from 'react';
 
 import './Host.css';
 import axios from 'axios'
-
+import SearchMap from './SearchMap'
 class Host extends Component {
   
   state={
@@ -61,7 +61,9 @@ formFunc=()=>{
     ref={ref => { this.mydiv = ref }}
     />
   }else{
-    return <div>여기는지도</div>
+    return <div>
+      <SearchMap></SearchMap>
+    </div>
   }
 }
 
