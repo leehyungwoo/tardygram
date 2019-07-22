@@ -13,7 +13,7 @@ class Kakaopay extends Component{
 
     render(){
         return(
-            <div>
+            <div id="wrap">
                 <form onSubmit="{this.kakaopay}">
                     <Form>
                         <Form.Group controlId="memberid">

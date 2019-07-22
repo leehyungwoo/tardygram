@@ -34,7 +34,7 @@ import './test.css';
 
 function Test() {
 
-  return (<div>
+  return ( <div id="wrap">
  
       테스트
        

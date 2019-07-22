@@ -22,7 +22,7 @@ class Join extends Component{
 
   render() {
     return (
-      <div>
+        <div id="wrap">
           <h2>join</h2>
     
           <Form onSubmit={this.login}>

@@ -284,9 +284,17 @@ main(jQuery);
 
 history.pushState(null, null, location.href); 
 window.onpopstate = function(event) { 
-window.scroll(0,0)
-  main(jQuery);
+  alert('뒤로가기')
+  window.scroll(0,0)
+    main(jQuery);
 }
+
+$('.breadcrumbs a,.navbar-nav.ml-auto,.link').on('click',function(){
+  setTimeout(function(){
+    window.scroll(0,0)
+    main(jQuery);
+  },10)
+})
  
 
 
@@ -294,30 +302,22 @@ window.scroll(0,0)
 
 
 
-var target = document.getElementById('root');
-
-var flag = 0;
-
- 
+var target = document.getElementById("wrap");
 
 var observer = new MutationObserver(
   function(mutations) {
-    console.log(mutations)
-    console.log("연결")
-      return main(jQuery)
-    // 
+      main(jQuery);
   }
 );
 
 var config = {
-  attributes: false,
+  attributes: true,
   childList: false,
   characterData: true,
-  subtree: false || null,
-  attributeOldValue: false || null,
-  characterDataOldValue: false || null,
+  subtree: true || null,
+  attributeOldValue: true || null,
+  characterDataOldValue: true || null,
 }; // 감시할 내용 설정
 observer.observe(target, config); // 감시할 대상 등록
- 
 
  

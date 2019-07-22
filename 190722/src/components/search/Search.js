@@ -31,7 +31,7 @@ class Search extends Component {
 
  render(){
    return(
-     <div>
+    <div id="wrap">
        <div className="btn-group">
          <button type="button" className="btn btn-danger">Action</button>
          <button type="button" className="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -37,7 +37,7 @@ import './About.css';
  
 function About() {
   return (
-    <div className="wrap">
+    <div id="wrap">
        <section className="hero-wrap hero-wrap-2" style={{backgroundImage: `url(${bg_4})`}}>
           <div className="overlay" />
           <div className="container">

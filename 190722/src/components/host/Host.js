@@ -69,7 +69,7 @@ formFunc=()=>{
 
   render(){
   console.log(100/this.state.query.length)
-  return (<div className="wrap">
+  return ( <div id="wrap">
             <div className="container">
               <h2>Basic Progress Bar</h2>
               <div className="progress">
