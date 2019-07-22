@@ -98,9 +98,9 @@ public class MemberController {
         System.out.println("2번 hostProgressEx: " + meetingrepo.hostProgressEx(id));
 
         // 3. 방장, 진행X
-        System.out.println("3번 hostNotProgressEx: " + meetingrepo.hostNotProgressEx(id));
-        List<Meeting> m3 = meetingrepo.hostNotProgressEx(id);
-        map.put("hostNotProgressEx", m3);
+        //System.out.println("3번 hostNotProgressEx: " + meetingrepo.hostNotProgressEx(id));
+        //List<Meeting> m3 = meetingrepo.hostNotProgressEx(id);
+        //map.put("hostNotProgressEx", m3);
 
         // 4. 방원, 진행O
         System.out.println("4번 MemberProgressEx: " + meetingrepo.MemberProgressEx(id));
@@ -108,9 +108,9 @@ public class MemberController {
         map.put("MemberProgressEx", m4);
 
         // //5. 방원, 진행X
-        System.out.println("5번 MemberNotProgressEx: " + meetingrepo.MemberNotProgressEx(id));
-        List<Meeting> m5 = meetingrepo.MemberNotProgressEx(id);
-        map.put("MemberNotProgressEx", m5);
+        //ystem.out.println("5번 MemberNotProgressEx: " + meetingrepo.MemberNotProgressEx(id));
+        //List<Meeting> m5 = meetingrepo.MemberNotProgressEx(id);
+        //map.put("MemberNotProgressEx", m5);
  
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 

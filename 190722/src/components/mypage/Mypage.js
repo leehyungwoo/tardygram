@@ -1,8 +1,11 @@
 import React,{Component} from 'react';
 import axios from 'axios'
 import author from '../../images/author.jpg'
+import Upload from '../../components/upload/Upload' 
+import profileimage from '../../images/blog-1.jpg'
  
  
+  
 import bg_4 from '../../images/bg_4.jpg'
  
 
@@ -21,7 +24,8 @@ class Mypage extends Component {
      name:'',
      profileimage:'',
      phone:'',
-     hostProgressEx:[] 
+     hostProgressEx:[],
+     MemberProgressEx:[] 
    }
    
  }
@@ -57,12 +61,53 @@ componentDidMount(){
           })
       })
 
+      res.data.MemberProgressEx.map((item,index)=>{
+        this.setState({
+          MemberProgressEx:[...this.state.MemberProgressEx,item] 
+        })
+      })
+
+
      })
      .catch(res =>{
          alert('통신 실패')
      })
  
 }
+
+
+Kakaopay = e =>{
+  e.preventDefault()
+  //this.setState({submitted: true})
+  alert("카카오페이 버튼클릭");
+  let chargeinput = "<input type='text' value='충전금액'/>"
+  document.getElementById("charge").after(chargeinput)
+  /* const headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : 'e523b4aefc19df61c38d857920fc96a3',
+      'Access-Control-Allow-Origin': '*'
+  }
+
+  let data = {
+      amount : this.state.amount,
+      memberid : this.state.memberid
+  }
+
+  alert(data.amount + data.memberid);
+  axios.post('http://localhost:9000/kakaoPay', JSON.stringify(data), {headers:headers})
+      .then(res =>{
+          alert('kakaopay성공  url:'+res.data)
+          window.open(res.data,true)
+      })
+      .catch(res =>{
+          alert('kakaopay실패')
+      }) */
+}
+
+
+
+
+
 
  render(){
      return (
@@ -89,8 +134,10 @@ componentDidMount(){
                     <div className="text pt-4">
                       <p>
                       <strong>name : {this.state.name}</strong><br/> email :{this.state.email}<br/> gender : {this.state.gender}<br/> phone : {this.state.phone}<br/> birthday : {this.state.birthday}<br/> tardycash : {this.state.money}<br/>
-                      <button type="button" className="btn btn-outline-warning">충전하기</button>
+                      <button type="button" className="btn btn-outline-warning" onClick={this.Kakaopay} id="charge">충전하기</button>
                       </p>
+                      **이미지업로드**
+                       <Upload></Upload>
                     </div>
                   </div>
               
@@ -143,13 +190,50 @@ componentDidMount(){
            </div>
          </div>
        </section>
+
+       
        <section className="ftco-section">
           <div className="container">
-            <div className="col-md-4" style={{border:"1px solid red",width:"100%",height:"100px"}}>
-              테스트
-            </div>
+          <h2 className="mb-4"><span>내가 진행중인 모임</span></h2>
+          <div className="row">
+          
+          {this.state.hostProgressEx.map((contact,i)=>{
+          return (
+          <div key={i} className="col-sm-4 " > 
+            <img src={profileimage} style={{width:"70%",height:"300px"}}></img> <br/>       
+            {contact.meetingphoto}<br/>
+            date:{contact.meetingdate}<br/>
+            <h5><button>Title &amp; {contact.meetingtitle}</button></h5>
+            <p className="mb-0"><a href="#" className="btn btn-black py-2">Read More <span className="icon-arrow_forward ml-4" /></a></p>
+          </div>
+          );
+          })}
+          </div>
           </div>
         </section>
+        
+
+      
+          <div className="container">
+          <h2 className="mb-4"><span>내가 참가한 모임</span></h2>
+          <div className="row">
+          
+          {this.state.MemberProgressEx.map((contact,i)=>{
+          return (
+          <div key={i} className="col-sm-4 " > 
+            <img src={profileimage} style={{width:"70%",height:"300px"}}></img> <br/>       
+            {contact.meetingphoto}<br/>
+            date:{contact.meetingdate}<br/>
+            <h5><button>Title &amp; {contact.meetingtitle}</button></h5>
+            <p className="mb-0"><a href="#" className="btn btn-black py-2">Read More <span className="icon-arrow_forward ml-4" /></a></p>
+          </div>
+          );
+          })}
+          </div>
+          </div>
+    
+
+
 
    </div>
      );

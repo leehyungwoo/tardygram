@@ -41,14 +41,16 @@ render(){
               </button>
               <div className="collapse navbar-collapse" id="ftco-nav">
                 <ul className="navbar-nav ml-auto">
-                  <li className="nav-item active"><Link className="nav-link" to="/">Home</Link></li>
+                <li className="nav-item active"><Link className="nav-link" to="/">Home</Link></li>
                  <li className="nav-item"><Link className="nav-link" to="/about">about</Link></li>
                    {/*
                   <li className="nav-item"><Link className="nav-link" to="/contact">contact</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/foods">foods</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/lifestyle">lifestyle</Link></li> */}
                   <li className="nav-item"><Link className="nav-link" to="/host">Host</Link></li>
-                  <li className="nav-item"><Link className="nav-link" to="/search">Search</Link></li>
+                  <li className="nav-item dropdown-wrapper"><Link className="nav-link" to="/search">Search</Link></li>
+                
+
                   <li className="nav-item"><Link className="nav-link" to="/mypage">Mypage</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/join">Join</Link></li>
