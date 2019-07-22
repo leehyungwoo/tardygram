@@ -289,31 +289,24 @@ window.scroll(0,0)
 }
  
 
-var target = document.getElementsByClassName('App')[0];
+var target = document.getElementById('root');
+
 
 var observer = new MutationObserver(
   function(mutations) {
-  // mutations.forEach(function(mutation) {
- 
-  // });
-}
+    main(jQuery)
+  }
 );
 
 var config = {
-  attributes: true,
+  attributes: false,
   childList: true,
-  characterData: true,
+  characterData: false,
   subtree: true || null,
-  attributeOldValue: true || null,
-  characterDataOldValue: true || null,
+  attributeOldValue: false || null,
+  characterDataOldValue: false || null,
 }; // 감시할 내용 설정
 observer.observe(target, config); // 감시할 대상 등록
-
-document.getElementsByClassName('App')[0].addEventListener('click', function() {
-  setTimeout(function(){
-    console.log("실행")
-    main(jQuery);
-  },300)
-});
+ 
 
  

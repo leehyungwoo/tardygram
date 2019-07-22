@@ -2,17 +2,7 @@ import React,{Component} from 'react';
 import axios from 'axios'
 import author from '../../images/author.jpg'
  
-import blog_1 from '../../images/blog-1.jpg'
-import blog_2 from '../../images/blog-2.jpg'
-import blog_3 from '../../images/blog-3.jpg'
-import blog_4 from '../../images/blog-4.jpg'
-import blog_5 from '../../images/blog-5.jpg'
-import blog_6 from '../../images/blog-6.jpg'
-import blog_7 from '../../images/blog-7.jpg'
-import blog_8 from '../../images/blog-8.jpg'
-import blog_9 from '../../images/blog-9.jpg'
-
-import bg_3 from '../../images/bg_3.jpg'
+ 
 import bg_4 from '../../images/bg_4.jpg'
  
 
@@ -62,7 +52,7 @@ componentDidMount(){
       }) 
 
       res.data.hostProgressEx.map((item,index)=>{
-          this.setState({
+          return this.setState({
             hostProgressEx:[...this.state.hostProgressEx,item] 
           })
       })
