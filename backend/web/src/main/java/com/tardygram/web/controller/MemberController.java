@@ -1,23 +1,25 @@
 package com.tardygram.web.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.*;
+
 import java.util.HashMap;
 import java.util.List;
+ 
 
-import com.tardygram.web.domain.MemberDTO;
-import com.tardygram.web.entities.MeetingPeople;
+import javax.transaction.Transactional; 
+import com.tardygram.web.entities.Meeting;
 import com.tardygram.web.entities.Member;
-import com.tardygram.web.repositories.MeetingPeopleRepository;
+import com.tardygram.web.repositories.MeetingRepository;
 import com.tardygram.web.repositories.MemberRepository;
+ 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,77 +30,90 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/member")
+@Transactional
 public class MemberController {
-    @Autowired MemberRepository memberrepo;
-    @Autowired MemberDTO memberdto;
-    @Autowired MeetingPeopleRepository peopleRepo;
- 
+    @Autowired
+    MemberRepository memberrepo;
+    @Autowired
+    MeetingRepository meetingrepo;
 
-    //해당 memberid에 해당하는 레코드출력
-    @PostMapping("/getmember")
-    public MemberDTO getMember(@RequestBody MemberDTO dto){
-        System.out.println("겟매핑 테스트");
-        System.out.println("프론트에서 전해준 memberid : " + dto.getMemberid());
-        System.out.println("프론트에서 전해준 pwd : " + dto.getPwd());
-
-        Iterable<Member> member = memberrepo.findByMemberid("test1");
-        
-        System.out.println("member? : " + member);
-        System.out.println(member.toString());  
-        
-        return null;
+    // 회원가입
+    @PostMapping("/join")
+    public ResponseEntity<Member> insertMember(@RequestBody Member joinFd) {
+        return new ResponseEntity<Member>(memberrepo.save(joinFd), HttpStatus.OK);
     }
 
-    //회원가입
-    @GetMapping("/putmember")
-    public MemberDTO insertMember(){
-        System.out.println("회원가입 test");
-
-        Member member = new Member();
-        member.setBirthday("931229");
-        member.setEmail("kz1324@naver.com");
-        member.setGender("남");       
-        member.setMemberid("kz1324");
-        member.setName("문호");
-        member.setPhone("01022222222");
-        member.setPwd("1234");
-        memberrepo.save(member);
-       
-        return null;
+    // 회원탈퇴
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteMember() {
+        // Member m = new Member();
+        // m.setMemberid("memberid");
+        memberrepo.deleteById("c");
+        return new ResponseEntity<String>("되어주세요", HttpStatus.OK);
     }
 
-
- 
-
-    //테이블 조인해서 리스트 출력
-    @GetMapping("/getmemberjoin")
-    public MemberDTO getMemberjoin(){
-        System.out.println("겟join매핑 테스트");
-        Member m = new Member();
-
-        List<Object[]> result = memberrepo.joinlist();
-
-
-        System.out.println("리저트타입"+result.getClass().getName());
-        System.out.println("리저트타입2 : " + result);
-        System.out.println("result.get(0) "+result.get(0)[0]); 
-        System.out.println("Arrays.deepToString(result.get(0)) "+Arrays.deepToString(result.get(0))); 
-     
-        for(int i = 0; i <result.size(); i++){
-            for(int j=0; j<result.get(i).length; j++){
-                System.out.println(result.get(i)[j]);              
+    // 로그인
+    @PostMapping("/select")
+    public ResponseEntity<HashMap<String,String>> selectone(@RequestBody Member loginFd) {
+        HashMap<String,String> map =new HashMap<>();
+        try{
+            Member repoData = memberrepo.findById(loginFd.getMemberid()).get();
+            memberrepo.findById(loginFd.getMemberid());
+             System.out.println("아이디 통과");
+            if (loginFd.getPwd().equals(repoData.getPwd())) {
+                System.out.println("비번 통과");
+                map.put("status","sucess");
+                map.put("dataid",loginFd.getMemberid());
+                return new ResponseEntity<HashMap<String,String>>(map, HttpStatus.OK);
+            } else {
+                System.out.println("비번 실패");
+                map.put("status","fail");
+                map.put("msg","비밀번호가 틀렸습니다");
+                return new ResponseEntity<HashMap<String,String>>(map, HttpStatus.OK);
             }
-            System.out.println("---------------");
+        } catch(Exception e) {
+            System.out.println("실패");
+            map.put("status","fail");
+            map.put("msg","아이디 또는 비밀번호가 틀렸습니다");
+            return new ResponseEntity<HashMap<String,String>>(map, HttpStatus.OK);
         }
-            
-        return null;
+
     }
 
+    // 마이페이지 정보 보여주기
+    @GetMapping("/mypage/{id}")
+    public ResponseEntity<HashMap<String, Object>> mypage(@PathVariable String id) {
+        System.out.println("mypage 컨트롤러");
+        System.out.println("프론트에서 오는 id : " + id);
+        HashMap<String, Object> map = new HashMap<>();
+        // c가왔을때
+        // 1. 그냥회원내용
+        System.out.println("1번 hostProgressEx: " + memberrepo.findById(id).get());
+        Member m1 = memberrepo.findById(id).get();
+        map.put("uInfo", m1);
 
+        // 2. 방장, 진행O
+        List<Meeting> m2 = meetingrepo.selectMypage2(id);
+        map.put("hostProgressEx", m2);
+        System.out.println("2번 hostProgressEx: ");
 
+        // 3. 방장, 진행X
+        System.out.println("3번 hostNotProgressEx: " + meetingrepo.selectMypage3(id));
+        List<Object []> m3 = meetingrepo.selectMypage3(id);
+        map.put("hostNotProgressEx", m3);
 
+        // 4. 방원, 진행O
+        System.out.println("4번 MemberProgressEx: " + meetingrepo.selectMypage4(id));
+        List<Object []> m4 = meetingrepo.selectMypage4(id);
+        map.put("MemberProgressEx", m4);
 
+        // //5. 방원, 진행X
+        System.out.println("5번 MemberNotProgressEx: " + meetingrepo.selectMypage5(id));
+        List<Object []> m5 = meetingrepo.selectMypage5(id);
+        map.put("MemberNotProgressEx", m5);
+ 
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 
+    }
 
-    
 }

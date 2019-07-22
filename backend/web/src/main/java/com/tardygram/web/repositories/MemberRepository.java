@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberRepository extends CrudRepository<Member, String>{
     
-    @Query(
+   /*  @Query(
         value = "SELECT * FROM member WHERE memberid= :memberid",
         nativeQuery = true
     )
@@ -27,6 +27,8 @@ public interface MemberRepository extends CrudRepository<Member, String>{
         value = "SELECT * FROM MEMBER JOIN MEETINGPEOPLE ON MEMBER.memberid = MEETINGPEOPLE.memberid2",
         nativeQuery = true    
     )
-    public List<Object[]> joinlist();
+    public List<Object[]> joinlist(); */
+
+   
     
 }

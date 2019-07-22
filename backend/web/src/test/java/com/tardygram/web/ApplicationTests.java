@@ -1,11 +1,12 @@
 package com.tardygram.web;
 
+import java.util.stream.IntStream;
+
 import javax.transaction.Transactional;
 
-import com.tardygram.web.domain.MemberDTO;
-import com.tardygram.web.entities.MeetingPeople;
+import com.tardygram.web.entities.Meeting;
 import com.tardygram.web.entities.Member;
-import com.tardygram.web.repositories.MeetingPeopleRepository;
+import com.tardygram.web.repositories.MeetingRepository;
 import com.tardygram.web.repositories.MemberRepository;
 
 import org.junit.Test;
@@ -15,26 +16,72 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@Transactional
-@Commit
+
+import lombok.extern.java.Log;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Log
+@Commit
+@Transactional
 public class ApplicationTests {
-	@Autowired MemberRepository memberrepo;
-    @Autowired MemberDTO memberdto;
-    @Autowired MeetingPeopleRepository peopleRepo;
 
-	@Test
-	public void contextLoads() {
-		Member member = new Member();
-        member.setMemberid("kz1324");
-        MeetingPeople people = new MeetingPeople();
-        people.setLeader(0);
-        //people.setRoomno2(1);
-        people.setMember(member);
-        peopleRepo.save(people);
+	@Autowired
+	MemberRepository memberRepo;
+	
+	@Autowired
+	MeetingRepository meetingRepo;
+	
+	/* @Test
+	public void testInsertMember() {
+		
+		IntStream.range(0, 100).forEach(i -> {
+
+			Member member = new Member();
+			member.setUid("user" + i);
+			member.setUpw("pw");
+			member.setUname("USER" + i);
+			
+			memberRepo.save(member);
+		});
 	}
+	
+	
+	@Test
+	public void testInsertMeetings() {
+		
+		IntStream.range(0, 1).forEach(i -> {
+			
+			Meeting meeting = new Meeting();
+			meeting.setMname("MEET"+i);
+			
+			Member member1 = memberRepo.findById("user1").get();
+			
+			meeting.addMember(member1);
+			member1.addMeeting(meeting);
+			
+			log.info(""+meeting);
+			
+			Member member2 = memberRepo.findById("user2").get();
+			
+			meeting.addMember(member2);
+			member2.addMeeting(meeting);
+
+			meetingRepo.save(meeting);
+			
+		});
+	}
+	
+	@Test
+	public void testReadMeeting() {
+		
+		Meeting meeting = meetingRepo.findById(1L).get();
+		
+		log.info(""+ meeting);
+		
+		
+    } */
+    
 
 	
-
 }
