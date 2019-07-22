@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios'
 import author from '../../images/author.jpg'
- 
+import Upload from '../../components/upload/Upload' 
 import profileimage from '../../images/blog-1.jpg'
  
  
@@ -136,6 +136,8 @@ Kakaopay = e =>{
                       <strong>name : {this.state.name}</strong><br/> email :{this.state.email}<br/> gender : {this.state.gender}<br/> phone : {this.state.phone}<br/> birthday : {this.state.birthday}<br/> tardycash : {this.state.money}<br/>
                       <button type="button" className="btn btn-outline-warning" onClick={this.Kakaopay} id="charge">충전하기</button>
                       </p>
+                      **이미지업로드**
+                       <Upload></Upload>
                     </div>
                   </div>
               
@@ -188,6 +190,8 @@ Kakaopay = e =>{
            </div>
          </div>
        </section>
+
+       
        <section className="ftco-section">
           <div className="container">
           <h2 className="mb-4"><span>내가 진행중인 모임</span></h2>

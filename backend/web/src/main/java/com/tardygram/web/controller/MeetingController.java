@@ -1,5 +1,6 @@
 package com.tardygram.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.tardygram.web.entities.Meeting;
@@ -33,28 +34,13 @@ public class MeetingController {
    //방장이 모임방 개설
    @PostMapping("/create")
    public void insertMeeting(@RequestBody Meeting fd ){
-
     System.out.println(fd);
-
-    //     String hostName = "a";
-
-    //    System.out.println("meeting insert");
-       Meeting meeting = new Meeting();
- 
-    //    meeting.setCategory("a의 동창회");
-    //    meeting.setMeetingcharge(3000);
-    //    meeting.setMeetingdate("19/07/02");
-    //    meeting.setMeetingdetail("파티");
-    //    meeting.setHostid(hostName);
-    //    meeting.setMeetingplace("강남 비트캠프");
-       meeting.setMeetingprogress(1);              //생성시 방진행
-    //    meeting.setMeetingtitle(" 동창회");     
-    //    Member member1 = memberrepo.findById(hostName).get(); // 방장추가
-    //    //meeting.addMember(member1);
-    //    member1.addMeeting(meeting);
-       meetingrepo.save(fd);
- 
-
+    Meeting meeting = new Meeting();
+    fd.setMeetingprogress(1);
+    Member member1 = memberrepo.findById(fd.getHostid()).get(); // 방장추가
+    meeting.addMember(member1);
+    member1.addMeeting(fd);
+    meetingrepo.save(fd);
    }
 
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시
@@ -75,12 +61,14 @@ public class MeetingController {
 
     //모임방 전체출력
     @GetMapping("/selectall")
-    public  ResponseEntity<List<Meeting>> selectall(){
+    public  ResponseEntity<HashMap<String, Object>> selectall(){
         System.out.println("모임방전체출력 컨트롤러 ");
         List<Meeting> mList = meetingrepo.selectall();
         System.out.println("mList : " + mList);
+        HashMap map = new HashMap<>();
+        map.put("mList", mList);
 
-        return new ResponseEntity<List<Meeting>>(mList, HttpStatus.OK);
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
     }
 
    //해당 id에 해당하는 user의 meeting + meetingpeople 2개의 테이블 조인

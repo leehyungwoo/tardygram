@@ -30,7 +30,7 @@ public class Meeting {
 	private String meetingdate; //미팅날짜
 	private String meetingplace; //미팅장소
 	private String category; //미팅카테고리 ex)동창회, 스터디
-	@ColumnDefault("0")
+	@ColumnDefault("1")
 	private int meetingprogress; //현재진행중이면1 끝나면0
 	private int meetingcharge; //벌금
 	private String meetingphoto; //모임장소 사진
