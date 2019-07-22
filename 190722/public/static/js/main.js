@@ -284,29 +284,40 @@ main(jQuery);
 
 history.pushState(null, null, location.href); 
 window.onpopstate = function(event) { 
-window.scroll(0,0)
-  main(jQuery);
+  alert('뒤로가기')
+  window.scroll(0,0)
+    main(jQuery);
 }
+
+$('.breadcrumbs a,.navbar-nav.ml-auto,.link').on('click',function(){
+  setTimeout(function(){
+    window.scroll(0,0)
+    main(jQuery);
+  },10)
+})
  
 
-var target = document.getElementById('root');
 
+
+
+
+
+var target = document.getElementById("wrap");
 
 var observer = new MutationObserver(
   function(mutations) {
-    main(jQuery)
+      main(jQuery);
   }
 );
 
 var config = {
-  attributes: false,
-  childList: true,
-  characterData: false,
+  attributes: true,
+  childList: false,
+  characterData: true,
   subtree: true || null,
-  attributeOldValue: false || null,
-  characterDataOldValue: false || null,
+  attributeOldValue: true || null,
+  characterDataOldValue: true || null,
 }; // 감시할 내용 설정
 observer.observe(target, config); // 감시할 대상 등록
- 
 
  

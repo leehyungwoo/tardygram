@@ -81,6 +81,7 @@ class Search extends Component {
         </div>
     </section>
 </div>
+ 
    );
  }
 }

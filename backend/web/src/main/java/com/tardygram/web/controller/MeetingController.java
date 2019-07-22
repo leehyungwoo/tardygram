@@ -35,12 +35,14 @@ public class MeetingController {
    @PostMapping("/create")
    public void insertMeeting(@RequestBody Meeting fd ){
     System.out.println(fd);
+ 
     Meeting meeting = new Meeting();
     fd.setMeetingprogress(1);
     Member member1 = memberrepo.findById(fd.getHostid()).get(); // 방장추가
     meeting.addMember(member1);
     member1.addMeeting(fd);
     meetingrepo.save(fd);
+ 
    }
 
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시

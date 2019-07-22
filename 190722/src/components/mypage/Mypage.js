@@ -111,7 +111,7 @@ Kakaopay = e =>{
 
  render(){
      return (
-      <>
+      <div id="wrap">
       <section className="hero-wrap hero-wrap-2" style={{backgroundImage: `url(${bg_4})`}}>
          <div className="overlay" />
          <div className="container">
@@ -235,7 +235,7 @@ Kakaopay = e =>{
 
 
 
-   </>
+   </div>
      );
  }
 

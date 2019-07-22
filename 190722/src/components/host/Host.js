@@ -2,13 +2,13 @@ import React,{Component,createRef} from 'react';
 
 import './Host.css';
 import axios from 'axios'
-
+import SearchMap from './SearchMap'
 class Host extends Component {
   
   state={
     inputVal:'',
     pageIndex:0,
-    query:['category','meetingtitle','meetingdate','meetingdetail','meetingplace','meetingphoto','meetingcharge'],
+    query:['category','meetingtitle','meetingdate','meetingdetail','meetingphoto','meetingcharge','meetingplace'],
     category:'',
     hostid:localStorage.getItem('loginId'),
     meetingtitle:'',
@@ -53,20 +53,32 @@ class Host extends Component {
       })
 }
    
-
+formFunc=()=>{
+  if(this.state.pageIndex <= 5 ){
+    return <input type="text" className="form-control" 
+    placeholder={this.state.query[this.state.pageIndex]} 
+    value={this.inputVal} 
+    ref={ref => { this.mydiv = ref }}
+    />
+  }else{
+    return <div>
+      <SearchMap></SearchMap>
+    </div>
+  }
+}
 
 
 
   render(){
   console.log(100/this.state.query.length)
-  return (<div className="wrap">
+  return ( <div id="wrap">
             <div className="container">
               <h2>Basic Progress Bar</h2>
               <div className="progress">
-                <div className="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style={{
+                <div className="progress-bar" role="progressbar" aria-valuenow={(100/this.state.query.length)*this.state.pageIndex} aria-valuemin="0" aria-valuemax="100" style={{
                   background:"#fd5f00",
                   width:(100/this.state.query.length)*this.state.pageIndex+"%"}}>
-                  <span className="sr-only">0% Complete</span>
+                  <span className="sr-only">{(100/this.state.query.length)*this.state.pageIndex} Complete</span>
                 </div>
               </div>
             </div>
@@ -84,11 +96,9 @@ class Host extends Component {
                         <form   className="subscribe-form" onSubmit={this.test}>
                           <div className="form-group d-flex">
                             
-                            <input type="text" className="form-control" 
-                            placeholder={this.state.query[this.state.pageIndex]} 
-                            value={this.inputVal} 
-                            ref={ref => { this.mydiv = ref }}
-                            />
+
+                            {this.formFunc()}
+
 
 
                             <button type="button"className="submit px-3" onClick={this.test}>next</button>
