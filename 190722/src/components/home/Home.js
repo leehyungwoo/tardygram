@@ -44,7 +44,7 @@ class Home extends Component{
   render(){
   return (
     <div className="wrap">
-      테스트~~test
+      
        <section className="home-slider owl-carousel">
           <div className="slider-item">
             <div className="container">
