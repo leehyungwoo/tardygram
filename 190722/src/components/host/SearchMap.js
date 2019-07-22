@@ -104,8 +104,6 @@ class SearchMap extends Component{
             var callback = function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     console.log('그런 너를 마주칠까 ' + result[0].address.address_name + '을 못가');
-
-                    chooseMarker = result[0].address.address_name;
                 }
             };
             // 마커를 생성하고 지도에 표시합니다
@@ -135,6 +133,7 @@ class SearchMap extends Component{
                 console.log(wedo)
                 console.log(gyeongdo)
                 geocoder.coord2Address(gyeongdo, wedo, callback);
+                
 
                 // return place.place_name;
             });
@@ -156,7 +155,6 @@ class SearchMap extends Component{
             <input name="second" id="keyword" type="text"/>
             <button type="text"  onClick={this.changeFuncSubmit}>검색!</button>
             {/* if(this.chooseMarker != null) */}
-        
             </form>
             </div>
         )
