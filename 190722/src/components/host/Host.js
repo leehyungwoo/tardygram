@@ -8,7 +8,7 @@ class Host extends Component {
   state={
     inputVal:'',
     pageIndex:0,
-    query:['category','meetingtitle','meetingdate','meetingdetail','meetingplace','meetingphoto','meetingcharge'],
+    query:['category','meetingtitle','meetingdate','meetingdetail','meetingphoto','meetingcharge','meetingplace'],
     category:'',
     hostid:localStorage.getItem('loginId'),
     meetingtitle:'',
@@ -53,7 +53,17 @@ class Host extends Component {
       })
 }
    
-
+formFunc=()=>{
+  if(this.state.pageIndex <= 5 ){
+    return <input type="text" className="form-control" 
+    placeholder={this.state.query[this.state.pageIndex]} 
+    value={this.inputVal} 
+    ref={ref => { this.mydiv = ref }}
+    />
+  }else{
+    return <div>여기는지도</div>
+  }
+}
 
 
 
@@ -84,11 +94,9 @@ class Host extends Component {
                         <form   className="subscribe-form" onSubmit={this.test}>
                           <div className="form-group d-flex">
                             
-                            <input type="text" className="form-control" 
-                            placeholder={this.state.query[this.state.pageIndex]} 
-                            value={this.inputVal} 
-                            ref={ref => { this.mydiv = ref }}
-                            />
+
+                            {this.formFunc()}
+
 
 
                             <button type="button"className="submit px-3" onClick={this.test}>next</button>

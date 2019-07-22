@@ -289,20 +289,31 @@ window.scroll(0,0)
 }
  
 
+
+
+
+
+
 var target = document.getElementById('root');
 
+var flag = 0;
+
+ 
 
 var observer = new MutationObserver(
   function(mutations) {
-    main(jQuery)
+    console.log(mutations)
+    console.log("연결")
+      return main(jQuery)
+    // 
   }
 );
 
 var config = {
   attributes: false,
-  childList: true,
-  characterData: false,
-  subtree: true || null,
+  childList: false,
+  characterData: true,
+  subtree: false || null,
   attributeOldValue: false || null,
   characterDataOldValue: false || null,
 }; // 감시할 내용 설정

@@ -39,14 +39,13 @@ public class MeetingController {
     //     String hostName = "a";
 
     //    System.out.println("meeting insert");
-       Meeting meeting = new Meeting();
     //    meeting.setCategory("a의 동창회");
     //    meeting.setMeetingcharge(3000);
     //    meeting.setMeetingdate("19/07/02");
     //    meeting.setMeetingdetail("파티");
     //    meeting.setHostid(hostName);
     //    meeting.setMeetingplace("강남 비트캠프");
-       meeting.setMeetingprogress(1);              //생성시 방진행
+        // fd.setMeetingprogress(1);              //생성시 방진행
     //    meeting.setMeetingtitle(" 동창회");     
     //    Member member1 = memberrepo.findById(hostName).get(); // 방장추가
     //    //meeting.addMember(member1);
