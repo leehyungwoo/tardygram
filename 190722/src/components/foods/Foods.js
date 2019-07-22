@@ -35,7 +35,7 @@ import './Foods.css';
 function Foods() {
 
   return (
-    <>
+    <div id="wrap">
        <section className="hero-wrap hero-wrap-2" style={{backgroundImage: `url(${bg_4})`}}>
           <div className="overlay" />
           <div className="container">
@@ -204,7 +204,7 @@ function Foods() {
             </div>
           </div>
         </section>
-    </>
+    </div>
   );
   
 }

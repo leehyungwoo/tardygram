@@ -16,7 +16,7 @@ class Login extends Component{
 
   render() {
     return (
-      <div>
+      <div id="wrap">
           <h2>login</h2>
     
           <Form onSubmit={this.login}>
@@ -29,7 +29,7 @@ class Login extends Component{
                   <input type="text" name='pwd' onChange={this.ChangeHandler}></input>
               </Form.Group>
           </Form>
-          <Button variant="success" onClick={this.login}>전 송</Button>
+          <Button variant="success" class="link" onClick={this.login}>전 송</Button>
           <Button variant="warning">취 소</Button>
        
       </div>
