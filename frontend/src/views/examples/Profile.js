@@ -39,8 +39,9 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-
+import axios from "axios";
 class Profile extends React.Component {
+
   
 
   constructor(props){
@@ -112,6 +113,7 @@ class Profile extends React.Component {
 
 
 
+
    Kakaopay = e =>{
     e.preventDefault()
     //this.setState({submitted: true})
@@ -137,6 +139,7 @@ class Profile extends React.Component {
             alert('kakaopay실패')
         }) */
   }
+
 
 
   render() {
@@ -268,6 +271,12 @@ class Profile extends React.Component {
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
+                        <Col lg="12">
+                          <FormGroup>
+                             <input className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>
+
+                          </FormGroup>
+                        </Col>
                         <Col lg="6">
                           <FormGroup>
                             <label

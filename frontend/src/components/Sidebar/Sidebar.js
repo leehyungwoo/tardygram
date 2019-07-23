@@ -81,20 +81,23 @@ class Sidebar extends React.Component {
   // creates the links that appear in the left menu / Sidebar
   createLinks = routes => {
     return routes.map((prop, key) => {
-      return (
-        <NavItem key={key}>
-          <NavLink
-            to={prop.layout + prop.path}
-            tag={NavLinkRRD}
-            onClick={this.closeCollapse}
-            activeClassName="active"
-          >
-            <i className={prop.icon} />
-            {prop.name}
-          </NavLink>
-        </NavItem>
-      );
-    });
+
+          if(prop.name !== "RoomDetail"){      // prop.name으로 왼쪽 라우터 링크 제거하는 부분
+            return (
+              <NavItem key={key}>
+                <NavLink
+                  to={prop.layout + prop.path}
+                  tag={NavLinkRRD}
+                  onClick={this.closeCollapse}
+                  activeClassName="active"
+                >
+                  <i className={prop.icon} />
+                  {prop.name}
+                </NavLink>
+              </NavItem>
+            );
+        }
+    })
   };
   render() {
     const { bgColor, routes, logo } = this.props;
@@ -126,6 +129,7 @@ class Sidebar extends React.Component {
             <span className="navbar-toggler-icon" />
           </button>
           {/* Brand */}
+          <a href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview">doc</a>
           {logo ? (
             <NavbarBrand className="pt-0" {...navbarBrandProps}>
               <img

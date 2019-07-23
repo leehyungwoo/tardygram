@@ -34,6 +34,7 @@ class Admin extends React.Component {
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
+      console.log(prop)
       if (prop.layout === "/admin") {
         return (
           <Route

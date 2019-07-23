@@ -36,10 +36,12 @@ class SearchMap extends Component{
      }
     //  shouldComponentUpdate
     shouldComponentUpdate(newProps, newState){
+         
         var place_name = null;
         let wedo = null;
         let gyeongdo = null;
         let japo = null;
+        let add = null;
         // 마커를 담을 배열입니다
         var markers = [];
         var chooseMarker =""
@@ -104,6 +106,8 @@ class SearchMap extends Component{
             var callback = function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     console.log('그런 너를 마주칠까 ' + result[0].address.address_name + '을 못가');
+                    add = result[0].address.address_name;
+                    console.log(add)
                 }
             };
             // 마커를 생성하고 지도에 표시합니다

@@ -22,6 +22,12 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
+import CreateHost from "views/examples/CreateHost.js";
+
+import RoomDetail from "views/examples/RoomDetail.js";
+
+import DoneHost from "views/examples/DoneHost.js";
+
 
 var routes = [
 
@@ -73,6 +79,27 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth"
+  },
+  {
+    path: "/CreateHost",
+    name: "CreateHost",
+    icon: "ni ni-circle-08 text-blue",
+    component: CreateHost,
+    layout: "/auth"
+  },
+  {
+    path: "/roomdetail",
+    name: "RoomDetail",
+    icon: "ni ni-circle-08 text-blue",
+    component: RoomDetail,
+    layout: "/admin"
+  },
+  {
+    path: "/donehost",
+    name: "DoneHost",
+    icon: "ni ni-circle-08 text-blue",
+    component: DoneHost,
+    layout: "/admin"
   }
 ];
 export default routes;
