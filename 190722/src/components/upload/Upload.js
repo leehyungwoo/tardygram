@@ -23,8 +23,10 @@ class Upload extends Component{
     render(){
         return (
           <div className="App">
+              <form>
               <ImageUploader style={{ maxWidth: '500px', margin: "20px auto" }}
                               withPreview={true} />
+              </form>
           </div>
         );
 
