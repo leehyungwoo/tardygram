@@ -126,6 +126,7 @@ class Sidebar extends React.Component {
             <span className="navbar-toggler-icon" />
           </button>
           {/* Brand */}
+          <a href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview">doc</a>
           {logo ? (
             <NavbarBrand className="pt-0" {...navbarBrandProps}>
               <img

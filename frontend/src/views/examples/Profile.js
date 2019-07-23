@@ -32,8 +32,40 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-
+import axios from "axios";
 class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+      this.state = {
+        selectedFile: null
+      }
+   
+  }
+
+  // onChangeHandler=event=>{
+  //   console.log(event.target.files[0])
+
+  //   const data = new FormData() 
+  //   data.append('file', event.target.files[0])
+
+  //   const headers ={
+  //     "Content-Type":'multipart/form-data'
+  //   }
+    
+  //   axios.post("http://localhost:9000/upload", data, { headers
+  //     })
+  //     .then(res => { 
+  //       console.log(res.statusText)
+  //     }).catch(err =>{
+  //       console.log(err)
+  //     })
+  // }
+
+
+
+
+
+
   render() {
     return (
       <>
@@ -153,6 +185,12 @@ class Profile extends React.Component {
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
+                        <Col lg="12">
+                          <FormGroup>
+                             <input className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>
+
+                          </FormGroup>
+                        </Col>
                         <Col lg="6">
                           <FormGroup>
                             <label

@@ -148,22 +148,22 @@ class Login extends React.Component {
                           this.state,
                            {headers: headers}) 
                            .then(res=>{
-                              alert('성공')
+                              if(res.data.status === "sucess"){
+                                this.setState({
+                                  memberid:'',
+                                  pwd:''
+                                })
+                                alert("로그인성공")
+                                localStorage.setItem("loginId",res.data.dataid)
+                                this.props.history.push("/")
+                            }else{
+                              alert(res.msg);
+                              localStorage.setItem("loginId","")
+                            }
                             })
                            .catch(e=>{
                               alert(' 실패')
                             })
-                     
-                        
-                        
-                        
-                           this.setState({
-                          memberid:'',
-                          pwd:''
-                        })
-
-                        this.props.history.push("/")
-                        
                   }}>
                     Sign in
                   </Button>
