@@ -16,6 +16,11 @@
 
 */
 import React from "react";
+import axios from 'axios'
+
+import {Link} from "react-router-dom";
+import Upload from '../../components/Upload/Upload'
+// import Crown from '../../components/Upload/ProfileImage/crown.png'
 
 // reactstrap components
 import {
@@ -28,12 +33,112 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,
+  Table,
+  Media, Badge, UncontrolledTooltip, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 
 class Profile extends React.Component {
+  
+
+  constructor(props){
+    super(props)
+    
+    this.state={
+      birthday:'',
+      email:'',
+      gender:'',
+      memberid:'',
+      money:'',
+      name:'',
+      profileimage:'',
+      phone:'',
+      pwd:'',
+      hostProgressEx:[],
+      MemberProgressEx:[] 
+    }   
+  }
+
+
+  componentDidMount(){
+    console.log("라이프사이클 로직실행")
+     const headers = {
+        'Content-Type': 'application/json',
+    }
+   
+    let id ="jmh1753";
+    axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
+        .then(res =>{
+            //alert('통신성공  url:')
+         console.log(res.data)
+   
+         let uInfo =res.data.uInfo
+   
+         this.setState({
+           birthday:uInfo.birthday,
+           email:uInfo.email,
+           gender:uInfo.gender,
+           memberid:uInfo.memberid,
+           money:uInfo.money,
+           name:uInfo.name,
+           profileimage:uInfo.profileimage,
+           phone:uInfo.phone,
+           pwd:uInfo.pwd
+         }) 
+   
+         res.data.hostProgressEx.map((item,index)=>{
+             return this.setState({
+               hostProgressEx:[...this.state.hostProgressEx,item] 
+             })
+         })
+   
+         res.data.MemberProgressEx.map((item,index)=>{
+           this.setState({
+             MemberProgressEx:[...this.state.MemberProgressEx,item] 
+           })
+         })
+    
+        })
+        .catch(res =>{
+            alert('통신 실패')
+        })
+    
+   }
+
+
+
+
+
+
+   Kakaopay = e =>{
+    e.preventDefault()
+    //this.setState({submitted: true})
+    alert("카카오페이 버튼클릭"); 
+    /* const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : 'e523b4aefc19df61c38d857920fc96a3',
+        'Access-Control-Allow-Origin': '*'
+    }
+  
+    let data = {
+        amount : this.state.amount,
+        memberid : this.state.memberid
+    }
+  
+    alert(data.amount + data.memberid);
+    axios.post('http://localhost:9000/kakaoPay', JSON.stringify(data), {headers:headers})
+        .then(res =>{
+            alert('kakaopay성공  url:'+res.data)
+            window.open(res.data,true)
+        })
+        .catch(res =>{
+            alert('kakaopay실패')
+        }) */
+  }
+
+
   render() {
     return (
       <>
@@ -99,12 +204,13 @@ class Profile extends React.Component {
                   </Row>
                   <div className="text-center">
                     <h3>
-                      Jessica Jones
-                      <span className="font-weight-light">, 27</span>
+                      {this.state.name}
+                      <span className="font-weight-light">({this.state.gender})</span>
                     </h3>
-                    <div className="h5 font-weight-300">
-                      <i className="ni location_pin mr-2" />
-                      Bucharest, Romania
+                    <div className="h5 font-weight-450">                 
+                      birthday : {this.state.birthday}<br/>
+                      tardycash : {this.state.money}<br/>                  
+                      <Button color="warning" outline type="button" size="sm" onClick={this.Kakaopay}>충전</Button>
                     </div>
                     <div className="h5 mt-4">
                       <i className="ni business_briefcase-24 mr-2" />
@@ -115,11 +221,20 @@ class Profile extends React.Component {
                       University of Computer Science
                     </div>
                     <hr className="my-4" />
-                    <p>
-                      Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                      Nick Murphy — writes, performs and records all of his own
-                      music.
-                    </p>
+                      {/* <img src={Crown}></img> */}
+                      <img src={require("../../components/Upload/ProfileImage/스키마.png")} style={{width:"20%"}}></img>
+                      <img src={require("assets/img/theme/bootstrap.jpg")} />  
+                      {/* <img src={require(link)}/> */}
+                      {/* ../../components/Upload/ProfileImage/asd.png */}
+                      {/* <img src={require({})} />   */}
+                      {/* <img src={require()} /> */
+                    }
+                      <img src={require("../../components/Upload/ProfileImage/crown.png")} style={{width:"20%"}}></img>
+                      
+                      <p>
+                        파일업로드
+                        <Upload></Upload>
+                      </p>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       Show more
                     </a>
@@ -159,15 +274,14 @@ class Profile extends React.Component {
                               className="form-control-label"
                               htmlFor="input-username"
                             >
-                              Username
+                              Userid
                             </label>
                             <Input
-                              className="form-control-alternative"
-                              defaultValue="lucky.jesse"
-                              id="input-username"
-                              placeholder="Username"
+                              className="form-control-alternative"             
+                              id="input-userid"
+                              placeholder="Userid"
                               type="text"
-                              disabled
+                              defaultValue={this.state.memberid}
                             />
                           </FormGroup>
                         </Col>
@@ -182,8 +296,9 @@ class Profile extends React.Component {
                             <Input
                               className="form-control-alternative"
                               id="input-email"
-                              placeholder="jesse@example.com"
+                              placeholder="test@example.com"
                               type="email"
+                              defaultValue={this.state.email}
                             />
                           </FormGroup>
                         </Col>
@@ -195,14 +310,15 @@ class Profile extends React.Component {
                               className="form-control-label"
                               htmlFor="input-first-name"
                             >
-                              First name
+                              Phone
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="Lucky"
+                              
                               id="input-first-name"
-                              placeholder="First name"
+                              placeholder="01012341234"
                               type="text"
+                              defaultValue={this.state.phone}
                             />
                           </FormGroup>
                         </Col>
@@ -212,14 +328,14 @@ class Profile extends React.Component {
                               className="form-control-label"
                               htmlFor="input-last-name"
                             >
-                              Last name
+                              Password
                             </label>
                             <Input
                               className="form-control-alternative"
-                              defaultValue="Jesse"
                               id="input-last-name"
-                              placeholder="Last name"
-                              type="text"
+                              defaultValue={this.state.pwd}
+                              type="password"
+                           
                             />
                           </FormGroup>
                         </Col>
@@ -228,85 +344,67 @@ class Profile extends React.Component {
                     <hr className="my-4" />
                     {/* Address */}
                     <h6 className="heading-small text-muted mb-4">
-                      Contact information
+                      개설중인 모임방
                     </h6>
-                    <div className="pl-lg-4">
-                      <Row>
-                        <Col md="12">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-address"
-                            >
-                              Address
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                              id="input-address"
-                              placeholder="Home Address"
-                              type="text"
+
+                    {/* ---------------------------------------------------------------------------------------------------------- */}
+                    <Table className="align-items-center table-flush" responsive>
+                  <thead className="thead-light">
+                    <tr>
+                      <th scope="col" style={{width:"30%"}}>meetinrTitle</th>
+                      <th scope="col">meetingPlace</th>
+                      <th scope="col">meetingDate</th>
+                      <th scope="col">meetingUser</th>                 
+                    </tr>
+                  </thead>
+                  <tbody>                         
+                    <tr>
+                      <th scope="row">
+                        <Media className="align-items-center">
+                            <img
+                              alt="..."
+                              src={require("assets/img/theme/bootstrap.jpg")}
+                              style={{width:"25%"}}
+                            />  
+                            {/* 방장 이미지 */}                          
+                          <Media>
+                            <span className="mb-0 text-sm">
+                              <Link to="/">asdfasdf</Link>
+                            </span>
+                          </Media>
+                        </Media>
+                      </th>
+                      <td>$2,500 USD</td>
+                      <td>
+                        <Badge color="" className="badge-dot mr-4">
+                          <i className="bg-warning" />
+                          pending
+                        </Badge>
+                      </td>
+                      <td>
+                        <div className="avatar-group">
+                          <a
+                            className="avatar avatar-sm"
+                            href="#pablo"
+                            id="tooltip742438047"
+                            onClick={e => e.preventDefault()}
+                          >
+                            <img
+                              alt="..."
+                              className="rounded-circle"
+                              src={require("assets/img/theme/team-1-800x800.jpg")}
                             />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-city"
-                            >
-                              City
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="New York"
-                              id="input-city"
-                              placeholder="City"
-                              type="text"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Country
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              defaultValue="United States"
-                              id="input-country"
-                              placeholder="Country"
-                              type="text"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg="4">
-                          <FormGroup>
-                            <label
-                              className="form-control-label"
-                              htmlFor="input-country"
-                            >
-                              Postal code
-                            </label>
-                            <Input
-                              className="form-control-alternative"
-                              id="input-postal-code"
-                              placeholder="Postal code"
-                              type="number"
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    </div>
-                    <hr className="my-4" />
-                    {/* Description */}
-                    <h6 className="heading-small text-muted mb-4">About me</h6>
-                    <div className="pl-lg-4">
+                          </a>                                                                  
+                        </div>
+                      </td>
+                   
+                    </tr>
+                   
+              
+                  </tbody>
+                </Table>
+             
+                    {/* <div className="pl-lg-4">
                       <FormGroup>
                         <label>About Me</label>
                         <Input
@@ -318,7 +416,7 @@ class Profile extends React.Component {
                           type="textarea"
                         />
                       </FormGroup>
-                    </div>
+                    </div> */}
                   </Form>
                 </CardBody>
               </Card>

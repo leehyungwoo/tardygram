@@ -1,6 +1,11 @@
 package com.tardygram.web.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
  
@@ -14,6 +19,7 @@ import com.tardygram.web.repositories.MemberRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +28,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * MemberController
@@ -36,6 +44,9 @@ public class MemberController {
     MemberRepository memberrepo;
     @Autowired
     MeetingRepository meetingrepo;
+
+    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\tardygram\\frontend\\src\\components\\Upload\\ProfileImage\\";
+    // private static String UPLOADED_FOLDER = "../../components/Upload/ProfileImage/";
 
     // 회원가입
     @PostMapping("/join")
@@ -113,6 +124,34 @@ public class MemberController {
         //map.put("MemberNotProgressEx", m5);
  
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+
+    }
+
+
+    //파일업로드
+    @PostMapping(path="/upload/{id}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public void imgUpload(@RequestParam("file") MultipartFile file, @PathVariable String id){
+        
+        System.out.println("파일업로드 컨트롤러");
+        System.out.println("건너온 data : " + file);
+        System.out.println("로그인한id : " + id);
+        System.out.println("파일이름 : " + file.getOriginalFilename());
+
+        try{
+            String DbPath = "../../components/Upload/ProfileImage/" + file.getOriginalFilename();
+
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+            System.out.println("path : " + path);
+
+            memberrepo.profileUpdate(DbPath, id);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        
 
     }
 
