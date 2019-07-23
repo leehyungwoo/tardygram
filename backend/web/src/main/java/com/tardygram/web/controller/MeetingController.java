@@ -10,6 +10,7 @@ import com.tardygram.web.repositories.MeetingRepository;
 import com.tardygram.web.repositories.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
 * MemberController
@@ -30,6 +34,24 @@ public class MeetingController {
    @Autowired MemberRepository memberrepo;
    @Autowired MeetingRepository meetingrepo;
    @Autowired EnterRepository enterrepo;
+
+
+ 
+   @PostMapping(path = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public void add(@RequestParam("file") MultipartFile file) {
+    System.out.println("업로드");
+    System.out.println(file);
+    System.out.println(file.getOriginalFilename());
+    // Member m = new Member();
+    // m.setMemberid("test");
+
+    
+    // memberrepo.save(m);
+
+}
+
+
+
 
    //방장이 모임방 개설
    @PostMapping("/create")
