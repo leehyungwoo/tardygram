@@ -167,6 +167,7 @@ class Profile extends React.Component {
                               id="input-username"
                               placeholder="Username"
                               type="text"
+                              disabled
                             />
                           </FormGroup>
                         </Col>
