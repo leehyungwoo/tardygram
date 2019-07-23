@@ -1,25 +1,32 @@
-import React, {Component} from 'react'
+import React, {Component,createRef} from 'react'
 
-
+import {Form,} from "reactstrap";
+import { throws } from 'assert';
 class SearchMap extends Component{
     
     constructor(props){ 
         super(props)
          
-        // this.state={
-        // }
+        this.state={
+            keyword:"",
+            addres:""
+        }
        
-        this.changeFuncSubmit = this.changeFuncSubmit.bind(this)
-   
     }
-    
-    changeFuncSubmit(e){
-        e.preventDefault() 
-        var keyword = document.getElementById('keyword').value;
+     
+
+
+    changeFuncSubmit=(e)=>{
+        e.preventDefault();
         this.setState({
-        keyword2:keyword
+            keyword:document.getElementById("keyword").value
         })
+        console.log(this.state)
     }
+
+
+     
+
      componentDidMount(){
         const kakao = window.kakao;
         // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -34,15 +41,20 @@ class SearchMap extends Component{
         // 지도를 생성합니다    
         new kakao.maps.Map(mapContainer, mapOption); 
      }
+
+
+
     //  shouldComponentUpdate
     shouldComponentUpdate(newProps, newState){
+        let that = this;
+        let address=null;
         var place_name = null;
         let wedo = null;
         let gyeongdo = null;
         let japo = null;
         // 마커를 담을 배열입니다
         var markers = [];
-        var chooseMarker =""
+        console.log(this.state)
         const kakao = window.kakao;
         // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
         var infowindow = new kakao.maps.InfoWindow({zIndex:1});
@@ -66,7 +78,7 @@ class SearchMap extends Component{
         function searchPlaces() {
 
             var keyword = document.getElementById('keyword').value;
-
+            console.log(keyword)
             if (!keyword.replace(/^\s+|\s+$/g, '')) {
                 alert('키워드를 입력해주세요!');
                 return false;
@@ -88,7 +100,6 @@ class SearchMap extends Component{
 
                 for (var i=0; i<data.length; i++) {
                     displayMarker(data[i]);    
-          
                     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                 }       
 
@@ -98,12 +109,18 @@ class SearchMap extends Component{
     
 
         }
+ 
         
         // 지도에 마커를 표시하는 함수입니다
         function displayMarker(place) {
+            
             var callback = function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     console.log('그런 너를 마주칠까 ' + result[0].address.address_name + '을 못가');
+                    address = result[0].address.address_name;
+                        that.setState({
+                            address:result[0].address.address_name
+                        })
                 }
             };
             // 마커를 생성하고 지도에 표시합니다
@@ -151,11 +168,12 @@ class SearchMap extends Component{
             
             <div className="map_wrap">
              <div id="map" style={{width:"500px", height:"400px",position:"relative",overflow:"hidden"}}></div>
-             <form> 
-            <input name="second" id="keyword" type="text"/>
-            <button type="text"  onClick={this.changeFuncSubmit}>검색!</button>
+    
+                    <input name="second" id="keyword" type="text" />
+                    <button type="text"  onClick={this.changeFuncSubmit}>검색!</button>
+                <p>선택하신 장소는 {this.state.address} 입니다.</p>
             {/* if(this.chooseMarker != null) */}
-            </form>
+         
             </div>
         )
     }
