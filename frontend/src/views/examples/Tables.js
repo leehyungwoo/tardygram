@@ -17,22 +17,22 @@
 */
 import React from "react";
 import axios from 'axios'
-import {Link } from "react-router-dom";
+import {Link,Route } from "react-router-dom";
 // reactstrap components
 import {
   Badge,
   Card,
   CardHeader,
-  CardFooter,
+  // CardFooter,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
   Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
+  // Pagination,
+  // PaginationItem,
+  // PaginationLink,
+  // Progress,
   Table,
   Container,
   Row,
@@ -40,7 +40,7 @@ import {
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
-import { relative } from "path";
+import RoomDetail from './RoomDetail'
 
 class Tables extends React.Component {
   constructor(props){
@@ -48,6 +48,7 @@ class Tables extends React.Component {
     this.state={
        mList:[]
     }
+    console.log(props)
   }
 
   componentDidMount(){
@@ -72,10 +73,6 @@ class Tables extends React.Component {
       })
   }
 
-
-
-
-
   render() {
     return (
       <>
@@ -85,6 +82,7 @@ class Tables extends React.Component {
           {/* Table */}
           <Row>
             <div className="col">
+    
               <Card className="shadow">
                 <CardHeader className="border-0">
                   <h3 className="mb-0">Card tables</h3>
@@ -101,9 +99,7 @@ class Tables extends React.Component {
                   </thead>
                   <tbody>
                     {this.state.mList.map((contact,index)=>{
-                      return (
-                    
-                      
+                      return (  
                     <tr key={contact.roomno}>
                       <th scope="row">
                         <Media className="align-items-center">
@@ -121,7 +117,7 @@ class Tables extends React.Component {
                           </a>
                           <Media>
                             <span className="mb-0 text-sm">
-                              <Link to="/">{contact.meetingtitle}</Link>
+                              <Link to={"/admin/roomdetail/"+contact.roomno}>{contact.meetingtitle}</Link>
                             </span>
                           </Media>
                         </Media>

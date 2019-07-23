@@ -42,25 +42,6 @@ class Profile extends React.Component {
    
   }
 
-  // onChangeHandler=event=>{
-  //   console.log(event.target.files[0])
-
-  //   const data = new FormData() 
-  //   data.append('file', event.target.files[0])
-
-  //   const headers ={
-  //     "Content-Type":'multipart/form-data'
-  //   }
-    
-  //   axios.post("http://localhost:9000/upload", data, { headers
-  //     })
-  //     .then(res => { 
-  //       console.log(res.statusText)
-  //     }).catch(err =>{
-  //       console.log(err)
-  //     })
-  // }
-
 
 
 

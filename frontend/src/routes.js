@@ -23,6 +23,7 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import CreateHost from "views/examples/CreateHost.js";
+import RoomDetail from "views/examples/RoomDetail.js";
 
 var routes = [
 
@@ -81,6 +82,13 @@ var routes = [
     icon: "ni ni-circle-08 text-blue",
     component: CreateHost,
     layout: "/auth"
+  },
+  {
+    path: "/roomdetail",
+    name: "RoomDetail",
+    icon: "ni ni-circle-08 text-blue",
+    component: RoomDetail,
+    layout: "/admin"
   }
 ];
 export default routes;
