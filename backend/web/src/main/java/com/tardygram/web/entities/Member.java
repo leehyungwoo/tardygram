@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +38,7 @@ public class Member {
 	private String gender;
 	private String phone;
 	private String profileimage;
+	@ColumnDefault("0")
 	private int money;
    
    public Member(String memberid) {

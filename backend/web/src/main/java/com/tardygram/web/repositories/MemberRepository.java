@@ -29,6 +29,11 @@ public interface MemberRepository extends CrudRepository<Member, String>{
     )
     public List<Object[]> joinlist(); */
 
+    @Query(
+        value = "update tbl_members set profileimage = :path where memberid=:id"
+        , nativeQuery = true
+    )
+    public Member profileUpdate(String path, String id);
    
     
 }
