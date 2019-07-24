@@ -68,7 +68,7 @@ class Profile extends React.Component {
         'Content-Type': 'application/json',
     }
    
-    let id ="test";
+    let id ="jmh1753";
     axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
         .then(res =>{
             //alert('통신성공  url:')
@@ -111,7 +111,9 @@ class Profile extends React.Component {
 
    imageTag=()=>{
       if(this.state.profileimage){
-        return <img src={this.state.profileimage} style={{width:"20%"}}></img>
+        return ( 
+          <img className="rounded-circle" src={this.state.profileimage} style={{minWidth:"140px",maxHeight:"220px"}} ></img>
+       )
       }
     }
 
@@ -164,11 +166,12 @@ class Profile extends React.Component {
                   <Col className="order-lg-2" lg="3">
                     <div className="card-profile-image">
                       <a href="#pablo" onClick={e => e.preventDefault()}>
-                        <img
+                        {/* <img
                           alt="..."
                           className="rounded-circle"
                           src={require("assets/img/theme/team-4-800x800.jpg")}
-                        />
+                        /> */}
+                        {this.imageTag()}
                       </a>
                     </div>
                   </Col>
@@ -233,18 +236,10 @@ class Profile extends React.Component {
                       University of Computer Science
                     </div>
                     <hr className="my-4" />
-                      {/* <img src={Crown}></img> */}
-                      <img src={require("../../components/Upload/ProfileImage/스키마.png")} style={{width:"20%"}}></img>
-                      <img src={require("assets/img/theme/bootstrap.jpg")} />  
-                
-                     
-                
-                    <br/>
-                      <img src={require("../../components/Upload/ProfileImage/crown.png")} style={{width:"20%"}}></img>
                       
                       <p>
                         파일업로드<br/>
-                        {this.imageTag()}
+                        
                         <Upload emit={this.reciveEmit}></Upload>
                       </p>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
@@ -280,12 +275,7 @@ class Profile extends React.Component {
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
-                        <Col lg="12">
-                          <FormGroup>
-                             <input className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>
-
-                          </FormGroup>
-                        </Col>
+                        
                         <Col lg="6">
                           <FormGroup>
                             <label
@@ -365,32 +355,30 @@ class Profile extends React.Component {
                       개설중인 모임방
                     </h6>
 
+                     {this.state.hostProgressEx.map((contact,i)=>{
+                      return(
+                        <div>
+                        <div>{contact.roomno}</div>
+                        <div>{contact.meetingtitle}</div>
+                        
+                        </div>
+                      );
+                    })} 
+
                     {/* ---------------------------------------------------------------------------------------------------------- */}
                     <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col" style={{width:"30%"}}>meetinrTitle</th>
-                      <th scope="col">meetingPlace</th>
-                      <th scope="col">meetingDate</th>
-                      <th scope="col">meetingUser</th>                 
+                      <th scope="col" style={{width:"15%"}}>방장</th>
+                      <th scope="col" style={{width:"15%"}}>카테고리</th>
+                      <th scope="col" style={{width:"55%"}}>방타이틀</th>
+                      <th scope="col" style={{width:"15%"}}>날짜</th>                 
                     </tr>
                   </thead>
                   <tbody>                         
                     <tr>
                       <th scope="row">
-                        <Media className="align-items-center">
-                            <img
-                              alt="..."
-                              src={require("assets/img/theme/bootstrap.jpg")}
-                              style={{width:"25%"}}
-                            />  
-                            {/* 방장 이미지 */}                          
-                          <Media>
-                            <span className="mb-0 text-sm">
-                              <Link to="/">asdfasdf</Link>
-                            </span>
-                          </Media>
-                        </Media>
+                        asdf
                       </th>
                       <td>$2,500 USD</td>
                       <td>
@@ -400,20 +388,7 @@ class Profile extends React.Component {
                         </Badge>
                       </td>
                       <td>
-                        <div className="avatar-group">
-                          <a
-                            className="avatar avatar-sm"
-                            href="#pablo"
-                            id="tooltip742438047"
-                            onClick={e => e.preventDefault()}
-                          >
-                            <img
-                              alt="..."
-                              className="rounded-circle"
-                              src={require("assets/img/theme/team-1-800x800.jpg")}
-                            />
-                          </a>                                                                  
-                        </div>
+                        asdf
                       </td>
                    
                     </tr>

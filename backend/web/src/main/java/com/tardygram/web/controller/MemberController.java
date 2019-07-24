@@ -45,7 +45,7 @@ public class MemberController {
     @Autowired
     MeetingRepository meetingrepo;
 
-    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\07190837\\07190837\\frontend\\public\\image\\";
+    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\frontend\\public\\image\\";
     // private static String UPLOADED_FOLDER = "../../components/Upload/ProfileImage/";
 
     // 회원가입
@@ -139,7 +139,7 @@ public class MemberController {
 
         try{
             String DbPath = "/image/" + file.getOriginalFilename();
-
+            System.out.println("Dbpath : " + DbPath);
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
