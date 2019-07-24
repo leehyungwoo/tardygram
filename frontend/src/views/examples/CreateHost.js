@@ -1,17 +1,22 @@
 import React, {Component, createRef} from "react";
 import axios from 'axios'
+import ReactDatetime from "react-datetime";
+
 import {
     Button,
     Card,
     CardHeader,
     CardBody,
     FormGroup,
+    InputGroupAddon,
+    InputGroupText,
+    InputGroup,
     Form,
     Input,
     Container,
     Row,
     Col,
-    Progress
+    Progress,
   } from "reactstrap";
 import UserHeader from "components/Headers/UserHeader.js";
 import SearchMap from './SearchMap'
@@ -65,7 +70,23 @@ class CreateHost extends Component {
                     <div>
                             <h1>set your group’s Time</h1>
                             <h2>Set Group's timly meeting time. </h2>
+                            <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-calendar-grid-58" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <ReactDatetime
+                                inputProps={{
+                                    placeholder: "Date Picker Here"
+                                }}
+                                timeFormat={false}
+                                />
+                            </InputGroup>
+                            </FormGroup>
                     </div>
+                
                         );
             case 3:
                 return (
@@ -140,11 +161,15 @@ class CreateHost extends Component {
         render() {
         return (
             <>
-            <Header></Header>
+            <Header/>
+            {/* Page content */}
             <Container className=" mt--7" fluid>
+                {/* Table */}
                 <Row>
                     <Col lg="12" md="12">
                     <Card className=" shadow">
+                        <CardHeader className=" bg-transparent">
+
                             <div className="progress-wrapper">
                                 <div className="progress-info">
                                     <div className="progress-label">
@@ -157,11 +182,11 @@ class CreateHost extends Component {
                                     <div className="progress-bar bg-primary" role="progressbar"  aria-valuenow={(100/this.state.query.length)*this.state.pageIndex} aria-valuemin="0" aria-valuemax="100" style={{
                                     background:"#fd5f00",
                                     width:(100/this.state.query.length)*this.state.pageIndex+"%"}}/>
-                                
                                 </div>
                             </div>
-                                {this.Dialog(this.state.progressNum)}
+                        </CardHeader>
                                 <CardBody>
+                                {this.Dialog(this.state.progressNum)}
                                     <form className="subscribe-form" onSubmit={(e)=>{e.preventDefault()}}>
                                         {
                                             (()=>{
