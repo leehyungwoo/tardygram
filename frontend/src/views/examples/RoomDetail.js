@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+
 import {
     Card,
     Container,
@@ -6,13 +7,12 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
-  import axios from "axios";
+
 class roomDetail extends Component{
     
     constructor(props){ 
         super(props)
-         
-      
+        console.log(props.match.params.id)
    
     }
     
@@ -30,7 +30,8 @@ class roomDetail extends Component{
           <Row>
             <div className="col">
               <Card className="shadow border-0">
-                 디테일
+                  
+                   {this.props.match.params.id}
               </Card>
             </div>
           </Row>

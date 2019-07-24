@@ -85,10 +85,10 @@ var routes = [
     name: "CreateHost",
     icon: "ni ni-circle-08 text-blue",
     component: CreateHost,
-    layout: "/auth"
+    layout: "/admin"
   },
   {
-    path: "/roomdetail",
+    path: "/roomdetail/:id",
     name: "RoomDetail",
     icon: "ni ni-circle-08 text-blue",
     component: RoomDetail,

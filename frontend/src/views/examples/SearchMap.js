@@ -9,7 +9,9 @@ class SearchMap extends Component{
          
         this.state={
             keyword:"",
-            addres:""
+            address:"",
+            latitude:'',
+            longitude:''
         }
        
     }
@@ -21,7 +23,7 @@ class SearchMap extends Component{
         this.setState({
             keyword:document.getElementById("keyword").value
         })
-        console.log(this.state)
+
     }
 
 
@@ -121,6 +123,7 @@ class SearchMap extends Component{
                         that.setState({
                             address:result[0].address.address_name
                         })
+                    that.props.emit(that.state)
                 }
             };
             // 마커를 생성하고 지도에 표시합니다
@@ -148,6 +151,10 @@ class SearchMap extends Component{
                 gyeongdo = japo.getLng();
                 console.log(japo)
                 console.log(wedo)
+                that.setState({
+                    latitude:wedo,
+                    longitude:gyeongdo
+                })
                 console.log(gyeongdo)
                 geocoder.coord2Address(gyeongdo, wedo, callback);
                 
