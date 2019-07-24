@@ -165,13 +165,21 @@ class CreateHost extends Component {
                                     <form className="subscribe-form" onSubmit={(e)=>{e.preventDefault()}}>
                                         {
                                             (()=>{
-                                                if(this.state.pageIndex <= 5 ){
+                                                if(this.state.pageIndex < 5 ){
                                                 return <input type="text" className="form-control" 
                                                     placeholder={this.state.query[this.state.pageIndex]} 
                                                     value={this.inputVal} 
                                                     ref={ref => { this.mydiv = ref }
                                                     }
                                                 />
+                                                }else if(this.state.pageIndex == 5){
+                                                    return <input type="number" className="form-control" 
+                                                    placeholder={this.state.query[this.state.pageIndex]} 
+                                                    value={this.inputVal} 
+                                                    ref={ref => { this.mydiv = ref }
+                                                    }
+                                                />
+
                                                 }else{
                                                 
                                         

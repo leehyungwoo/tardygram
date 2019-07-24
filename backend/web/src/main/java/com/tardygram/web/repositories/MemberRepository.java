@@ -33,7 +33,7 @@ public interface MemberRepository extends CrudRepository<Member, String>{
         value = "update tbl_members set profileimage = :path where memberid=:id"
         , nativeQuery = true
     )
-    public void profileUpdate(String path, String id);
+    public Member profileUpdate(String path, String id);
    
     
 }

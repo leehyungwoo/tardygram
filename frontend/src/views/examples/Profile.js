@@ -17,7 +17,6 @@
 */
 import React from "react";
 import axios from 'axios'
-
 import {Link} from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
@@ -39,7 +38,6 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-import axios from "axios";
 class Profile extends React.Component {
 
   
@@ -65,11 +63,12 @@ class Profile extends React.Component {
 
   componentDidMount(){
     console.log("라이프사이클 로직실행")
+ 
      const headers = {
         'Content-Type': 'application/json',
     }
    
-    let id ="jmh1753";
+    let id ="test";
     axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
         .then(res =>{
             //alert('통신성공  url:')
@@ -110,9 +109,19 @@ class Profile extends React.Component {
 
 
 
+   imageTag=()=>{
+      if(this.state.profileimage){
+        return <img src={this.state.profileimage} style={{width:"20%"}}></img>
+      }
+    }
 
-
-
+    reciveEmit=(type)=>{
+      console.log(type)
+      this.setState({
+        profileimage:type
+      })
+      this.imageTag();
+    }
 
    Kakaopay = e =>{
     e.preventDefault()
@@ -227,16 +236,16 @@ class Profile extends React.Component {
                       {/* <img src={Crown}></img> */}
                       <img src={require("../../components/Upload/ProfileImage/스키마.png")} style={{width:"20%"}}></img>
                       <img src={require("assets/img/theme/bootstrap.jpg")} />  
-                      {/* <img src={require(link)}/> */}
-                      {/* ../../components/Upload/ProfileImage/asd.png */}
-                      {/* <img src={require({})} />   */}
-                      {/* <img src={require()} /> */
-                    }
+                
+                     
+                
+                    <br/>
                       <img src={require("../../components/Upload/ProfileImage/crown.png")} style={{width:"20%"}}></img>
                       
                       <p>
-                        파일업로드
-                        <Upload></Upload>
+                        파일업로드<br/>
+                        {this.imageTag()}
+                        <Upload emit={this.reciveEmit}></Upload>
                       </p>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       Show more

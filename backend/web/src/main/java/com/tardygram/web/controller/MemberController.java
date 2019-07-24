@@ -45,7 +45,7 @@ public class MemberController {
     @Autowired
     MeetingRepository meetingrepo;
 
-    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\tardygram\\frontend\\src\\components\\Upload\\ProfileImage\\";
+    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\07190837\\07190837\\frontend\\public\\image\\";
     // private static String UPLOADED_FOLDER = "../../components/Upload/ProfileImage/";
 
     // 회원가입
@@ -130,7 +130,7 @@ public class MemberController {
 
     //파일업로드
     @PostMapping(path="/upload/{id}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public void imgUpload(@RequestParam("file") MultipartFile file, @PathVariable String id){
+    public String imgUpload(@RequestParam("file") MultipartFile file, @PathVariable String id){
         
         System.out.println("파일업로드 컨트롤러");
         System.out.println("건너온 data : " + file);
@@ -138,7 +138,7 @@ public class MemberController {
         System.out.println("파일이름 : " + file.getOriginalFilename());
 
         try{
-            String DbPath = "../../components/Upload/ProfileImage/" + file.getOriginalFilename();
+            String DbPath = "/image/" + file.getOriginalFilename();
 
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
@@ -146,11 +146,14 @@ public class MemberController {
             System.out.println("path : " + path);
 
             memberrepo.profileUpdate(DbPath, id);
-
+            return DbPath;
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return "No Img";
+      
+        
         
 
     }

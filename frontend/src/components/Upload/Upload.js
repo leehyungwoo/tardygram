@@ -21,25 +21,27 @@ class Upload extends Component{
     // }
     onChangeHandler=event=>{
       this.setState({
-        file : URL.createObjectURL (event[0])
+        file : URL.createObjectURL (event[event.length-1])
       })
-      console.log(event[0])
-
+      console.log(event[event.length-1])
+      console.log(event)
       const data = new FormData()
-      data.append('file', event[0])
+      data.append('file', event[event.length-1])
 
       const headers ={
         "Content-Type":'multipart/form-data'
       }
 
-      let id = "jmh1753"
+      let id = "test"
       axios.post(`http://localhost:9000/member/upload/${id}`, data ,{ headers
         })
         .then(res => {
-          console.log(res.statusText)
+          console.log(res)
+          this.props.emit(res.data);
         }).catch(err =>{
           console.log(err)
         })
+      
     }
 
     render(){
