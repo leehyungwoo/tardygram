@@ -38,20 +38,7 @@ var routes = [
     component: Index,
     layout: "/admin"
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin"
-  },
+   
   {
     path: "/user-profile",
     name: "User Profile",

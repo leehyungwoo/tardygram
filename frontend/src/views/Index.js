@@ -47,7 +47,7 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
-
+import ChartGraph from './examples/ChartGraph'
 class Index extends React.Component {
   state = {
     activeNav: 1,
@@ -76,6 +76,7 @@ class Index extends React.Component {
     return (
       <>
         <Header />
+        {/* <ChartGraph></ChartGraph> */}
         {/* Page content */}
         <Container className="mt--7" fluid>
           <Row>
