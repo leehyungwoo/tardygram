@@ -49,6 +49,11 @@ import {
 import Header from "components/Headers/Header.js";
 import ChartGraph from './examples/ChartGraph'
 class Index extends React.Component {
+
+  constructor(props){
+    console.log(props)
+  }
+
   state = {
     activeNav: 1,
     chartExample1Data: "data1"

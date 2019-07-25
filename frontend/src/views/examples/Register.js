@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-
+import axios from "axios";
 // reactstrap components
 import {
   Button,
@@ -34,6 +34,32 @@ import {
 } from "reactstrap";
 
 class Register extends React.Component {
+  
+  submitHandler=()=>{
+    var data ={
+        memberid: document.getElementById("uid").value,
+        pwd: document.getElementById("upwd").value,
+        name: document.getElementById("uname").value,
+        birthday: document.getElementById("ubirthday").value,
+        gender: document.getElementById("ugender").value,
+        phone: document.getElementById("uphone").value,
+        emial: document.getElementById("uemial").value
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      }
+    axios.post("/member/join",data,{headers})
+    .then(res=>{
+      alert('회원가입 성공')
+      this.props.history.push("/")
+    }).catch(e=>{
+       alert('회원가입 실패')
+    })
+
+
+
+  }
+
   render() {
     return (
       <>
@@ -79,6 +105,7 @@ class Register extends React.Component {
                 <small>Or sign up with credentials</small>
               </div>
               <Form role="form">
+                
                 <FormGroup>
                   <InputGroup className="input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
@@ -86,29 +113,79 @@ class Register extends React.Component {
                         <i className="ni ni-hat-3" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Name" type="text" />
+                    <Input placeholder="Id" type="text" id="uid"/>
                   </InputGroup>
                 </FormGroup>
+
                 <FormGroup>
                   <InputGroup className="input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-email-83" />
+                      <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email" />
+                    <Input placeholder="Pwd" type="password" id="upwd"/>
                   </InputGroup>
                 </FormGroup>
+
                 <FormGroup>
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
+                      <i className="ni ni-hat-3" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" type="password" />
+                    <Input placeholder="Name" type="name" id="uname" />
                   </InputGroup>
                 </FormGroup>
+
+                <FormGroup>
+                  <InputGroup className="input-group-alternative mb-3">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="ni ni-hat-3" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input placeholder="Birthday" type="text" id="ubirthday"/>
+                  </InputGroup>
+                  <span>* 앞6자리</span>
+                </FormGroup>
+
+                <FormGroup>
+                  <InputGroup className="input-group-alternative mb-3">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="ni ni-hat-3" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input placeholder="Gender" type="text" id="ugender"/>
+                  </InputGroup>
+                </FormGroup>
+
+                <FormGroup>
+                  <InputGroup className="input-group-alternative mb-3">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="ni ni-hat-3" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input placeholder="Phone" type="number" id="uphone"/>
+                  </InputGroup>
+                </FormGroup>
+
+                <FormGroup>
+                  <InputGroup className="input-group-alternative mb-3">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                      <i className="ni ni-email-83" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input placeholder="Email" type="email" id="uemial"/>
+                  </InputGroup>
+                </FormGroup>
+
+
+
                 <div className="text-muted font-italic">
                   <small>
                     password strength:{" "}
@@ -138,7 +215,7 @@ class Register extends React.Component {
                   </Col>
                 </Row>
                 <div className="text-center">
-                  <Button className="mt-4" color="primary" type="button">
+                  <Button className="mt-4" color="primary" type="button" onClick={this.submitHandler}>
                     Create account
                   </Button>
                 </div>

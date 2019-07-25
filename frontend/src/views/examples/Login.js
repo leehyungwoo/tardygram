@@ -37,7 +37,7 @@ class Login extends React.Component {
 
   constructor(props){
     super(props)
-     
+     alert("로긴")
   }
 
   state={
@@ -117,7 +117,6 @@ class Login extends React.Component {
                     </InputGroupAddon>
                     <Input placeholder="Password" type="password"
                       onChange={(e)=>{
-                        console.log(e.target.value)
                         this.setState({
                           pwd:e.target.value
                         })
@@ -144,7 +143,7 @@ class Login extends React.Component {
                         let headers= {
                           "Content-type":"application/json;charset=UTF-8"
                         }
-                        axios.post(`http://localhost:9000/member/select`, 
+                        axios.post(`/member/select`, 
                           this.state,
                            {headers: headers}) 
                            .then(res=>{
@@ -155,7 +154,7 @@ class Login extends React.Component {
                                 })
                                 alert("로그인성공")
                                 localStorage.setItem("loginId",res.data.dataid)
-                                this.props.history.push("/")
+                                this.props.history.push("/admin/tables")
                             }else{
                               alert(res.msg);
                               localStorage.setItem("loginId","")
