@@ -68,8 +68,8 @@ public class MeetingController {
    @PostMapping("/enter")
    public void enter(){
        Member m = new Member();
-       m.setMemberid("test");         //m이라는 친구가
-       enterrepo.enter(m, "1");  // 4번방에 추가
+       m.setMemberid("jmh1753");         //m이라는 친구가
+       enterrepo.enter(m, "3");  // 4번방에 추가
    }
 
    //연관테이블 레코드 삭제후 meeting테이블 레코드 삭제

@@ -21,7 +21,9 @@ import lombok.extern.java.Log;
 @Service
 @Log
 public class KakaoPay {
- 
+    // document.getElementsByClassName("link_gnb")[1].click()
+    // document.getElementById("userPhone").value="01055754786";
+    // document.getElementById("userBirth").value="931229"
     private static final String HOST = "https://kapi.kakao.com";
     
     private KakaoPayReadyVO kakaoPayReadyVO;
@@ -36,7 +38,7 @@ public class KakaoPay {
         headers.add("Authorization", "KakaoAK " + "e523b4aefc19df61c38d857920fc96a3");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-        
+
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");  //가맹점코드, 10자, 테스트버전아닐시 카카오한테서 cid받아야함
@@ -79,9 +81,9 @@ public class KakaoPay {
     }
 
 
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+    public KakaoPayApprovalVO kakaoPayInfo(String pg_token, String amount, String memberid) {
         //log.info("KakaoPayInfoVO............................................");
-
+        System.out.println("session에 저장한 amount : " + amount);
         System.out.println("kakaoPayInfo 메소드 도착");
         RestTemplate restTemplate = new RestTemplate();
         
@@ -91,14 +93,15 @@ public class KakaoPay {
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         System.out.println("kakaoPayReadyVO : " + kakaoPayReadyVO);
+        System.out.println("kakaoPayApprovalVO : " + kakaoPayApprovalVO);
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid()); //결제 고유 번호 20자 
         params.add("partner_order_id", "1");  
-        params.add("partner_user_id", "moonho");
+        params.add("partner_user_id", "jmh1753");
         params.add("pg_token", pg_token);
-        params.add("total_amount", "1000");
+        params.add("total_amount", "500");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         try {            
@@ -106,6 +109,7 @@ public class KakaoPay {
             System.out.println("body : "+body);
             System.out.println();
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
+            //kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/order?cid=TC0ONETIME&tid="+kakaoPayReadyVO.getTid()), body, KakaoPayApprovalVO.class);
             System.out.println("kakaoPayApprovalVO : "+kakaoPayApprovalVO);
             return kakaoPayApprovalVO;
         

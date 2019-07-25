@@ -1,6 +1,10 @@
 package com.tardygram.web.controller;
 
 import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.tardygram.web.service.KakaoPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -29,22 +33,30 @@ public class SampleController {
     }
     
     @PostMapping("/kakaoPay")
-    public String kakaoPay(@RequestBody HashMap<String, String> data) {
-        System.out.println("kakaopay 컨트롤러 매핑");
-        System.out.println("data : " + data);
-        System.out.println("amount : " + data.get("amount"));
-        System.out.println("memberid : " + data.get("memberid"));
-        //return "redirect:" + kakaopay.kakaoPayReady();
+    public String kakaoPay(@RequestBody HashMap<String, String> data,  HttpSession session) {
+        // System.out.println("kakaopay 컨트롤러 매핑");
+        // System.out.println("data : " + data);
+        // System.out.println("amount : " + data.get("amount"));
+        // System.out.println("memberid : " + data.get("memberid"));
+
+
+        session.setAttribute("amount", data.get("amount"));
+        session.setAttribute("memberid", data.get("memberid"));
+        System.out.println("여기1");
         return kakaopay.kakaoPayReady(data);
     }
     
     @GetMapping("/kakaoPaySuccess")
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpSession session) {
         System.out.println("성공시 컨트롤러");
-        log.info("kakaoPaySuccess pg_token : " + pg_token);
+        //log.info("kakaoPaySuccess pg_token : " + pg_token);
+ 
+        String amount = (String)session.getAttribute("amount");
+        System.out.println("성공컨트롤러에서의 amount : " +amount);
+        String memberid = (String)session.getAttribute("memberid");
+        System.out.println("성공컨트롤러에서의 memberid : " + memberid);
 
-        System.out.println("성공시 컨트롤러 마지막");
-        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
+        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, amount, memberid));
         
     }
     

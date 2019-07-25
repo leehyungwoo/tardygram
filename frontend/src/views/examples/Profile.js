@@ -43,8 +43,7 @@ class Profile extends React.Component {
   
 
   constructor(props){
-    super(props)
-    
+    super(props) 
     this.state={
       birthday:'',
       email:'',
@@ -56,7 +55,8 @@ class Profile extends React.Component {
       phone:'',
       pwd:'',
       hostProgressEx:[],
-      MemberProgressEx:[] 
+      MemberProgressEx:[],
+      amount:'' 
     }   
   }
 
@@ -68,7 +68,7 @@ class Profile extends React.Component {
         'Content-Type': 'application/json',
     }
    
-    let id ="jmh1753";
+    let id = localStorage.getItem("loginId");
     axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
         .then(res =>{
             //alert('통신성공  url:')
@@ -125,11 +125,19 @@ class Profile extends React.Component {
       this.imageTag();
     }
 
+
+    amount = e =>{
+      e.preventDefault()
+      this.setState({
+        amount : e.target.value
+      })
+    }
+
    Kakaopay = e =>{
     e.preventDefault()
     //this.setState({submitted: true})
     alert("카카오페이 버튼클릭"); 
-    /* const headers = {
+    const headers = {
         'Content-Type': 'application/json',
         'Authorization' : 'e523b4aefc19df61c38d857920fc96a3',
         'Access-Control-Allow-Origin': '*'
@@ -137,10 +145,11 @@ class Profile extends React.Component {
   
     let data = {
         amount : this.state.amount,
-        memberid : this.state.memberid
+        memberid : localStorage.getItem("loginId")
     }
   
-    alert(data.amount + data.memberid);
+    alert(data.amount);
+    alert(data.memberid);
     axios.post('http://localhost:9000/kakaoPay', JSON.stringify(data), {headers:headers})
         .then(res =>{
             alert('kakaopay성공  url:'+res.data)
@@ -148,7 +157,7 @@ class Profile extends React.Component {
         })
         .catch(res =>{
             alert('kakaopay실패')
-        }) */
+        })
   }
 
 
@@ -224,17 +233,11 @@ class Profile extends React.Component {
                     </h3>
                     <div className="h5 font-weight-450">                 
                       birthday : {this.state.birthday}<br/>
-                      tardycash : {this.state.money}<br/>                  
+                      tardycash : {this.state.money}<br/>
+                      <input type="text" placeholder="금액" onChange={this.amount}></input>                  
                       <Button color="warning" outline type="button" size="sm" onClick={this.Kakaopay}>충전</Button>
                     </div>
-                    <div className="h5 mt-4">
-                      <i className="ni business_briefcase-24 mr-2" />
-                      Solution Manager - Creative Tim Officer
-                    </div>
-                    <div>
-                      <i className="ni education_hat mr-2" />
-                      University of Computer Science
-                    </div>
+                    
                     <hr className="my-4" />
                       
                       <p>
@@ -350,66 +353,83 @@ class Profile extends React.Component {
                       </Row>
                     </div>
                     <hr className="my-4" />
-                    {/* Address */}
                     <h6 className="heading-small text-muted mb-4">
                       개설중인 모임방
                     </h6>
 
-                     {this.state.hostProgressEx.map((contact,i)=>{
-                      return(
-                        <div>
-                        <div>{contact.roomno}</div>
-                        <div>{contact.meetingtitle}</div>
-                        
-                        </div>
-                      );
-                    })} 
+
+                      
+                    
 
                     {/* ---------------------------------------------------------------------------------------------------------- */}
+                  <Table className="align-items-center table-flush" responsive>
+                  <thead className="thead-light">
+                    <tr>
+                      <th scope="col" style={{width:"15%"}}>방장</th>
+                      <th scope="col" style={{width:"15%"}}>카테고리</th>
+                      <th scope="col" style={{width:"50%"}}>방타이틀</th>
+                      <th scope="col" style={{width:"20%"}}>날짜</th>                 
+                    </tr>
+                  </thead>
+                  <tbody>                         
+                    <tr>
+                    {this.state.hostProgressEx.map((contact,i)=>{
+                      return(
+                          <>
+                          <td>{contact.hostid}</td>
+                          <td>{contact.category}</td>
+                          <td>
+                            <Badge color="" className="badge-dot mr-4">
+                            <i className="bg-warning" />
+                            {contact.meetingtitle}
+                            </Badge>
+                          </td>
+                          <td>{contact.meetingdate}</td>
+                          </>
+                      );
+                    })} 
+                   
+                    </tr>
+                             
+                  </tbody>
+                </Table>
+
+                <hr className="my-4" />
+                    <h6 className="heading-small text-muted mb-4">
+                      참여중인 모임방
+                    </h6>
                     <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
                       <th scope="col" style={{width:"15%"}}>방장</th>
                       <th scope="col" style={{width:"15%"}}>카테고리</th>
-                      <th scope="col" style={{width:"55%"}}>방타이틀</th>
-                      <th scope="col" style={{width:"15%"}}>날짜</th>                 
+                      <th scope="col" style={{width:"50%"}}>방타이틀</th>
+                      <th scope="col" style={{width:"20%"}}>날짜</th>                 
                     </tr>
                   </thead>
                   <tbody>                         
                     <tr>
-                      <th scope="row">
-                        asdf
-                      </th>
-                      <td>$2,500 USD</td>
-                      <td>
-                        <Badge color="" className="badge-dot mr-4">
-                          <i className="bg-warning" />
-                          pending
-                        </Badge>
-                      </td>
-                      <td>
-                        asdf
-                      </td>
+                    {this.state.MemberProgressEx.map((contact,i)=>{
+                      return(
+                          <>
+                          <td>{contact.hostid}</td>
+                          <td>{contact.category}</td>
+                          <td>
+                            <Badge color="" className="badge-dot mr-4">
+                            <i className="bg-warning" />
+                            {contact.meetingtitle}
+                            </Badge>
+                          </td>
+                          <td>{contact.meetingdate}</td>
+                          </>
+                      );
+                    })} 
                    
                     </tr>
-                   
-              
+                             
                   </tbody>
                 </Table>
-             
-                    {/* <div className="pl-lg-4">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="A few words about you ..."
-                          rows="4"
-                          defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
-                          type="textarea"
-                        />
-                      </FormGroup>
-                    </div> */}
+                    
                   </Form>
                 </CardBody>
               </Card>
