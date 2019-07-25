@@ -35,5 +35,10 @@ public interface MemberRepository extends CrudRepository<Member, String>{
     )
     public Member profileUpdate(String path, String id);
    
+    @Query(
+        value = "select money from tbl_members where memberid=:id"
+        , nativeQuery = true
+    )
+    public int tardyCash(String id);
     
 }

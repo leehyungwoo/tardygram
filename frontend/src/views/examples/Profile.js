@@ -41,8 +41,6 @@ import UserHeader from "components/Headers/UserHeader.js";
 
 
 function hostRedirect(target){
-  //  location.href=target;
-  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
   window.location.href=target
 }
 
