@@ -248,11 +248,11 @@ class Profile extends React.Component {
                     
                     <hr className="my-4" />
                       
-                      <p>
+                      <div>                      
                         파일업로드<br/>
                         
                         <Upload emit={this.reciveEmit}></Upload>
-                      </p>
+                      </div>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       Show more
                     </a>
@@ -380,10 +380,10 @@ class Profile extends React.Component {
                     </tr>
                   </thead>
                   <tbody>                         
-                    <tr>
+                    
                     {this.state.hostProgressEx.map((contact,i)=>{
                       return(
-                          <>
+                          <tr key={i}>
                           <td>{contact.hostid}</td>
                           <td>{contact.category}</td>
                           <td>
@@ -393,11 +393,11 @@ class Profile extends React.Component {
                             </Badge>
                           </td>
                           <td>{contact.meetingdate}</td>
-                          </>
+                          </tr>
                       );
                     })} 
                    
-                    </tr>
+                   
                              
                   </tbody>
                 </Table>
@@ -416,10 +416,10 @@ class Profile extends React.Component {
                     </tr>
                   </thead>
                   <tbody>                         
-                    <tr>
+                
                     {this.state.MemberProgressEx.map((contact,i)=>{
                       return(
-                          <>
+                          <tr key={i}>
                           <td>{contact.hostid}</td>
                           <td>{contact.category}</td>
                           <td>
@@ -429,11 +429,11 @@ class Profile extends React.Component {
                             </Badge>
                           </td>
                           <td>{contact.meetingdate}</td>
-                          </>
+                          </tr>
                       );
                     })} 
                    
-                    </tr>
+                    
                              
                   </tbody>
                 </Table>
