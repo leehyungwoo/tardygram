@@ -33,6 +33,13 @@ public class MeetingController {
    @Autowired MeetingRepository meetingrepo;
    @Autowired EnterRepository enterrepo;
 
+   @GetMapping("/sucess")
+   public String add() {
+        System.out.println("성공시 컨트롤러");
+   
+        return "localhost:3000";
+        
+    }
 
  
    @PostMapping(path = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

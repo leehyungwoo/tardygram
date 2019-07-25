@@ -38,12 +38,20 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+
+
+function hostRedirect(target){
+  //  location.href=target;
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+  window.location.href=target
+}
+
 class Profile extends React.Component {
 
-  
 
   constructor(props){
-    super(props) 
+    super(props)
+     
     this.state={
       birthday:'',
       email:'',
@@ -58,12 +66,13 @@ class Profile extends React.Component {
       MemberProgressEx:[],
       amount:'' 
     }   
+    
   }
 
 
   componentDidMount(){
     console.log("라이프사이클 로직실행")
- 
+    
      const headers = {
         'Content-Type': 'application/json',
     }
@@ -107,8 +116,7 @@ class Profile extends React.Component {
     
    }
 
-
-
+ 
    imageTag=()=>{
       if(this.state.profileimage){
         return ( 
@@ -150,10 +158,12 @@ class Profile extends React.Component {
   
     alert(data.amount);
     alert(data.memberid);
+ 
     axios.post('http://localhost:9000/kakaoPay', JSON.stringify(data), {headers:headers})
         .then(res =>{
             alert('kakaopay성공  url:'+res.data)
-            window.open(res.data,true)
+            hostRedirect(res.data);
+            // location.href=res.data
         })
         .catch(res =>{
             alert('kakaopay실패')

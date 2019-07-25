@@ -1,10 +1,12 @@
 package com.tardygram.web.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.tardygram.web.domain.KakaoPayApprovalVO;
 import com.tardygram.web.service.KakaoPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
+
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -49,7 +53,7 @@ public class SampleController {
     }
     
     @GetMapping("/kakaoPaySuccess")
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpSession session) {
+    public RedirectView  kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpSession session) {
         System.out.println("성공시 컨트롤러");
         //log.info("kakaoPaySuccess pg_token : " + pg_token);
  
@@ -57,9 +61,12 @@ public class SampleController {
         System.out.println("성공컨트롤러에서의 amount : " +amount);
         String memberid = (String)session.getAttribute("memberid");
         System.out.println("성공컨트롤러에서의 memberid : " + memberid);
-
-        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, amount, memberid));
+        kakaopay.kakaoPayInfo(pg_token, amount, memberid);
+        
+        return new RedirectView("http://localhost:3000/admin/user-profile");
         
     }
     
 }
+
+ 
