@@ -37,7 +37,7 @@ class Login extends React.Component {
 
   constructor(props){
     super(props)
-     alert("로긴")
+    //  alert("로긴")
   }
 
   state={
@@ -51,8 +51,9 @@ class Login extends React.Component {
       <>
         <Col lg="5" md="7">
           <Card className="bg-secondary shadow border-0">
-            <CardHeader className="bg-transparent pb-5">
-              <div className="text-muted text-center mt-2 mb-3">
+            {/* <CardHeader className="bg-transparent pb-5"> */}
+    
+              {/* <div className="text-muted text-center mt-2 mb-3">
                 <small>Sign in with</small>
               </div>
               <div className="btn-wrapper text-center">
@@ -84,8 +85,8 @@ class Login extends React.Component {
                   </span>
                   <span className="btn-inner--text">Google</span>
                 </Button>
-              </div>
-            </CardHeader>
+              </div> */}
+            {/* </CardHeader> */}
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
                 <small>Or sign in with credentials</small>
@@ -124,7 +125,7 @@ class Login extends React.Component {
                      />
                   </InputGroup>
                 </FormGroup>
-                <div className="custom-control custom-control-alternative custom-checkbox">
+                {/* <div className="custom-control custom-control-alternative custom-checkbox">
                   <input
                     className="custom-control-input"
                     id=" customCheckLogin"
@@ -136,7 +137,7 @@ class Login extends React.Component {
                   >
                     <span className="text-muted">Remember me</span>
                   </label>
-                </div>
+                </div> */}
                 <div className="text-center">
                   <Button className="my-4" color="primary" type="button" onClick={(e)=>{
                         console.log(this.state.memberid)

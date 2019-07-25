@@ -144,9 +144,7 @@ public class MemberController {
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
             System.out.println("path : " + path);
-            
-       
-
+            System.out.println(id);
             memberrepo.profileUpdate(DbPath, id);
             return DbPath;
         } catch (IOException e) {

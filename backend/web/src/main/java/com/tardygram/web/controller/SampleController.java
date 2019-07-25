@@ -31,8 +31,9 @@ import lombok.extern.java.Log;
 @Data
 public class SampleController {
     // document.getElementsByClassName("link_gnb")[1].click()
-    // document.getElementById("userPhone").value="01055754786";
-    // document.getElementById("userBirth").value="931229"
+    // document.getElementById("userPhone").value="01031753215";
+    // document.getElementById("userBirth").value="880821"
+	// document.getElementsByClassName("btn_payask")[0].click();
 
     private String amount = null;
     private String memberid = null;
