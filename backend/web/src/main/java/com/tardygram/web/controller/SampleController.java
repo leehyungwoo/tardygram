@@ -22,7 +22,9 @@ import lombok.extern.java.Log;
 @Log
 @RestController
 public class SampleController {
-
+    // document.getElementsByClassName("link_gnb")[1].click()
+    // document.getElementById("userPhone").value="01055754786";
+    // document.getElementById("userBirth").value="931229"
 
     @Setter(onMethod_= @Autowired)
     private KakaoPay kakaopay;
