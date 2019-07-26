@@ -1,13 +1,7 @@
 import React, {Component, createRef} from "react";
 import axios from 'axios'
 import ReactDatetime from "react-datetime";
-<<<<<<< HEAD
-// import TimePicker from './TimePicker.jsx'
-
-
-=======
 import ImageUploader from 'react-images-upload';
->>>>>>> 4c10c863d780d3dd8b0b3e537729097ecb32a6de
 import 'react-times/css/material/default.css';
 import 'react-times/css/classic/default.css';
 

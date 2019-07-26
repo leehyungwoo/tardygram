@@ -6,6 +6,9 @@ import Geolocation from "./Contents";
 class Location extends React.Component {
   state={
     zigack : "false",
+    latitude : "",
+    longitude : "",
+
   }
   getCurrentPosition = () => {
     const geolocation = navigator.geolocation;
@@ -26,10 +29,10 @@ class Location extends React.Component {
 
     EARTH_R = 6371000.0;
     Rad 	= Math.PI/180;
-    radLat1 = Rad * {longitude};
+    radLat1 = Rad * this.state.longitude;
     radLat2 = Rad * 126.98633090000001;
     //126.99 목적지 경도
-    radDist = Rad * (latitude - 37.563398);
+    radDist = Rad * (this.state.latitude - 37.563398);
     //37.563 목적지 위도
     distance = Math.sin(radLat1) * Math.sin(radLat2);
     distance = distance + Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radDist);
@@ -43,12 +46,12 @@ class Location extends React.Component {
      {
        rtn = rtn + " km";
     }
-
-    console.log(`현재위치와 ${place_name} 사이의 거리는 ${rtn} 입니다.`  );
+    // ${place_name}
+    console.log(`현재위치와  사이의 거리는 ${rtn} 입니다.`  );
     if(50 < rtn){
-      zigack = true
+      this.zigack = true
     }else{
-      zigack = false
+      this.zigack = false
     }
     //place_name 목적지 
     return  rtn;
@@ -88,6 +91,6 @@ class Location extends React.Component {
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<MapExample />, rootElement);
+ReactDOM.render(<Location />, rootElement);
 
 export default Location
