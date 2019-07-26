@@ -23,6 +23,7 @@ import UserHeader from "components/Headers/UserHeader.js";
 import SearchMap from './SearchMap'
 import DoneHost from './DoneHost'
 import Header from "components/Headers/Header.js";
+import RoomUpload from '../../components/Upload/RoomUpload'
 
 class CreateHost extends Component {
     state={
@@ -41,18 +42,36 @@ class CreateHost extends Component {
         progressNum:0,
         address:'',
         roomlongitude:'',
-        roomlatitude:''
+        roomlatitude:''   
       }
       mydiv = createRef();
 
       handleIncrease=()=>{
-
           this.setState({
             progressNum : this.state.progressNum + 1
           })
           console.log(this.state.progressNum)
         //   this.Dialog(this.state.progressNum)
       }
+
+
+      imageTag=()=>{       
+        if(this.state.roomphoto){         
+          return ( 
+            <img  src={this.state.roomphoto} style={{display:"block",minWidth:"300px",maxWidth:"300px",maxHeight:"200px", minHeight:"200px", margin:"0 auto"}} ></img>
+         )
+        }
+      }
+  
+      reciveEmit=(type)=>{
+        console.log(type)
+        this.setState({
+            roomphoto:type
+        })
+        this.imageTag();
+      }
+
+
       Dialog = (e) => {
         switch(e) {
             case 0:
@@ -105,6 +124,15 @@ class CreateHost extends Component {
                     <div>
                             <h1>Upload group's profile picture</h1>
                             <h2>Group's meet locally and in person. We’ll connect you with people who live in and around your area.</h2>
+                            <div class="row">       
+                                <div class="col-md-6"><RoomUpload emit={this.reciveEmit}></RoomUpload></div>
+                                 <div class="col-md-6 img-responsive img-thumbnail">{this.imageTag()}</div>                                
+                            </div>
+                            <br></br>
+                            
+                                       
+                           
+          
                     </div>
                         ); 
             case 5:
@@ -126,6 +154,8 @@ class CreateHost extends Component {
                             <h2>Group's meet locally and in person. We’ll connect you with people who live in and around your area.</h2>
                     </div>
                         ); 
+             defalut:
+                   break;
         }
     };
 
@@ -135,7 +165,7 @@ class CreateHost extends Component {
         this.handleIncrease()
         
         if(this.state.pageIndex<this.state.query.length-1){
-            console.log("실행")
+
             this.setState({
             pageIndex:this.state.pageIndex+1,
             [this.state.query[this.state.pageIndex]]:this.mydiv.value,
@@ -143,17 +173,13 @@ class CreateHost extends Component {
             })
             this.mydiv.value="";
         }else{
-            console.log("지도")
-            console.log(this.state.pageIndex)
-            console.log(this.state.query.length-1)
+
             if(this.state.pageIndex==this.state.query.length-1){
-                console.log("조건문실행")
                 this.axiosRequest();
             }
         }
       }
 
-   
 
         axiosRequest=()=>{
             const headers = {
@@ -176,11 +202,8 @@ class CreateHost extends Component {
 
         reciveEmit=(chilstate)=>{
             this.setState({
-                roomplace:chilstate.address,
-                roomlongitude:chilstate.roomlongitude,
-                roomlatitude:chilstate.roomlatitude
+                roomphoto:chilstate
             })
-            console.log(this.state)
         }
 
 
@@ -240,7 +263,7 @@ class CreateHost extends Component {
                                                 }
                                             })()
                                         }
-                                        <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+                                        <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Next</Button>
                                     </form>
                                 </CardBody>
                         </Card>
