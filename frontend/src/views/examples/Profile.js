@@ -17,7 +17,7 @@
 */
 import React from "react";
 import axios from 'axios'
-import {Link} from "react-router-dom";
+import {Link,Route } from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 
@@ -61,7 +61,9 @@ class Profile extends React.Component {
       pwd:'',
       hostProgressEx:[],
       MemberProgressEx:[],
-      amount:'' 
+      amount:'',
+      hostCount:'',
+      memberCount:'' 
     }   
     
   }
@@ -91,7 +93,9 @@ class Profile extends React.Component {
            name:uInfo.name,
            profileimage:uInfo.profileimage,
            phone:uInfo.phone,
-           pwd:uInfo.pwd
+           pwd:uInfo.pwd,
+           hostCount: res.data.hostCount,
+           memberCount : res.data.memberCount
          }) 
    
          res.data.hostProgressEx.map((item,index)=>{
@@ -217,17 +221,14 @@ class Profile extends React.Component {
                     <div className="col">
                       <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                         <div>
-                          <span className="heading">22</span>
-                          <span className="description">Friends</span>
+                          <span className="heading">{this.state.hostCount}</span>
+                          <span className="description">개설중인 모임방</span>
                         </div>
                         <div>
-                          <span className="heading">10</span>
-                          <span className="description">Photos</span>
+                          <span className="heading">{this.state.memberCount}</span>
+                          <span className="description">참여중인 모임방</span>
                         </div>
-                        <div>
-                          <span className="heading">89</span>
-                          <span className="description">Comments</span>
-                        </div>
+                    
                       </div>
                     </div>
                   </Row>
@@ -381,21 +382,21 @@ class Profile extends React.Component {
                     {this.state.hostProgressEx.map((contact,i)=>{
                       return(
                           <tr key={i}>
-                          <td>{contact.roomhostid}</td>
-                          <td>{contact.roomcategory}</td>
-                          <td>
-                            <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            {contact.roomtitle}
-                            </Badge>
-                          </td>
-                          <td>{contact.roomdate}</td>
+                              <td>{contact.roomhostid}</td>
+                              <td>{contact.roomcategory}</td>
+                              <td>                           
+                                <Link to={"/admin/roomdetail/"+ contact.roomno}>
+                                <Badge color="" className="badge-dot mr-4">
+                                  <i className="bg-warning" />{contact.roomtitle}
+                                </Badge>
+                                </Link>  
+                              </td>
+                              <td>{contact.roomdate}</td>
                           </tr>
                       );
                     })} 
                    
-                   
-                             
+                                            
                   </tbody>
                 </Table>
 
@@ -420,10 +421,11 @@ class Profile extends React.Component {
                           <td>{contact.roomhostid}</td>
                           <td>{contact.roomcategory}</td>
                           <td>
+                            <Link to={"/admin/roomdetail/"+ contact.roomno}>
                             <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />
-                            {contact.roomtitle}
+                             <i className="bg-warning" />{contact.roomtitle}                          
                             </Badge>
+                            </Link>             
                           </td>
                           <td>{contact.roomdate}</td>
                           </tr>

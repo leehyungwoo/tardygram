@@ -76,7 +76,7 @@ public class RoomController {
    public void enter(){
        Member m = new Member();
        m.setMemberid("jmh1753");         //m이라는 친구가
-       enterrepo.enter(m, "3");  // 4번방에 추가
+       enterrepo.enter(m, "2");  // 4번방에 추가
    }
 
    //연관테이블 레코드 삭제후 room테이블 레코드 삭제

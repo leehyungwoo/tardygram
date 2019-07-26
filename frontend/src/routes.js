@@ -30,7 +30,9 @@ import DoneHost from "views/examples/DoneHost.js";
 
 var routes = [
  
- {
+
+{
+
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
@@ -81,7 +83,6 @@ var routes = [
     component: DoneHost,
     layout: "/admin"
   },
-
 
   
 ];

@@ -64,4 +64,17 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
         , nativeQuery = true
     )
     public List<Room> selectall();
+    //내가 개설한 현재진행중인 방의 count
+    @Query(
+        value = "select count(*) from tbl_room where roomhostid=:id and roomprogress=1"
+        , nativeQuery = true
+    )
+    public int HostCount(String id);
+
+    //내가 참여중인 현재진행중인 방의 count
+    @Query(
+        value = "select count(*) from tbl_room mt JOIN tbl_members_rooms mm ON mt.roomno=mm.rooms_roomno where mt.roomhostid != mm.members_memberid and mm.members_memberid=:id and mt.roomprogress=1"
+        , nativeQuery = true
+    )
+    public int MemberCount(String id);
 }
