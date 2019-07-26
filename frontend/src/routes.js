@@ -15,30 +15,23 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
- 
-import Profile from "views/examples/Profile.js";
 
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
- 
-import CreateHost from "views/examples/CreateHost.js";
-
-import RoomDetail from "views/examples/RoomDetail.js";
-import DoneHost from "views/examples/DoneHost.js";
-
+import Profile from "views/examples/Profile.js"
+import Register from "views/examples/Register.js"
+import Login from "views/examples/Login.js"
+import Tables from "views/examples/Tables.js"
+import MakeRoom from "views/examples/MakeRoom.js"
+import RoomDetail from "views/examples/RoomDetail.js"
+import DoneHost from "views/examples/DoneHost.js"
 
 var routes = [
- 
-
-{
-
+  {
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth"
-  }, 
+  },
   {
     path: "/register",
     name: "Register",
@@ -46,7 +39,6 @@ var routes = [
     component: Register,
     layout: "/auth"
   },
- 
   {
     path: "/user-profile",
     name: "User Profile",
@@ -61,12 +53,11 @@ var routes = [
     component: Tables,
     layout: "/admin"
   },
-
   {
-    path: "/CreateHost",
-    name: "CreateHost",
+    path: "/makeroom",
+    name: "MakeRoom",
     icon: "ni ni-circle-08 text-blue",
-    component: CreateHost,
+    component: MakeRoom,
     layout: "/admin"
   },
   {
@@ -82,8 +73,6 @@ var routes = [
     icon: "ni ni-circle-08 text-blue",
     component: DoneHost,
     layout: "/admin"
-  },
-
-  
-];
-export default routes;
+  }
+]
+export default routes

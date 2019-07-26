@@ -17,30 +17,38 @@
 */
 import React from "react";
 import axios from 'axios'
-import {Link,Route } from "react-router-dom";
+import {CardDeck,Card,Col} from 'react-bootstrap';
+
 // reactstrap components
+
 import {
   Badge,
-  Card,
+  // Card,
   CardHeader,
-  // CardFooter,
+  CardFooter,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
   Media,
-  // Pagination,
-  // PaginationItem,
-  // PaginationLink,
-  // Progress,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip
+  UncontrolledTooltip,
+  Button,
+
+  CardBody,
+  CardImg,
+  CardTitle,
+  CardText,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
-import RoomDetail from './RoomDetail'
+import {Link } from "react-router-dom";
 
 class Tables extends React.Component {
   constructor(props){
@@ -60,27 +68,106 @@ class Tables extends React.Component {
     axios.get(`/room/selectall`,  {headers:headers})
       .then(res=>{
         console.log(res.data.mList)
- 
-        res.data.mList.map((item,index)=>{
+        res.data.mList.map((item,index)=>{  
           return this.setState({
             mList:[...this.state.mList, item]
            })       
         })
- 
       })
       .catch(res=>{
         alert("통신실패")
       })
-  }
+  
+    }
 
+    imageTag=()=>{
+      if(this.state.profileimage){
+        return ( 
+          <img className="rounded-circle" src={this.state.profileimage} style={{minWidth:"140px",maxHeight:"220px"}} ></img>
+       )
+      }
+    }
   render() {
+
     return (
       <>
         <Header />
-        {/* Page content */}
+       
         <Container className="mt--7" fluid>
-          {/* Table */}
-          <Row>
+                <CardDeck>
+        
+                {this.state.mList.map((contact,index)=>{
+                       return(
+                      <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
+                       <Card >
+                         <Card.Img variant="top" src={contact.roomphoto} />
+                         <Card.Body>
+                           <Card.Title>{contact.roomtitle}</Card.Title>
+                           <Card.Text>
+                           {contact.roomdetail}
+                           </Card.Text>
+                         </Card.Body>
+                         <Card.Footer>
+                         <Button
+                            color="primary"
+                            style={{padding:0}}
+                            onClick={e => e.preventDefault()}
+                          >
+                            <Link to={"/admin/roomdetail/"+contact.roomno} style={{color:"#fff",
+                          padding: "0.625rem 1.25rem",  display:"inline-block"
+                          }}>
+                           방 참여
+                           </Link>
+                          </Button>
+                         </Card.Footer>
+                       </Card>
+                       </Col>
+                     )
+                })}
+                </CardDeck>
+
+
+
+
+                {/* <Row className="justify-content-sm-center">
+                {this.state.mList.map((contact,index)=>{
+                  console.log(contact)
+               return( 
+                <Col xs="12" sm="6" lg="4" xl="3" className=" mb-3" key={index}>
+                      <Card>
+                        <CardImg
+                          alt="..."
+                          src={contact.roomphoto}
+                          // src={"/image/room/abc.jpeg"}
+                          top
+                        />
+                        <CardBody>
+                          <CardTitle>{contact.roomtitle}</CardTitle>
+                          <CardText>
+                          {contact.roomdetail}
+                          </CardText>           
+                          <Button
+                            color="primary"
+                            style={{padding:0}}
+                            onClick={e => e.preventDefault()}
+                          >
+                            <Link to={"/admin/roomdetail/"+contact.roomno} style={{color:"#fff",
+                          padding: "0.625rem 1.25rem",  display:"inline-block"
+                          }}>
+                           방 참여
+                           </Link>
+                          </Button>
+                        
+                        </CardBody>
+                      </Card>
+                      </Col>  
+                  )
+                })}
+                </Row> */}
+
+
+          {/* <Row>
+            
             <div className="col">
     
               <Card className="shadow">
@@ -111,8 +198,7 @@ class Tables extends React.Component {
                             <img
                               alt="..."
                               src={require("assets/img/theme/bootstrap.jpg")}
-                            />  
-                            {/* 방장 이미지 */}
+                            /> 
                            
                           </a>
                           <Media>
@@ -244,7 +330,7 @@ class Tables extends React.Component {
                 })}
                   </tbody>
                 </Table>
-                {/* <CardFooter className="py-4">
+                 <CardFooter className="py-4">
                   <nav aria-label="...">
                     <Pagination
                       className="pagination justify-content-end mb-0"
@@ -295,10 +381,10 @@ class Tables extends React.Component {
                       </PaginationItem>
                     </Pagination>
                   </nav>
-                </CardFooter> */}
+                </CardFooter> 
               </Card>
             </div>
-          </Row>
+          </Row> */}
         
         </Container>
       </>

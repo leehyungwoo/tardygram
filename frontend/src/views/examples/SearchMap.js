@@ -16,8 +16,6 @@ class SearchMap extends Component{
        
     }
      
-
-
     changeFuncSubmit=(e)=>{
         e.preventDefault();
         this.setState({
@@ -25,10 +23,6 @@ class SearchMap extends Component{
         })
 
     }
-
-
-     
-
      componentDidMount(){
         const kakao = window.kakao;
         // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -43,8 +37,6 @@ class SearchMap extends Component{
         // 지도를 생성합니다    
         new kakao.maps.Map(mapContainer, mapOption); 
      }
-
-
 
     //  shouldComponentUpdate
     shouldComponentUpdate(newProps, newState){
@@ -162,14 +154,9 @@ class SearchMap extends Component{
                 // return place.place_name;
             });
         }
-
-
-
         return true;
     }
 
-
-    
     render(){
         return(
             

@@ -382,8 +382,6 @@ class Register extends React.Component {
                   </InputGroup>
                 </FormGroup>
 
-
-
                 <div className="text-muted font-italic">
                   <small>
                     password strength:{" "}

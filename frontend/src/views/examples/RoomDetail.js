@@ -16,7 +16,6 @@ class roomDetail extends Component{
    
     }
     
- 
      componentDidMount(){
        
      }

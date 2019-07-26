@@ -2,24 +2,20 @@ import React, {Component} from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from "axios"
 import {FormGroup} from "reactstrap";
+
 class Upload extends Component{
     constructor(props) {
         super(props);
         this.state = { 
           pictures: [],
-          file:null 
+          file:null,
+          roomImage:''
         };
-        // this.onDrop = this.onDrop.bind(this);
       }
 
-    // onDrop(pictureFiles, pictureDataURLs) {
-    // this.setState({
-    //         pictures: this.state.pictures.concat(pictureFiles),
-    //     });
-    //     console.log("어떤파일 : " + this.state.pictures)
-    //     //여기 axios
-    // }
+
     onChangeHandler=event=>{
+      console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
       this.setState({
         file : URL.createObjectURL (event[event.length-1])
       })
@@ -33,10 +29,14 @@ class Upload extends Component{
       }
 
       let id = localStorage.getItem("loginId")
-      axios.post(`http://localhost:9000/member/upload/${id}`, data ,{ headers
+      axios.post(`http://localhost:9000/room/upload/${id}`, data ,{ headers
         })
         .then(res => {
-          console.log(res)
+          console.log('res: ' + res)
+          console.log('res.data : ' + res.data)
+          this.setState({
+            roomphoto : res.data
+          })
           this.props.emit(res.data);
         }).catch(err =>{
           console.log(err)
@@ -44,10 +44,11 @@ class Upload extends Component{
       
     }
 
+    
     render(){
         return (
-          <>
-              <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>                     
+          <>       
+            <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>                     
           </>
         );
 
