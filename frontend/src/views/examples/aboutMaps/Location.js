@@ -23,7 +23,7 @@ class Location extends React.Component {
     );
   };
   calcDistance=()=>{
-
+//목적지와 현위치랑 거리비교
     var EARTH_R, Rad, radLat1, radLat2, radDist; 
     var distance, ret;
 
