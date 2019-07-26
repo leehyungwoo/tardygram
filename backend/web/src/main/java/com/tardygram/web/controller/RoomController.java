@@ -66,7 +66,8 @@ public class RoomController {
             Files.write(path, bytes);
             System.out.println("path : " + path);
             System.out.println(id);
-            //여기 바꾸기 memberrepo.profileUpdate(DbPath, id);
+            
+            roomrepo.roomUpdate(DbPath, id);
             return DbPath;
         } catch (IOException e) {
             e.printStackTrace();
