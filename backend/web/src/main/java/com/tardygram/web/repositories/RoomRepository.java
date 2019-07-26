@@ -77,4 +77,12 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
         , nativeQuery = true
     )
     public int MemberCount(String id);
+
+
+    //프로필 이미지 업데이트 메소드
+    @Query(
+        value = "update tbl_room set roomphoto = :path where roomhostid=:id"
+        , nativeQuery = true
+    )
+    public Room roomUpdate(String path, String id);
 }

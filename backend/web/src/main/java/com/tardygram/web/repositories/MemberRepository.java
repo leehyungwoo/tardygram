@@ -24,11 +24,14 @@ public interface MemberRepository extends CrudRepository<Member, String>{
     
     //테이블 join해서 2개의 테이블 리스트 출력
     @Query(
-        value = "SELECT * FROM MEMBER JOIN MEETINGPEOPLE ON MEMBER.memberid = MEETINGPEOPLE.memberid2",
+        value = "SELECT * FROM MEMBER JOIN MEETINGPprofileUpdateEOPLE ON MEMBER.memberid = MEETINGPEOPLE.memberid2",
         nativeQuery = true    
     )
     public List<Object[]> joinlist(); */
 
+
+    
+    //프로필 이미지 업데이트 메소드
     @Query(
         value = "update tbl_members set profileimage = :path where memberid=:id"
         , nativeQuery = true
