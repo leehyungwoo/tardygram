@@ -25,14 +25,14 @@ import Tables from "views/examples/Tables.js";
 import CreateHost from "views/examples/CreateHost.js";
 
 import RoomDetail from "views/examples/RoomDetail.js";
-
 import DoneHost from "views/examples/DoneHost.js";
- 
 
 
 var routes = [
  
- {
+
+{
+
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
@@ -83,7 +83,6 @@ var routes = [
     component: DoneHost,
     layout: "/admin"
   },
- 
 
   
 ];
