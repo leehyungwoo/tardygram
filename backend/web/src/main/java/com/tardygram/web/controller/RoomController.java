@@ -1,5 +1,9 @@
 package com.tardygram.web.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +38,8 @@ public class RoomController {
    @Autowired RoomRepository roomrepo;
    @Autowired EnterRepository enterrepo;
 
+   private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\frontend\\public\\image\\room\\";
+
    @GetMapping("/sucess")
    public String add() {
         System.out.println("성공시 컨트롤러");
@@ -41,19 +48,32 @@ public class RoomController {
         
     }
 
- 
-   @PostMapping(path = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public void add(@RequestParam("file") MultipartFile file) {
-    System.out.println("업로드");
-    System.out.println(file);
-    System.out.println(file.getOriginalFilename());
-    // Member m = new Member();
-    // m.setMemberid("test");
-
     
-    // memberrepo.save(m);
+    //모임방 이미지 업로드
+    @PostMapping(path="/upload/{id}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public String roomUpload(@RequestParam("file") MultipartFile file, @PathVariable String id){
+        
+        System.out.println("파일업로드 컨트롤러");
+        System.out.println("건너온 data : " + file);
+        System.out.println("로그인한id : " + id);
+        System.out.println("파일이름 : " + file.getOriginalFilename());
 
-}
+        try{
+            String DbPath = "/image/room/" + file.getOriginalFilename();
+            System.out.println("Dbpath : " + DbPath);
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+            System.out.println("path : " + path);
+            System.out.println(id);
+            //여기 바꾸기 memberrepo.profileUpdate(DbPath, id);
+            return DbPath;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return "No Img";                     
+    }
 
 
 

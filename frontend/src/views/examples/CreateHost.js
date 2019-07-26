@@ -88,7 +88,7 @@ class CreateHost extends Component {
                                 timeFormat={false}
                                 />
                             </InputGroup>
-                            <TimePickerWrapper/>
+                            <TimePickerWrapper timeMode="12"/>
                             </FormGroup>
                     </div>
                 
