@@ -11,9 +11,9 @@ import java.util.List;
  
 
 import javax.transaction.Transactional; 
-import com.tardygram.web.entities.Meeting;
+import com.tardygram.web.entities.Room;
 import com.tardygram.web.entities.Member;
-import com.tardygram.web.repositories.MeetingRepository;
+import com.tardygram.web.repositories.RoomRepository;
 import com.tardygram.web.repositories.MemberRepository;
  
 
@@ -43,7 +43,7 @@ public class MemberController {
     @Autowired
     MemberRepository memberrepo;
     @Autowired
-    MeetingRepository meetingrepo;
+    RoomRepository roomrepo;
 
     private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\frontend\\public\\image\\";
     // private static String UPLOADED_FOLDER = "../../components/Upload/ProfileImage/";
@@ -104,23 +104,23 @@ public class MemberController {
         map.put("uInfo", m1);
 
         // 2. 방장, 진행O
-        List<Meeting> m2 = meetingrepo.hostProgressEx(id);
+        List<Room> m2 = roomrepo.hostProgressEx(id);
         map.put("hostProgressEx", m2);
-        System.out.println("2번 hostProgressEx: " + meetingrepo.hostProgressEx(id));
+        System.out.println("2번 hostProgressEx: " + roomrepo.hostProgressEx(id));
 
         // 3. 방장, 진행X
-        //System.out.println("3번 hostNotProgressEx: " + meetingrepo.hostNotProgressEx(id));
-        //List<Meeting> m3 = meetingrepo.hostNotProgressEx(id);
+        //System.out.println("3번 hostNotProgressEx: " + roomrepo.hostNotProgressEx(id));
+        //List<Room> m3 = roomrepo.hostNotProgressEx(id);
         //map.put("hostNotProgressEx", m3);
 
         // 4. 방원, 진행O
-        System.out.println("4번 MemberProgressEx: " + meetingrepo.MemberProgressEx(id));
-        List<Meeting> m4 = meetingrepo.MemberProgressEx(id);
+        System.out.println("4번 MemberProgressEx: " + roomrepo.MemberProgressEx(id));
+        List<Room> m4 = roomrepo.MemberProgressEx(id);
         map.put("MemberProgressEx", m4);
 
         // //5. 방원, 진행X
-        //ystem.out.println("5번 MemberNotProgressEx: " + meetingrepo.MemberNotProgressEx(id));
-        //List<Meeting> m5 = meetingrepo.MemberNotProgressEx(id);
+        //ystem.out.println("5번 MemberNotProgressEx: " + roomrepo.MemberNotProgressEx(id));
+        //List<Room> m5 = roomrepo.MemberNotProgressEx(id);
         //map.put("MemberNotProgressEx", m5);
  
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);

@@ -43,7 +43,7 @@ class Register extends React.Component {
         birthday: document.getElementById("ubirthday").value,
         gender: document.getElementById("ugender").value,
         phone: document.getElementById("uphone").value,
-        emial: document.getElementById("uemial").value
+        email: document.getElementById("uemail").value
     }
     const headers = {
       'Content-Type': 'application/json',
@@ -180,7 +180,7 @@ class Register extends React.Component {
                       <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email" id="uemial"/>
+                    <Input placeholder="Email" type="email" id="uemail"/>
                   </InputGroup>
                 </FormGroup>
 

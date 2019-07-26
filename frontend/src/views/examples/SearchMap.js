@@ -10,8 +10,8 @@ class SearchMap extends Component{
         this.state={
             keyword:"",
             address:"",
-            latitude:'',
-            longitude:''
+            roomlatitude:'',
+            roomlongitude:''
         }
        
     }
@@ -152,8 +152,8 @@ class SearchMap extends Component{
                 console.log(japo)
                 console.log(wedo)
                 that.setState({
-                    latitude:wedo,
-                    longitude:gyeongdo
+                    roomlatitude:wedo,
+                    roomlongitude:gyeongdo
                 })
                 console.log(gyeongdo)
                 geocoder.coord2Address(gyeongdo, wedo, callback);
