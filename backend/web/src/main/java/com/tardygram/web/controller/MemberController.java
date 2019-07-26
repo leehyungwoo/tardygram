@@ -45,7 +45,7 @@ public class MemberController {
     @Autowired
     RoomRepository roomrepo;
 
-    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\frontend\\public\\image\\";
+    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\frontend\\public\\image\\member\\";
     // private static String UPLOADED_FOLDER = "../../components/Upload/ProfileImage/";
 
     // 회원가입
@@ -133,7 +133,7 @@ public class MemberController {
     }
 
 
-    //파일업로드
+    //프로필 이미지 파일업로드
     @PostMapping(path="/upload/{id}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String imgUpload(@RequestParam("file") MultipartFile file, @PathVariable String id){
         
@@ -143,7 +143,7 @@ public class MemberController {
         System.out.println("파일이름 : " + file.getOriginalFilename());
 
         try{
-            String DbPath = "/image/" + file.getOriginalFilename();
+            String DbPath = "/image/member/" + file.getOriginalFilename();
             System.out.println("Dbpath : " + DbPath);
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
@@ -155,14 +155,10 @@ public class MemberController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         
-
-        return "No Img";
-      
-        
-        
-
+        return "No Img";                     
     }
+
+    
 
 }
