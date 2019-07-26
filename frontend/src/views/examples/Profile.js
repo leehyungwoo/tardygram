@@ -45,11 +45,7 @@ function hostRedirect(target){
 }
 
 class Profile extends React.Component {
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 32f1702965aa49fcbdb6d43f64ddd1fbe8e68c12
   constructor(props){
     super(props)
      
@@ -117,10 +113,7 @@ class Profile extends React.Component {
     
    }
 
-<<<<<<< HEAD
-=======
- 
->>>>>>> 32f1702965aa49fcbdb6d43f64ddd1fbe8e68c12
+
    imageTag=()=>{
       if(this.state.profileimage){
         return ( 
