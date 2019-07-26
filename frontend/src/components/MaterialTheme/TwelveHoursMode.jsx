@@ -10,7 +10,7 @@ import {
 } from '../../utils/constant.js';
 import timeHelper from '../../utils/time';
 import Button from '../Common/Button';
-import PickerDragHandler from '../Picker/PickerDragHandler';
+import PickerDragHandler from '../Picker/PickerDragHandler.jsx';
 import pickerPointGenerator from '../Picker/PickerPointGenerator';
 
 const TIME = timeHelper.time();

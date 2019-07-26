@@ -25,15 +25,12 @@ import Tables from "views/examples/Tables.js";
 import CreateHost from "views/examples/CreateHost.js";
 
 import RoomDetail from "views/examples/RoomDetail.js";
-
 import DoneHost from "views/examples/DoneHost.js";
-import TimePickerWrapper from "views/examples/TimePickerWrapper.js";
 
 
 var routes = [
  
-
- {
+{
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
@@ -84,13 +81,7 @@ var routes = [
     component: DoneHost,
     layout: "/admin"
   },
-  {
-    path: "/timepickerwrapper",
-    name: "TimePickerWrapper",
-    icon: "ni ni-circle-08 text-blue",
-    component: TimePickerWrapper,
-    layout: "/admin"
-  }
+
 
   
 ];
