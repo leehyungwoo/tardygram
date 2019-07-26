@@ -28,7 +28,7 @@ class CreateHost extends Component {
     state={
         inputVal:'',
         pageIndex:0,
-        query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','roomcharge','roomplace'],
+        query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','password','roomcharge','roomplace'],
         roomcategory:'',
         roomhostid:localStorage.getItem('loginId'),
         roomtitle:'',
@@ -110,10 +110,16 @@ class CreateHost extends Component {
             case 5:
                 return (
                     <div>
-                            <h1>Just set your group tardycash</h1>
+                            <h1>set your group password</h1>
                     </div>
                         ); 
             case 6:
+                return (
+                    <div>
+                            <h1>Just set your group tardycash</h1>
+                    </div>
+                        ); 
+            case 7:
                 return (
                     <div>
                             <h1>Almost done! Set your group’s location</h1>
@@ -210,14 +216,14 @@ class CreateHost extends Component {
                                     <form className="subscribe-form" onSubmit={(e)=>{e.preventDefault()}}>
                                         {
                                             (()=>{
-                                                if(this.state.pageIndex < 5 ){
+                                                if(this.state.pageIndex < 6 ){
                                                 return <input type="text" className="form-control" 
                                                     placeholder={this.state.query[this.state.pageIndex]} 
                                                     value={this.inputVal} 
                                                     ref={ref => { this.mydiv = ref }
                                                     }
                                                 />
-                                                }else if(this.state.pageIndex == 5){
+                                                }else if(this.state.pageIndex == 6){
                                                     return <input type="number" className="form-control" 
                                                     placeholder={this.state.query[this.state.pageIndex]} 
                                                     value={this.inputVal} 
