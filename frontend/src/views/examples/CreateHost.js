@@ -37,7 +37,10 @@ class CreateHost extends Component {
         meetingplace:'',
         meetingphoto:'',
         meetingcharge:'',
-        progressNum:0
+        progressNum:0,
+        address:'',
+        longitude:'',
+        latitude:''
       }
       mydiv = createRef();
 
@@ -133,7 +136,10 @@ class CreateHost extends Component {
             this.mydiv.value="";
         }else{
             console.log("지도")
+            console.log(this.state.pageIndex)
+            console.log(this.state.query.length-1)
             if(this.state.pageIndex==this.state.query.length-1){
+                console.log("조건문실행")
                 this.axiosRequest();
             }
         }
@@ -158,6 +164,17 @@ class CreateHost extends Component {
                 })
         }
       
+
+        reciveEmit=(chilstate)=>{
+            this.setState({
+                meetingplace:chilstate.address,
+                longitude:chilstate.longitude,
+                latitude:chilstate.latitude
+            })
+            console.log(this.state)
+        }
+
+
         render() {
         return (
             <>
@@ -209,7 +226,7 @@ class CreateHost extends Component {
                                                 
                                         
                                                 return <div>
-                                                    <SearchMap></SearchMap>
+                                                    <SearchMap emit={this.reciveEmit}></SearchMap>
                                                 </div>
                                                 }
                                             })()

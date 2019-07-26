@@ -32,7 +32,7 @@ class Upload extends Component{
         "Content-Type":'multipart/form-data'
       }
 
-      let id = "test"
+      let id = localStorage.getItem("loginId")
       axios.post(`http://localhost:9000/member/upload/${id}`, data ,{ headers
         })
         .then(res => {
@@ -46,14 +46,10 @@ class Upload extends Component{
 
     render(){
         return (
-          <div className="App">
+          <>
          
-                 <FormGroup>
-                            <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>
-                            <img src={this.state.file}/>
-                  </FormGroup>
-                              
-          </div>
+                            <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>                     
+          </>
         );
 
   }

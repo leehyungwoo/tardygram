@@ -33,6 +33,8 @@ public class Meeting {
 	@ColumnDefault("1")
 	private int meetingprogress; //현재진행중이면1 끝나면0
 	private int meetingcharge; //벌금
+	private double latitude; //위도
+	private double longitude; //경도
 	private String meetingphoto; //모임장소 사진
 	private String hostid; //로그인한방장의 아이디
 	

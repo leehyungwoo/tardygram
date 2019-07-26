@@ -21,22 +21,22 @@ import lombok.extern.java.Log;
 @Service
 @Log
 public class KakaoPay {
- 
+    // document.getElementsByClassName("link_gnb")[1].click()
+    // document.getElementById("userPhone").value="01055754786";
+    // document.getElementById("userBirth").value="931229";
+    // document.getElementsByClassName("btn_payask")[0].click()
     private static final String HOST = "https://kapi.kakao.com";
     
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
     public String kakaoPayReady(HashMap<String, String> data) {
- 
-        RestTemplate restTemplate = new RestTemplate();
-        
+        RestTemplate restTemplate = new RestTemplate();      
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "e523b4aefc19df61c38d857920fc96a3");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-        
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");  //가맹점코드, 10자, 테스트버전아닐시 카카오한테서 cid받아야함
@@ -49,76 +49,52 @@ public class KakaoPay {
         params.add("approval_url", "http://localhost:9000/kakaoPaySuccess");    //결제성공시 redirect url
         params.add("cancel_url", "http://localhost:9000/kakaoPayCancel");       //결제취소시 redirect url
         params.add("fail_url", "http://localhost:9000/kakaoPaySuccessFail");    //결제실패시 redirect url
-        //params.add("pg_token", "http://naver.com");
- 
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
- 
         try {
-            kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
-            
-            log.info("" + kakaoPayReadyVO);
-            
-            //kakaoPayReadyVO.setNext_redirect_pc_url("/localhost:3000");
+            kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);         
+            log.info("" + kakaoPayReadyVO);           
             //요청한 클라이언트가 pc 웹일 경우 redirect. 카카오톡으로 TMS를 보내기 위한 사용자입력화면이으로 redirect
             return kakaoPayReadyVO.getNext_redirect_pc_url(); 
- 
         } catch (RestClientException e) {
-            System.out.println("2");
-
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (URISyntaxException e) {
-            System.out.println("3");
-
-            // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-        
-        return "/pay";
-        
+        }     
+        return "/pay";     
     }
 
 
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+    public KakaoPayApprovalVO kakaoPayInfo(String pg_token, String amount, String memberid) {
         //log.info("KakaoPayInfoVO............................................");
-
+        System.out.println("전달받은 어마운트랑 아이디 : " + amount + "," + memberid);
         System.out.println("kakaoPayInfo 메소드 도착");
-        RestTemplate restTemplate = new RestTemplate();
-        
+        RestTemplate restTemplate = new RestTemplate();     
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "e523b4aefc19df61c38d857920fc96a3");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         System.out.println("kakaoPayReadyVO : " + kakaoPayReadyVO);
+        System.out.println("kakaoPayApprovalVO : " + kakaoPayApprovalVO);
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid()); //결제 고유 번호 20자 
         params.add("partner_order_id", "1");  
-        params.add("partner_user_id", "moonho");
+        params.add("partner_user_id", memberid);
         params.add("pg_token", pg_token);
-        params.add("total_amount", "1000");
-
+        params.add("total_amount", amount);
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-        try {            
-            
-            System.out.println("body : "+body);
-            System.out.println();
+        try {                     
             kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalVO.class);
+            //kakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/order?cid=TC0ONETIME&tid="+kakaoPayReadyVO.getTid()), body, KakaoPayApprovalVO.class);
             System.out.println("kakaoPayApprovalVO : "+kakaoPayApprovalVO);
-            return kakaoPayApprovalVO;
-        
+            return kakaoPayApprovalVO;      
         } catch (RestClientException e) {
-            System.out.println("RestClientException부분");
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (URISyntaxException e) {
-            System.out.println("URISyntaxException");
-            // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-        
+        }       
         return null;
     }
     

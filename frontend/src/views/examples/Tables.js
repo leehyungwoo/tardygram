@@ -57,7 +57,7 @@ class Tables extends React.Component {
       'Content-Type': 'application/json',
     }
  
-    axios.get(`http://localhost:9000/meeting/selectall`,  {headers:headers})
+    axios.get(`/meeting/selectall`,  {headers:headers})
       .then(res=>{
         console.log(res.data.mList)
  

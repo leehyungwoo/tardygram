@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +33,13 @@ public class MeetingController {
    @Autowired MeetingRepository meetingrepo;
    @Autowired EnterRepository enterrepo;
 
+   @GetMapping("/sucess")
+   public String add() {
+        System.out.println("성공시 컨트롤러");
+   
+        return "localhost:3000";
+        
+    }
 
  
    @PostMapping(path = "/upload",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -70,8 +75,8 @@ public class MeetingController {
    @PostMapping("/enter")
    public void enter(){
        Member m = new Member();
-       m.setMemberid("moonho");         //m이라는 친구가
-       enterrepo.enter(m, "5");  // 4번방에 추가
+       m.setMemberid("jmh1753");         //m이라는 친구가
+       enterrepo.enter(m, "3");  // 4번방에 추가
    }
 
    //연관테이블 레코드 삭제후 meeting테이블 레코드 삭제

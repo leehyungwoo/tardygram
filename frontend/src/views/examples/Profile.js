@@ -38,10 +38,21 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+
+
+function hostRedirect(target){
+  window.location.href=target
+}
+
 class Profile extends React.Component {
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 32f1702965aa49fcbdb6d43f64ddd1fbe8e68c12
   constructor(props){
     super(props)
-    
+     
     this.state={
       birthday:'',
       email:'',
@@ -53,19 +64,21 @@ class Profile extends React.Component {
       phone:'',
       pwd:'',
       hostProgressEx:[],
-      MemberProgressEx:[] 
+      MemberProgressEx:[],
+      amount:'' 
     }   
+    
   }
 
 
   componentDidMount(){
     console.log("라이프사이클 로직실행")
- 
+    
      const headers = {
         'Content-Type': 'application/json',
     }
    
-    let id ="test";
+    let id = localStorage.getItem("loginId");
     axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
         .then(res =>{
             //alert('통신성공  url:')
@@ -104,9 +117,15 @@ class Profile extends React.Component {
     
    }
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 32f1702965aa49fcbdb6d43f64ddd1fbe8e68c12
    imageTag=()=>{
       if(this.state.profileimage){
-        return <img src={this.state.profileimage} style={{width:"20%"}}></img>
+        return ( 
+          <img className="rounded-circle" src={this.state.profileimage} style={{minWidth:"140px",maxHeight:"220px"}} ></img>
+       )
       }
     }
 
@@ -118,11 +137,19 @@ class Profile extends React.Component {
       this.imageTag();
     }
 
+
+    amount = e =>{
+      e.preventDefault()
+      this.setState({
+        amount : e.target.value
+      })
+    }
+
    Kakaopay = e =>{
     e.preventDefault()
     //this.setState({submitted: true})
     alert("카카오페이 버튼클릭"); 
-    /* const headers = {
+    const headers = {
         'Content-Type': 'application/json',
         'Authorization' : 'e523b4aefc19df61c38d857920fc96a3',
         'Access-Control-Allow-Origin': '*'
@@ -130,18 +157,21 @@ class Profile extends React.Component {
   
     let data = {
         amount : this.state.amount,
-        memberid : this.state.memberid
+        memberid : localStorage.getItem("loginId")
     }
   
-    alert(data.amount + data.memberid);
+    alert(data.amount);
+    alert(data.memberid);
+ 
     axios.post('http://localhost:9000/kakaoPay', JSON.stringify(data), {headers:headers})
         .then(res =>{
             alert('kakaopay성공  url:'+res.data)
-            window.open(res.data,true)
+            hostRedirect(res.data);
+            // location.href=res.data
         })
         .catch(res =>{
             alert('kakaopay실패')
-        }) */
+        })
   }
 
   render() {
@@ -157,11 +187,12 @@ class Profile extends React.Component {
                   <Col className="order-lg-2" lg="3">
                     <div className="card-profile-image">
                       <a href="#pablo" onClick={e => e.preventDefault()}>
-                        <img
+                        {/* <img
                           alt="..."
                           className="rounded-circle"
                           src={require("assets/img/theme/team-4-800x800.jpg")}
-                        />
+                        /> */}
+                        {this.imageTag()}
                       </a>
                     </div>
                   </Col>
@@ -214,32 +245,18 @@ class Profile extends React.Component {
                     </h3>
                     <div className="h5 font-weight-450">                 
                       birthday : {this.state.birthday}<br/>
-                      tardycash : {this.state.money}<br/>                  
+                      tardycash : {this.state.money}<br/>
+                      <input type="text" placeholder="금액" onChange={this.amount}></input>                  
                       <Button color="warning" outline type="button" size="sm" onClick={this.Kakaopay}>충전</Button>
                     </div>
-                    <div className="h5 mt-4">
-                      <i className="ni business_briefcase-24 mr-2" />
-                      Solution Manager - Creative Tim Officer
-                    </div>
-                    <div>
-                      <i className="ni education_hat mr-2" />
-                      University of Computer Science
-                    </div>
+                    
                     <hr className="my-4" />
-                      {/* <img src={Crown}></img> */}
-                      <img src={require("../../components/Upload/ProfileImage/스키마.png")} style={{width:"20%"}}></img>
-                      <img src={require("assets/img/theme/bootstrap.jpg")} />  
-                
-                     
-                
-                    <br/>
-                      <img src={require("../../components/Upload/ProfileImage/crown.png")} style={{width:"20%"}}></img>
                       
-                      <p>
+                      <div>                      
                         파일업로드<br/>
-                        {this.imageTag()}
+                        
                         <Upload emit={this.reciveEmit}></Upload>
-                      </p>
+                      </div>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       Show more
                     </a>
@@ -273,12 +290,7 @@ class Profile extends React.Component {
                     </h6>
                     <div className="pl-lg-4">
                       <Row>
-                        <Col lg="12">
-                          <FormGroup>
-                             <input className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>
-
-                          </FormGroup>
-                        </Col>
+                        
                         <Col lg="6">
                           <FormGroup>
                             <label
@@ -353,81 +365,83 @@ class Profile extends React.Component {
                       </Row>
                     </div>
                     <hr className="my-4" />
-                    {/* Address */}
                     <h6 className="heading-small text-muted mb-4">
                       개설중인 모임방
                     </h6>
 
+
+                      
+                    
+
                     {/* ---------------------------------------------------------------------------------------------------------- */}
-                    <Table className="align-items-center table-flush" responsive>
+                  <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col" style={{width:"30%"}}>meetinrTitle</th>
-                      <th scope="col">meetingPlace</th>
-                      <th scope="col">meetingDate</th>
-                      <th scope="col">meetingUser</th>                 
+                      <th scope="col" style={{width:"15%"}}>방장</th>
+                      <th scope="col" style={{width:"15%"}}>카테고리</th>
+                      <th scope="col" style={{width:"50%"}}>방타이틀</th>
+                      <th scope="col" style={{width:"20%"}}>날짜</th>                 
                     </tr>
                   </thead>
                   <tbody>                         
-                    <tr>
-                      <th scope="row">
-                        <Media className="align-items-center">
-                            <img
-                              alt="..."
-                              src={require("assets/img/theme/bootstrap.jpg")}
-                              style={{width:"25%"}}
-                            />  
-                            {/* 방장 이미지 */}                          
-                          <Media>
-                            <span className="mb-0 text-sm">
-                              <Link to="/">asdfasdf</Link>
-                            </span>
-                          </Media>
-                        </Media>
-                      </th>
-                      <td>$2,500 USD</td>
-                      <td>
-                        <Badge color="" className="badge-dot mr-4">
-                          <i className="bg-warning" />
-                          pending
-                        </Badge>
-                      </td>
-                      <td>
-                        <div className="avatar-group">
-                          <a
-                            className="avatar avatar-sm"
-                            href="#pablo"
-                            id="tooltip742438047"
-                            onClick={e => e.preventDefault()}
-                          >
-                            <img
-                              alt="..."
-                              className="rounded-circle"
-                              src={require("assets/img/theme/team-1-800x800.jpg")}
-                            />
-                          </a>                                                                  
-                        </div>
-                      </td>
+                    
+                    {this.state.hostProgressEx.map((contact,i)=>{
+                      return(
+                          <tr key={i}>
+                          <td>{contact.hostid}</td>
+                          <td>{contact.category}</td>
+                          <td>
+                            <Badge color="" className="badge-dot mr-4">
+                            <i className="bg-warning" />
+                            {contact.meetingtitle}
+                            </Badge>
+                          </td>
+                          <td>{contact.meetingdate}</td>
+                          </tr>
+                      );
+                    })} 
                    
-                    </tr>
                    
-              
+                             
                   </tbody>
                 </Table>
-             
-                    {/* <div className="pl-lg-4">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="A few words about you ..."
-                          rows="4"
-                          defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
-                          type="textarea"
-                        />
-                      </FormGroup>
-                    </div> */}
+
+                <hr className="my-4" />
+                    <h6 className="heading-small text-muted mb-4">
+                      참여중인 모임방
+                    </h6>
+                    <Table className="align-items-center table-flush" responsive>
+                  <thead className="thead-light">
+                    <tr>
+                      <th scope="col" style={{width:"15%"}}>방장</th>
+                      <th scope="col" style={{width:"15%"}}>카테고리</th>
+                      <th scope="col" style={{width:"50%"}}>방타이틀</th>
+                      <th scope="col" style={{width:"20%"}}>날짜</th>                 
+                    </tr>
+                  </thead>
+                  <tbody>                         
+                
+                    {this.state.MemberProgressEx.map((contact,i)=>{
+                      return(
+                          <tr key={i}>
+                          <td>{contact.hostid}</td>
+                          <td>{contact.category}</td>
+                          <td>
+                            <Badge color="" className="badge-dot mr-4">
+                            <i className="bg-warning" />
+                            {contact.meetingtitle}
+                            </Badge>
+                          </td>
+                          <td>{contact.meetingdate}</td>
+                          </tr>
+                      );
+                    })} 
+                   
+                    
+                             
+                  </tbody>
+                </Table>
+                    
                   </Form>
                 </CardBody>
               </Card>
