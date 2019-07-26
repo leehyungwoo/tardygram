@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 @Data @Component @Lazy
-public class MeetingPeople {
+public class RoomPeople {
 
     private int roomno, leader;
     private String memberid;

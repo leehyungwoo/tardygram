@@ -4,9 +4,9 @@ import java.util.stream.IntStream;
 
 import javax.transaction.Transactional;
 
-import com.tardygram.web.entities.Meeting;
+import com.tardygram.web.entities.Room;
 import com.tardygram.web.entities.Member;
-import com.tardygram.web.repositories.MeetingRepository;
+import com.tardygram.web.repositories.RoomRepository;
 import com.tardygram.web.repositories.MemberRepository;
 
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class ApplicationTests {
 	MemberRepository memberRepo;
 	
 	@Autowired
-	MeetingRepository meetingRepo;
+	RoomRepository roomRepo;
 	
 	/* @Test
 	public void testInsertMember() {
@@ -48,36 +48,36 @@ public class ApplicationTests {
 	
 	
 	@Test
-	public void testInsertMeetings() {
+	public void testInsertRooms() {
 		
 		IntStream.range(0, 1).forEach(i -> {
 			
-			Meeting meeting = new Meeting();
-			meeting.setMname("MEET"+i);
+			Room room = new Room();
+			room.setMname("MEET"+i);
 			
 			Member member1 = memberRepo.findById("user1").get();
 			
-			meeting.addMember(member1);
-			member1.addMeeting(meeting);
+			room.addMember(member1);
+			member1.addRoom(room);
 			
-			log.info(""+meeting);
+			log.info(""+room);
 			
 			Member member2 = memberRepo.findById("user2").get();
 			
-			meeting.addMember(member2);
-			member2.addMeeting(meeting);
+			room.addMember(member2);
+			member2.addRoom(room);
 
-			meetingRepo.save(meeting);
+			roomRepo.save(room);
 			
 		});
 	}
 	
 	@Test
-	public void testReadMeeting() {
+	public void testReadRoom() {
 		
-		Meeting meeting = meetingRepo.findById(1L).get();
+		Room room = roomRepo.findById(1L).get();
 		
-		log.info(""+ meeting);
+		log.info(""+ room);
 		
 		
     } */

@@ -3,10 +3,10 @@ package com.tardygram.web.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import com.tardygram.web.entities.Meeting;
+import com.tardygram.web.entities.Room;
 import com.tardygram.web.entities.Member;
 import com.tardygram.web.repositories.EnterRepository;
-import com.tardygram.web.repositories.MeetingRepository;
+import com.tardygram.web.repositories.RoomRepository;
 import com.tardygram.web.repositories.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 */
 @CrossOrigin("http://localhost:3000")
 @RestController
-@RequestMapping("/meeting")
-public class MeetingController {
+@RequestMapping("/room")
+public class RoomController {
    @Autowired MemberRepository memberrepo;
-   @Autowired MeetingRepository meetingrepo;
+   @Autowired RoomRepository roomrepo;
    @Autowired EnterRepository enterrepo;
 
    @GetMapping("/sucess")
@@ -60,15 +60,15 @@ public class MeetingController {
 
    //방장이 모임방 개설
    @PostMapping("/create")
-   public void insertMeeting(@RequestBody Meeting fd ){
+   public void insertRoom(@RequestBody Room fd ){
     System.out.println(fd);
 
-    Meeting meeting = new Meeting();
-    fd.setMeetingprogress(1);
-    Member member1 = memberrepo.findById(fd.getHostid()).get(); // 방장추가
-    meeting.addMember(member1);
-    member1.addMeeting(fd);
-    meetingrepo.save(fd);
+    Room room = new Room();
+    fd.setRoomprogress(1);
+    Member member1 = memberrepo.findById(fd.getRoomhostid()).get(); // 방장추가
+    room.addMember(member1);
+    member1.addRoom(fd);
+    roomrepo.save(fd);
 
    }
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시
@@ -76,14 +76,14 @@ public class MeetingController {
    public void enter(){
        Member m = new Member();
        m.setMemberid("jmh1753");         //m이라는 친구가
-       enterrepo.enter(m, "3");  // 4번방에 추가
+       enterrepo.enter(m, "2");  // 4번방에 추가
    }
 
-   //연관테이블 레코드 삭제후 meeting테이블 레코드 삭제
+   //연관테이블 레코드 삭제후 room테이블 레코드 삭제
    @DeleteMapping("/delete")
    public void deleteroom(){      
-        meetingrepo.deleteRoom((long)1);
-        // meetingrepo.deleteById((long)3);      
+        roomrepo.deleteRoom((long)1);
+        // roomrepo.deleteById((long)3);      
    }
 
 
@@ -91,7 +91,7 @@ public class MeetingController {
     @GetMapping("/selectall")
     public  ResponseEntity<HashMap<String, Object>> selectall(){
         System.out.println("모임방전체출력 컨트롤러 ");
-        List<Meeting> mList = meetingrepo.selectall();
+        List<Room> mList = roomrepo.selectall();
         System.out.println("mList : " + mList);
         HashMap map = new HashMap<>();
         map.put("mList", mList);
@@ -99,11 +99,11 @@ public class MeetingController {
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
     }
 
-   //해당 id에 해당하는 user의 meeting + meetingpeople 2개의 테이블 조인
-   /* @GetMapping("getmeeting")
-   public void getmeeting(){
+   //해당 id에 해당하는 user의 room + roompeople 2개의 테이블 조인
+   /* @GetMapping("getroom")
+   public void getroom(){
        System.out.println("join테스트");
-       List<Object[]> result = meetingrepo.joinlist("kz1324");
+       List<Object[]> result = roomrepo.joinlist("kz1324");
        System.out.println("result.get(0) "+result.get(0));
        System.out.println("Arrays.deepToString(result.get(0)) "+Arrays.deepToString(result.get(0)));
        for(int i = 0; i <result.size(); i++){

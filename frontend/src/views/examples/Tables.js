@@ -57,7 +57,7 @@ class Tables extends React.Component {
       'Content-Type': 'application/json',
     }
  
-    axios.get(`/meeting/selectall`,  {headers:headers})
+    axios.get(`/room/selectall`,  {headers:headers})
       .then(res=>{
         console.log(res.data.mList)
  
@@ -91,9 +91,9 @@ class Tables extends React.Component {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">meetinrTitle</th>
-                      <th scope="col">meetingDetail</th>
-                      <th scope="col">meetingDate</th>
-                      <th scope="col">meetingPlace</th>
+                      <th scope="col">roomDetail</th>
+                      <th scope="col">roomDate</th>
+                      <th scope="col">roomPlace</th>
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -117,7 +117,7 @@ class Tables extends React.Component {
                           </a>
                           <Media>
                             <span className="mb-0 text-sm">
-                              <Link to={"/admin/roomdetail/"+contact.roomno}>{contact.meetingtitle}</Link>
+                              <Link to={"/admin/roomdetail/"+contact.roomno}>{contact.roomtitle}</Link>
                             </span>
                           </Media>
                         </Media>

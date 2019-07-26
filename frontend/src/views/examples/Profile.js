@@ -46,7 +46,6 @@ function hostRedirect(target){
 
 class Profile extends React.Component {
 
-
   constructor(props){
     super(props)
      
@@ -118,7 +117,7 @@ class Profile extends React.Component {
     
    }
 
- 
+
    imageTag=()=>{
       if(this.state.profileimage){
         return ( 
@@ -171,8 +170,6 @@ class Profile extends React.Component {
             alert('kakaopay실패')
         })
   }
-
-
 
   render() {
     return (
@@ -251,7 +248,7 @@ class Profile extends React.Component {
                       
                       <div>                      
                         파일업로드<br/>
-                        
+   
                         <Upload emit={this.reciveEmit}></Upload>
                       </div>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
@@ -385,22 +382,21 @@ class Profile extends React.Component {
                     {this.state.hostProgressEx.map((contact,i)=>{
                       return(
                           <tr key={i}>
-                          <td>{contact.hostid}</td>
-                          <td>{contact.category}</td>
-                          <td>                           
-                            <Link to={"/admin/roomdetail/"+ contact.roomno}>
-                            <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />{contact.meetingtitle}
-                            </Badge>
-                            </Link>                                              
-                          </td>
-                          <td>{contact.meetingdate}</td>
+                              <td>{contact.roomhostid}</td>
+                              <td>{contact.roomcategory}</td>
+                              <td>                           
+                                <Link to={"/admin/roomdetail/"+ contact.roomno}>
+                                <Badge color="" className="badge-dot mr-4">
+                                  <i className="bg-warning" />{contact.roomtitle}
+                                </Badge>
+                                </Link>  
+                              </td>
+                              <td>{contact.roomdate}</td>
                           </tr>
                       );
                     })} 
                    
-                  
-                             
+                                            
                   </tbody>
                 </Table>
 
@@ -422,16 +418,16 @@ class Profile extends React.Component {
                     {this.state.MemberProgressEx.map((contact,i)=>{
                       return(
                           <tr key={i}>
-                          <td>{contact.hostid}</td>
-                          <td>{contact.category}</td>
+                          <td>{contact.roomhostid}</td>
+                          <td>{contact.roomcategory}</td>
                           <td>
                             <Link to={"/admin/roomdetail/"+ contact.roomno}>
                             <Badge color="" className="badge-dot mr-4">
-                            <i className="bg-warning" />{contact.meetingtitle}
+                             <i className="bg-warning" />{contact.roomtitle}                          
                             </Badge>
                             </Link>             
                           </td>
-                          <td>{contact.meetingdate}</td>
+                          <td>{contact.roomdate}</td>
                           </tr>
                       );
                     })} 
