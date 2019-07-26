@@ -122,7 +122,12 @@ public class MemberController {
         //ystem.out.println("5번 MemberNotProgressEx: " + meetingrepo.MemberNotProgressEx(id));
         //List<Meeting> m5 = meetingrepo.MemberNotProgressEx(id);
         //map.put("MemberNotProgressEx", m5);
- 
+
+        int hostCount = meetingrepo.HostCount(id);
+        int memberCount = meetingrepo.MemberCount(id);
+        map.put("hostCount", hostCount);
+        map.put("memberCount", memberCount);
+
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 
     }

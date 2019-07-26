@@ -18,11 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting, Long>{
 
-   /*  @Query(
-        value = "select * from meeting JOIN meetingpeople ON meeting.roomno = meetingpeople.roomno2 WHERE memberid2=:memberid",
-        nativeQuery = true    
-    )
-    public List<Object[]> joinlist(String memberid); */
 
     @Query(
         value = "delete from tbl_members_meetings where meetings_roomno= :roomno"
@@ -64,4 +59,21 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>{
         , nativeQuery = true
     )
     public List<Meeting> selectall();
+
+    //내가 개설한 현재진행중인 방의 count
+    @Query(
+        value = "select count(*) from tbl_meeting where hostid=:id and meetingprogress=1"
+        , nativeQuery = true
+    )
+    public int HostCount(String id);
+
+    //내가 참여중인 현재진행중인 방의 count
+    @Query(
+        value = "select count(*) from tbl_meeting mt JOIN tbl_members_meetings mm ON mt.roomno=mm.meetings_roomno where mt.hostid != mm.members_memberid and mm.members_memberid=:id and mt.meetingprogress=1"
+        , nativeQuery = true
+    )
+    public int MemberCount(String id);
+
+
+
 }
