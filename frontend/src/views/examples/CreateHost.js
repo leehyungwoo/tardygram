@@ -1,8 +1,7 @@
 import React, {Component, createRef} from "react";
 import axios from 'axios'
 import ReactDatetime from "react-datetime";
-import 'react-times/css/material/default.css';
-import 'react-times/css/classic/default.css';
+// import TimePicker from './TimePicker.jsx'
 import TimePickerWrapper from './TimePickerWrapper.js'
 import {
     Button,
@@ -73,8 +72,8 @@ class CreateHost extends Component {
             case 2:
                 return (
                     <div>
-                            <h1>set your group’s Date and Time</h1>
-                            <h2>Set Group's timly room Date and time. </h2>
+                            <h1>set your group’s Time</h1>
+                            <h2>Set Group's timly room time. </h2>
                             <FormGroup>
                             <InputGroup className="input-group-alternative">
                                 <InputGroupAddon addonType="prepend">
@@ -89,7 +88,7 @@ class CreateHost extends Component {
                                 timeFormat={false}
                                 />
                             </InputGroup>
-                            <TimePickerWrapper timeMode="12"/>
+                            <TimePickerWrapper/>
                             </FormGroup>
                     </div>
                 
@@ -100,27 +99,20 @@ class CreateHost extends Component {
                             <h1>Now describe what your group will be about</h1>
                             <h2>People will see this when we promote your group, but you’ll be able to add to it later, too</h2>
                     </div>
-                        );    
+                        );            
             case 4:
                 return (
                     <div>
-                            <h1>set your group Password</h1>
+                            <h1>Upload group's profile picture</h1>
+                            <h2>Group's meet locally and in person. We’ll connect you with people who live in and around your area.</h2>
                     </div>
-                        );         
-            // case 4:
-            //     return (
-            //         <div>
-            //                 <h1>Upload group's profile picture</h1>
-            //                 <h2>Group's meet locally and in person. We’ll connect you with people who live in and around your area.</h2>
-            //         </div>
-            //             ); 
+                        ); 
             case 5:
                 return (
                     <div>
                             <h1>Just set your group tardycash</h1>
                     </div>
                         ); 
-
             case 6:
                 return (
                     <div>

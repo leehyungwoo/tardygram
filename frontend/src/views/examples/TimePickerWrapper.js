@@ -1,10 +1,7 @@
 import React from 'react';
-// import TimePicker from './TimePicker.jsx';
+import TimePicker from './TimePicker.jsx';
 import timeHelper from '../../utils/time';
 import ICONS from '../../utils/icons';
-import TimePicker from 'react-times';
-import 'react-times/css/material/default.css';
-import 'react-times/css/classic/default.css';
 
 class TimePickerWrapper extends React.Component {
   constructor(props) {
