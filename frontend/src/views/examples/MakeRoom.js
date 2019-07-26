@@ -1,8 +1,7 @@
 import React, {Component, createRef} from "react";
 import axios from 'axios'
 import ReactDatetime from "react-datetime";
-
-
+import ImageUploader from 'react-images-upload';
 import 'react-times/css/material/default.css';
 import 'react-times/css/classic/default.css';
 
@@ -15,22 +14,20 @@ import {
     InputGroupAddon,
     InputGroupText,
     InputGroup,
-    Form,
-    Input,
     Container,
     Row,
-    Col,
-    Progress,
+    Col
   } from "reactstrap";
-import UserHeader from "components/Headers/UserHeader.js";
+
 import SearchMap from './SearchMap'
-import DoneHost from './DoneHost'
+
 import Header from "components/Headers/Header.js";
 import RoomUpload from '../../components/Upload/RoomUpload'
-import Upload from "../../components/Upload/Upload.js";
+
 
 class CreateHost extends Component {
     state={
+        calender:false,
         inputVal:'',
         pageIndex:0,
         query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','roomcharge','roompwd','roomplace'],
@@ -50,7 +47,7 @@ class CreateHost extends Component {
         roompwd:''
       }
       mydiv = createRef();
-
+      email = createRef();
       handleIncrease=()=>{
 
           this.setState({
@@ -76,7 +73,29 @@ class CreateHost extends Component {
       }
 
 
+      onChangeHandler=event=>{
+         var fileContainer = document.getElementsByClassName("fileContainer")[0];
+         var input = fileContainer.children.file;
 
+         if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("image_section").setAttribute("src",e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        console.log(event)
+        console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        this.setState({
+            file : URL.createObjectURL (event[event.length-1])
+          })
+          const data = new FormData()
+          data.append('file', event[event.length-1])
+        
+       
+      }
+  
       Dialog = (e) => {
         switch(e) {
             case 0:
@@ -96,43 +115,56 @@ class CreateHost extends Component {
             case 2:
                 return (
                     <div>
-
-                        <h1>set your group’s Time</h1>
-                        <h2>Set Group's timly room time. </h2>
-                        <FormGroup>
-                        <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                                <i className="ni ni-calendar-grid-58" />
-                            </InputGroupText>
-                            </InputGroupAddon>
+ 
+                            <h1>날짜</h1>
+                            <h2>Set Group's timly room Date and time. </h2>
+                            <FormGroup>
+                                <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-calendar-grid-58" />
+                                </InputGroupText>
+                                </InputGroupAddon>
                             <ReactDatetime
                             inputProps={{
                                 placeholder: "Date Picker Here"
+                            }}
+
+                            ref={ref=>{this.datepicker=ref}}
+                            onChange={e=>{
+                              
+                               
+                              
+                                    if(!this.state.calender){
+                                        console.log("달력")
+                                        document.getElementsByClassName("rdtTimeToggle")[0].click()
+                                        this.setState({
+                                            calender:!this.state.calender,
+                                            roomdate:e._d
+                                        })
+                                    }else{
+                                        console.log("시계")
+                                        document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
+                                            this.setState({
+                                                calender:!this.state.calender,
+                                                roomdate:e._d
+                                            })
+                                        })
+                                    }
+
+                                }
+                            }
+                            onBlur={e=>{
+                                this.setState({
+                                    roomdate:e._d
+                                })
+                                console.log(this.state.roomdate)
                             }}
                             timeFormat={true}
                             />
                         </InputGroup>
 
                         </FormGroup>
-
-                            <h1>날짜</h1>
-                            <h2>Set Group's timly room Date and time. </h2>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-calendar-grid-58" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <ReactDatetime
-                                inputProps={{
-                                    placeholder: "Date Picker Here"
-                                }}
-                                timeFormat={false}
-                                />
-                            </InputGroup>
-                            </FormGroup>
 
                     </div>
                 
@@ -149,7 +181,10 @@ class CreateHost extends Component {
                     <div>
                             <h1>사진</h1>
                             <div className="row">       
-                                <div className="col-md-6"><RoomUpload emit={this.reciveEmit}></RoomUpload></div>
+                                <div className="col-md-6">
+                                <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>  
+                                <img id="image_section" src="#" alt="your image" />
+                                </div>
                                  <div className="col-md-6 img-responsive img-thumbnail">{this.imageTag()}</div>                                
                             </div>
                     </div>
@@ -243,7 +278,6 @@ class CreateHost extends Component {
                     <Col lg="12" md="12">
                     <Card className=" shadow">
                         <CardHeader className=" bg-transparent">
-
                             <div className="progress-wrapper">
                                 <div className="progress-info">
                                     <div className="progress-label">
@@ -265,26 +299,24 @@ class CreateHost extends Component {
                                         {
                                             (()=>{
                                                 if(this.state.pageIndex < 6 ){
-                                                return <input type="text" className="form-control" 
-                                                    placeholder={this.state.query[this.state.pageIndex]} 
-                                                    value={this.inputVal} 
-                                                    ref={ref => { this.mydiv = ref }
-                                                    }
-                                                />
+                                                    return <input type="text" className="form-control" 
+                                                        placeholder={this.state.query[this.state.pageIndex]} 
+                                                        value={this.inputVal} 
+                                                        ref={ref => { this.mydiv = ref }
+                                                        }
+                                                    />
                                                 }else if(this.state.pageIndex == 6){
                                                     return <input type="number" className="form-control" 
-                                                    placeholder={this.state.query[this.state.pageIndex]} 
-                                                    value={this.inputVal} 
-                                                    ref={ref => { this.mydiv = ref }
-                                                    }
+                                                        placeholder={this.state.query[this.state.pageIndex]} 
+                                                        value={this.inputVal} 
+                                                        ref={ref => { this.mydiv = ref }
+                                                        }
                                                 />
 
                                                 }else{
-                                                
-                                        
-                                                return <div>
-                                                    <SearchMap emit={this.reciveEmit}></SearchMap>
-                                                </div>
+                                                    return <div>
+                                                        <SearchMap emit={this.reciveEmit}></SearchMap>
+                                                    </div>
                                                 }
                                             })()
                                         }
@@ -293,8 +325,7 @@ class CreateHost extends Component {
                                 </CardBody>
                         </Card>
                     </Col>
-                </Row>
-                    
+                </Row>  
                 </Container>    
             </>
         )

@@ -23,8 +23,7 @@ class Upload extends Component{
       this.setState({
         file : URL.createObjectURL (event[event.length-1])
       })
-      console.log(event[event.length-1])
-      console.log(event)
+ 
       const data = new FormData()
       data.append('file', event[event.length-1])
 
