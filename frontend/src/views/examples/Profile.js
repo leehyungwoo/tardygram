@@ -39,9 +39,6 @@ import {
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 class Profile extends React.Component {
-
-  
-
   constructor(props){
     super(props)
     
@@ -107,8 +104,6 @@ class Profile extends React.Component {
     
    }
 
-
-
    imageTag=()=>{
       if(this.state.profileimage){
         return <img src={this.state.profileimage} style={{width:"20%"}}></img>
@@ -148,8 +143,6 @@ class Profile extends React.Component {
             alert('kakaopay실패')
         }) */
   }
-
-
 
   render() {
     return (
