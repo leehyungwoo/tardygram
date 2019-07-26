@@ -11,11 +11,11 @@ import asyncComponent from './Common/AsyncComponent';
 
 const DialPlates = {
   material: asyncComponent(
-    () => System.import('../../components/MaterialTheme')
+    () => import('../../components/MaterialTheme')
       .then(component => component.default)
   ),
   classic: asyncComponent(
-    () => System.import('./ClassicTheme')
+    () => import('./ClassicTheme')
       .then(component => component.default)
   ),
 };

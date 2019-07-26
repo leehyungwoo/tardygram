@@ -17,10 +17,7 @@
 */
  
 import Profile from "views/examples/Profile.js";
-<<<<<<< HEAD
-=======
- 
->>>>>>> 32f1702965aa49fcbdb6d43f64ddd1fbe8e68c12
+
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
@@ -36,7 +33,7 @@ import TimePickerWrapper from "views/examples/TimePickerWrapper.js";
 var routes = [
  
   {
-<<<<<<< HEAD
+ 
     path: "/index",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
@@ -50,8 +47,7 @@ var routes = [
     component: Icons,
     layout: "/admin"
   },
-
-=======
+ {
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
@@ -65,7 +61,7 @@ var routes = [
     component: Register,
     layout: "/auth"
   },
->>>>>>> 32f1702965aa49fcbdb6d43f64ddd1fbe8e68c12
+ 
   {
     path: "/user-profile",
     name: "User Profile",
