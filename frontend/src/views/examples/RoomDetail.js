@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import Location from './aboutMaps/Location'
 import {
     Card,
     Container,
@@ -31,6 +31,7 @@ class roomDetail extends Component{
               <Card className="shadow border-0">
                   
                    {this.props.match.params.id}
+                   <Location/>
               </Card>
             </div>
           </Row>

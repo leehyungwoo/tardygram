@@ -1,15 +1,12 @@
 import React, {Component, createRef} from "react";
 import axios from 'axios'
 import ReactDatetime from "react-datetime";
-<<<<<<< HEAD:frontend/src/views/examples/CreateHost.js
 // import TimePicker from './TimePicker.jsx'
-=======
 
 
 import 'react-times/css/material/default.css';
 import 'react-times/css/classic/default.css';
 
->>>>>>> 864ee2b5fa69dbd0244805605975ce8f61e822df:frontend/src/views/examples/MakeRoom.js
 import {
     Button,
     Card,
@@ -100,26 +97,6 @@ class CreateHost extends Component {
             case 2:
                 return (
                     <div>
-
-                        <h1>set your group’s Time</h1>
-                        <h2>Set Group's timly room time. </h2>
-                        <FormGroup>
-                        <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                                <i className="ni ni-calendar-grid-58" />
-                            </InputGroupText>
-                            </InputGroupAddon>
-                            <ReactDatetime
-                            inputProps={{
-                                placeholder: "Date Picker Here"
-                            }}
-                            timeFormat={true}
-                            />
-                        </InputGroup>
-
-                        </FormGroup>
-
                             <h1>날짜</h1>
                             <h2>Set Group's timly room Date and time. </h2>
                             <FormGroup>
