@@ -47,8 +47,7 @@ class Upload extends Component{
     render(){
         return (
           <>
-         
-                            <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>                     
+              <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>                     
           </>
         );
 

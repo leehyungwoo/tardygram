@@ -17,29 +17,39 @@
 */
 import React from "react";
 import axios from 'axios'
-import {Link,Route } from "react-router-dom";
+
 // reactstrap components
+
+ 
+
 import {
   Badge,
   Card,
   CardHeader,
-  // CardFooter,
+  CardFooter,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
   Media,
-  // Pagination,
-  // PaginationItem,
-  // PaginationLink,
-  // Progress,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip
+  UncontrolledTooltip,
+  Button,
+  Col,
+  CardBody,
+  CardImg,
+  CardTitle,
+  CardText
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
+import {Link,Route } from "react-router-dom";
 import RoomDetail from './RoomDetail'
 
 class Tables extends React.Component {
@@ -60,27 +70,69 @@ class Tables extends React.Component {
     axios.get(`/room/selectall`,  {headers:headers})
       .then(res=>{
         console.log(res.data.mList)
- 
-        res.data.mList.map((item,index)=>{
+        res.data.mList.map((item,index)=>{  
           return this.setState({
             mList:[...this.state.mList, item]
            })       
         })
- 
       })
       .catch(res=>{
         alert("통신실패")
       })
-  }
+  
+    }
 
+    imageTag=()=>{
+      if(this.state.profileimage){
+        return ( 
+          <img className="rounded-circle" src={this.state.profileimage} style={{minWidth:"140px",maxHeight:"220px"}} ></img>
+       )
+      }
+    }
   render() {
+
     return (
       <>
         <Header />
-        {/* Page content */}
+       
         <Container className="mt--7" fluid>
-          {/* Table */}
-          <Row>
+       
+
+                <Row className="justify-content-sm-center">
+                {this.state.mList.map((contact,index)=>{
+                  console.log(contact)
+               return( 
+                <Col xs="3" sm="3" lg="3" className=" mb-3" key={index}>
+                      <Card>
+                        <CardImg
+                          alt="..."
+                          src={contact.roomphoto}
+                          // src={"/image/room/abc.jpeg"}
+                          top
+                        />
+                        <CardBody>
+                          <CardTitle>{contact.roomtitle}</CardTitle>
+                          <CardText>
+                          {contact.roomdetail}
+                          </CardText>
+                          <Button
+                            color="primary"
+  
+                            onClick={e => e.preventDefault()}
+                          >
+                            <Link to={"/admin/roomdetail/"+contact.roomno} style={{color:"#fff"}}>방 참여</Link>
+                    
+                          </Button>
+                        </CardBody>
+                      </Card>
+                      </Col>  
+                  )
+                })}
+                </Row>
+
+
+          {/* <Row>
+            
             <div className="col">
     
               <Card className="shadow">
@@ -111,8 +163,7 @@ class Tables extends React.Component {
                             <img
                               alt="..."
                               src={require("assets/img/theme/bootstrap.jpg")}
-                            />  
-                            {/* 방장 이미지 */}
+                            /> 
                            
                           </a>
                           <Media>
@@ -244,7 +295,7 @@ class Tables extends React.Component {
                 })}
                   </tbody>
                 </Table>
-                {/* <CardFooter className="py-4">
+                 <CardFooter className="py-4">
                   <nav aria-label="...">
                     <Pagination
                       className="pagination justify-content-end mb-0"
@@ -295,10 +346,10 @@ class Tables extends React.Component {
                       </PaginationItem>
                     </Pagination>
                   </nav>
-                </CardFooter> */}
+                </CardFooter> 
               </Card>
             </div>
-          </Row>
+          </Row> */}
         
         </Container>
       </>
