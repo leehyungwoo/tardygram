@@ -94,20 +94,28 @@ class CreateHost extends Component {
                             <h1>set your group’s Time</h1>
                             <h2>Set Group's timly room time. </h2>
                             <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-calendar-grid-58" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <ReactDatetime
-                                inputProps={{
-                                    placeholder: "Date Picker Here"
-                                }}
-                                timeFormat={false}
-                                />
-                            </InputGroup>
-                            <TimePickerWrapper timeMode="12"/>
+                                <InputGroup className="input-group-alternative">
+                                    <InputGroupAddon addonType="prepend">
+                                    <InputGroupText>
+                                        <i className="ni ni-calendar-grid-58" />
+                                    </InputGroupText>
+                                    </InputGroupAddon>
+                                    <ReactDatetime
+                                    inputProps={{
+                                        placeholder: "Date Picker Here"
+                                    }}
+                                    onChange={
+                                        (e)=>{
+                                            console.log(e)
+                                        }
+                                    }
+                                    timeFormat={true}
+                                    />
+                                </InputGroup>
+                                
+                               
+                            
+                            {/* <TimePickerWrapper timeMode="12"/> */}
                             </FormGroup>
                     </div>
                 
