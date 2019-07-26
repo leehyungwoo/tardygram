@@ -166,6 +166,26 @@ class CreateHost extends Component {
 
                         </FormGroup>
 
+
+                            <h1>날짜</h1>
+                            <h2>Set Group's timly room Date and time. </h2>
+                            <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-calendar-grid-58" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <ReactDatetime
+                                inputProps={{
+                                    placeholder: "Date Picker Here"
+                                }}
+                                timeFormat={true}
+                                />
+                            </InputGroup>
+                            </FormGroup>
+
+
                     </div>
                 
                         );

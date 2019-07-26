@@ -17,11 +17,14 @@
 */
 import React from "react";
 import axios from "axios";
+import ReactDatetime from "react-datetime";
+
 // reactstrap components
 import {
   Button,
   Card,
   CardHeader,
+  ButtonGroup,
   CardBody,
   FormGroup,
   Form,
@@ -30,21 +33,135 @@ import {
   InputGroupText,
   InputGroup,
   Row,
-  Col
-} from "reactstrap";
+  Col,
+  Label,
+  } from "reactstrap";
 
 class Register extends React.Component {
+  state = {
+    birthday:"",
+    gender:"man",
+    nameEntered: '',
+    isNameValid: false,
+    emailEntered: '',
+    isEmailValid: false,
+    phoneNumberEntered: '',
+    isPhoneNumberValid: false
+  };
+  validateName = nameEntered => {
+    if (nameEntered.length > 1) {
+      this.setState({
+        isNameValid: true,
+        nameEntered
+      });
+    } else {
+      this.setState({
+        isNameValid: false,
+        nameEntered
+      });
+    }
+  };
+  isEnteredNameValid = () => {
+    const { nameEntered, isNameValid } = this.state;
   
+    if (nameEntered) return isNameValid;
+  };
+  
+  inputClassNameHelper = boolean => {
+    switch (boolean) {
+      case true:
+        return 'is-valid';
+      case false:
+        return 'is-invalid';
+      default:
+        return '';
+    }
+  };
+  validateEmail = emailEntered => {
+    const emailRegExp = /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/;
+  
+    if (emailEntered.match(emailRegExp)) {
+      this.setState({
+        isEmailValid: true,
+        emailEntered
+      });
+    } else {
+      this.setState({
+        isEmailValid: false,
+        emailEntered
+      });
+    }
+  };
+  isEnteredEmailValid = () => {
+    const { emailEntered, isEmailValid } = this.state;
+  
+    if (emailEntered) return isEmailValid;
+  };
+  validatePhoneNumber = uphone => {
+    const phoneNumberRegExp = /^\d{3}-\d{3,4}-\d{4}$/;
+  
+    if (uphone.match(phoneNumberRegExp)) {
+      this.setState({
+        isPhoneNumberValid: true,
+        phoneNumberEntered: uphone
+      });
+    } else {
+      this.setState({
+        isPhoneNumberValid: false,
+        phoneNumberEntered: uphone
+      });
+    }
+  };
+
+  isEnteredPhoneNumberValid = () => {
+    const { phoneNumberEntered, isPhoneNumberValid } = this.state;
+  
+    if (phoneNumberEntered) return isPhoneNumberValid;
+  };
+  isEveryFieldValid = () => {
+    const { isNameValid, isEmailValid, isPhoneNumberValid } = this.state;
+    return isNameValid && isEmailValid && isPhoneNumberValid;
+  }
+  renderSubmitBtn = () => {
+    if (this.isEveryFieldValid()) {
+      return (
+        <div className="text-center">
+                  <Button className="mt-4" color="primary" type="button" onClick={this.submitHandler}>
+                    Create account
+                  </Button>
+                </div>
+      )
+    } 
+    return (
+      <div className="text-center">
+          <Button className="mt-4 btn-block" color="primary" type="button" disabled>
+            Create account
+          </Button>
+      </div>
+
+    )
+  }
+
+
+
+
   submitHandler=()=>{
     var data ={
         memberid: document.getElementById("uid").value,
         pwd: document.getElementById("upwd").value,
         name: document.getElementById("uname").value,
-        birthday: document.getElementById("ubirthday").value,
-        gender: document.getElementById("ugender").value,
+        birthday: this.state.birthday,
+        gender: this.state.gender,
         phone: document.getElementById("uphone").value,
         email: document.getElementById("uemail").value
     }
+    console.log(this.state.birthday)
+    console.log(this.state.gender)
+    console.log(data.memberid)
+    console.log(data.name)
+    console.log(data.phone)
+    console.log(data.email)
+    
     const headers = {
       'Content-Type': 'application/json',
       }
@@ -58,6 +175,20 @@ class Register extends React.Component {
 
 
 
+  }
+  birthdaySet(value){
+      console.log("birth value>>>",value);
+      this.state.birthday = this.value
+      this.setState({
+        birthday: value
+      })
+  }
+  genderSet(value){
+    console.log("gender value>>>",value);
+    this.state.gender = this.value
+    this.setState({
+      gender: value
+    })
   }
 
   render() {
@@ -107,13 +238,20 @@ class Register extends React.Component {
               <Form role="form">
                 
                 <FormGroup>
-                  <InputGroup className="input-group-alternative mb-3">
+                  <InputGroup className="Validatior input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="ni ni-hat-3" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Id" type="text" id="uid"/>
+                    <Input 
+                      type="text" 
+                      className={`form-control ${this.inputClassNameHelper(this.isEnteredNameValid())}`}
+                      id="uid"
+                      placeholder="ID" 
+                      onChange={e => this.validateName(e.target.value)}
+                      required
+                      />
                   </InputGroup>
                 </FormGroup>
 
@@ -132,7 +270,7 @@ class Register extends React.Component {
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                      <i className="ni ni-hat-3" />
+                      <i className="ni ni-badge" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input placeholder="Name" type="name" id="uname" />
@@ -141,46 +279,106 @@ class Register extends React.Component {
 
                 <FormGroup>
                   <InputGroup className="input-group-alternative mb-3">
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-calendar-grid-58" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <ReactDatetime id="ubirthday"
+                                inputProps={{
+                                    placeholder: "Birth Picker Here"
+                                }}
+                                onChange={e=> this.birthdaySet(e._d)}
+                                // onChange={(e)=>{
+                                //   console.log(e)
+                                //   console.log(e._d)
+                                // }}
+                                timeFormat={false}
+                                />
+                            </InputGroup>
+                            {/* <TimePickerWrapper timeMode="12"/> */}
+                    {/* <Input placeholder="Birthday" type="text" id="ubirthday"/> */}
+                  </InputGroup>
+                </FormGroup>
+
+                <FormGroup>
+                  <InputGroup className="input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-hat-3" />
+                        <i className="ni ni-user-run" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Birthday" type="text" id="ubirthday"/>
+                    <div className="custom-control custom-radio mb-2">
+                      <Input
+                        className="custom-control-input"
+                        id="Man"
+                        name="gender"
+                        type="radio"
+                        value='Man'
+                        onChange={e=> this.genderSet(e.target.value)}
+                        // onChange={(e) => this.setState({ selected: e.target.value})}
+                      />
+                      <Label className="custom-control-label" htmlFor="Man">
+                        Man
+                      </Label>
+                   </div>
+                    <div className="custom-control custom-radio mb-2">
+                      <Input
+                        className="custom-control-input"
+                        id="Woman"
+                        name="gender"
+                        type="radio"
+                        value='Woman'
+                        // checked={this.state.selected === 'woman'} 
+                        onChange={e=> this.genderSet(e.target.value)}
+
+                        // onChange={(e) => this.setState({ selected: e.target.value })}
+                      />
+                      <Label className="custom-control-label" htmlFor="Woman">
+                      Woman
+                      </Label>
+                    </div>
+
+                    {/* <Input placeholder="Gender" type="radio" id="ugender"/> */}
                   </InputGroup>
-                  <span>* 앞6자리</span>
                 </FormGroup>
 
                 <FormGroup>
                   <InputGroup className="input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="ni ni-hat-3" />
+                        <i className="ni ni-mobile-button" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Gender" type="text" id="ugender"/>
+                    {/* <Input placeholder="Phone" type="number" id="uphone"/> */}
+                    <Input 
+                      type="text"
+                      className={`form-control ${this.inputClassNameHelper(this.isEnteredPhoneNumberValid())}`}
+                      id="uphone"
+                      placeholder="010-1234-1234"
+                      onChange={e => this.validatePhoneNumber(e.target.value)}
+                      required
+                      />
                   </InputGroup>
                 </FormGroup>
 
                 <FormGroup>
-                  <InputGroup className="input-group-alternative mb-3">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-hat-3" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input placeholder="Phone" type="number" id="uphone"/>
-                  </InputGroup>
-                </FormGroup>
-
-                <FormGroup>
-                  <InputGroup className="input-group-alternative mb-3">
+                  <InputGroup className="input-group-alternative mb-3 ">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                       <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email" id="uemail"/>
+                    <Input 
+                    type="email"
+                    className={`form-control ${this.inputClassNameHelper(this.isEnteredEmailValid())}`}
+                    id="uemail"
+                    aria-describedby="emailHelp"
+                    placeholder="abc@gmail.com"
+                    onChange={e => this.validateEmail(e.target.value)}
+                    required
+                    />
                   </InputGroup>
                 </FormGroup>
 
@@ -212,11 +410,9 @@ class Register extends React.Component {
                     </div>
                   </Col>
                 </Row>
-                <div className="text-center">
-                  <Button className="mt-4" color="primary" type="button" onClick={this.submitHandler}>
-                    Create account
-                  </Button>
-                </div>
+                
+                {this.renderSubmitBtn()}
+
               </Form>
             </CardBody>
           </Card>
