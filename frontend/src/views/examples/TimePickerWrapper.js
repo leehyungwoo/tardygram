@@ -1,5 +1,5 @@
 import React from 'react';
-import TimePicker from '../examples/TimePicker.jsx';
+import TimePicker from './TimePicker.jsx';
 import timeHelper from '../../utils/time';
 import ICONS from '../../utils/icons';
 

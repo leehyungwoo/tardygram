@@ -1,15 +1,15 @@
 
 import React from 'react';
 import asyncComponent from '../Common/AsyncComponent';
-import Timezone from '../Timezone';
+import Timezone from '../Timezone/';
 
 const DialPlates = {
   12: asyncComponent(
-    () => System.import('./TwelveHoursMode')
+    () => import('./TwelveHoursMode')
       .then(component => component.default)
   ),
   24: asyncComponent(
-    () => System.import('./TwentyFourHoursMode')
+    () => import('./TwentyFourHoursMode')
       .then(component => component.default)
   ),
 };

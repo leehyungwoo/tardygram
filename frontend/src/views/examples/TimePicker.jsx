@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import OutsideClickHandler from './OutsideClickHandler';
-import Button from './Common/Button';
-import timeHelper from '../utils/time.js';
-import languageHelper from '../utils/language';
-import ICONS from '../utils/icons';
-import { is } from '../utils/func';
-import asyncComponent from './Common/AsyncComponent';
+import Button from '../../components/Common/Button';
+import timeHelper from '../../utils/time.js';
+import languageHelper from '../../utils/language';
+import ICONS from '../../utils/icons';
+import { is } from '../../utils/func';
+import asyncComponent from '../../components/Common/AsyncComponent';
 
 const DialPlates = {
   material: asyncComponent(
@@ -15,7 +15,7 @@ const DialPlates = {
       .then(component => component.default)
   ),
   classic: asyncComponent(
-    () => import('./ClassicTheme')
+    () => import('../../components/ClassicTheme')
       .then(component => component.default)
   ),
 };

@@ -1,7 +1,8 @@
 import React, {Component, createRef} from "react";
 import axios from 'axios'
 import ReactDatetime from "react-datetime";
-import TimePickerWrapper from './TimePickerWrapper'
+// import TimePicker from './TimePicker.jsx'
+import TimePickerWrapper from './TimePickerWrapper.js'
 import {
     Button,
     Card,
@@ -87,7 +88,7 @@ class CreateHost extends Component {
                                 timeFormat={false}
                                 />
                             </InputGroup>
-                            <TimePickerWrapper timeMode="12"/>
+                            <TimePickerWrapper/>
                             </FormGroup>
                     </div>
                 
