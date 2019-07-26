@@ -250,7 +250,7 @@ class Profile extends React.Component {
                       
                       <div>                      
                         파일업로드<br/>
-                        
+   
                         <Upload emit={this.reciveEmit}></Upload>
                       </div>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
@@ -384,15 +384,15 @@ class Profile extends React.Component {
                     {this.state.hostProgressEx.map((contact,i)=>{
                       return(
                           <tr key={i}>
-                          <td>{contact.hostid}</td>
-                          <td>{contact.category}</td>
+                          <td>{contact.roomhostid}</td>
+                          <td>{contact.roomcategory}</td>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                             <i className="bg-warning" />
-                            {contact.meetingtitle}
+                            {contact.roomtitle}
                             </Badge>
                           </td>
-                          <td>{contact.meetingdate}</td>
+                          <td>{contact.roomdate}</td>
                           </tr>
                       );
                     })} 
@@ -420,15 +420,15 @@ class Profile extends React.Component {
                     {this.state.MemberProgressEx.map((contact,i)=>{
                       return(
                           <tr key={i}>
-                          <td>{contact.hostid}</td>
-                          <td>{contact.category}</td>
+                          <td>{contact.roomhostid}</td>
+                          <td>{contact.roomcategory}</td>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                             <i className="bg-warning" />
-                            {contact.meetingtitle}
+                            {contact.roomtitle}
                             </Badge>
                           </td>
-                          <td>{contact.meetingdate}</td>
+                          <td>{contact.roomdate}</td>
                           </tr>
                       );
                     })} 

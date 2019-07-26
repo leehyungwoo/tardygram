@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface EnterRepository extends CrudRepository<Member, String>{
 
     @Query(
-        value = "insert into tbl_members_meetings (members_memberid, meetings_roomno) values(:memberid, :roomno)",
+        value = "insert into tbl_members_rooms (members_memberid, rooms_roomno) values(:memberid, :roomno)",
         nativeQuery = true
     )
     public void enter(Member memberid, String roomno);

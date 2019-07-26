@@ -27,20 +27,20 @@ class CreateHost extends Component {
     state={
         inputVal:'',
         pageIndex:0,
-        query:['meetingtitle','category','meetingdate','meetingdetail','meetingphoto','meetingcharge','meetingplace'],
-        category:'',
-        hostid:localStorage.getItem('loginId'),
-        meetingtitle:'',
-        meeting:'',
-        meetingdate:'',
-        meetingdetail:'',
-        meetingplace:'',
-        meetingphoto:'',
-        meetingcharge:'',
+        query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','roomcharge','roomplace'],
+        roomcategory:'',
+        roomhostid:localStorage.getItem('loginId'),
+        roomtitle:'',
+        room:'',
+        roomdate:'',
+        roomdetail:'',
+        roomplace:'',
+        roomphoto:'',
+        roomcharge:'',
         progressNum:0,
         address:'',
-        longitude:'',
-        latitude:''
+        roomlongitude:'',
+        roomlatitude:''
       }
       mydiv = createRef();
 
@@ -72,7 +72,7 @@ class CreateHost extends Component {
                 return (
                     <div>
                             <h1>set your group’s Time</h1>
-                            <h2>Set Group's timly meeting time. </h2>
+                            <h2>Set Group's timly room time. </h2>
                             <FormGroup>
                             <InputGroup className="input-group-alternative">
                                 <InputGroupAddon addonType="prepend">
@@ -150,9 +150,10 @@ class CreateHost extends Component {
         axiosRequest=()=>{
             const headers = {
              'Content-Type': 'application/json',
+             'Access-Control-Allow-Origin':'*'
              }
              console.log(this.state)
-            axios.post('http://localhost:9000/meeting/create',
+            axios.post('http://localhost:9000/room/create',
                         this.state,
                         {headers: headers})
                         .then(res=>{
@@ -167,9 +168,9 @@ class CreateHost extends Component {
 
         reciveEmit=(chilstate)=>{
             this.setState({
-                meetingplace:chilstate.address,
-                longitude:chilstate.longitude,
-                latitude:chilstate.latitude
+                roomplace:chilstate.address,
+                roomlongitude:chilstate.roomlongitude,
+                roomlatitude:chilstate.roomlatitude
             })
             console.log(this.state)
         }

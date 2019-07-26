@@ -3,9 +3,9 @@ import lombok.Data;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 @Data @Component @Lazy
-public class MeetingDTO {
+public class RoomDTO {
 
-    private String category, meetingtitle,
-    meetingdate, meetingplace, meetingdetail, meetingphoto;
-    private int meetingcharge, meetingprogress;
+    private String roomcategory, roomtitle,
+    roomdate, roomplace, roomdetail, roomphoto;
+    private int roomcharge, roomprogress;
 }

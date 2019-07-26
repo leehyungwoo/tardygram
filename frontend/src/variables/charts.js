@@ -276,7 +276,7 @@ function chartOptions() {
   });
 
   // xAxes
-  Chart.scaleService.updateScaleDefaults("category", {
+  Chart.scaleService.updateScaleDefaults("roomcategory", {
     gridLines: {
       drawBorder: false,
       drawOnChartArea: false,

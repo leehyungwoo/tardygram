@@ -17,29 +17,29 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@Table(name = "tbl_meeting")
+@Table(name = "tbl_room")
 @Entity
 @ToString
-public class Meeting {
+public class Room {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long roomno; //미팅의 번호
-	private String meetingtitle;//미팅의 제목
-	private String meetingdetail; //미팅의 상세내용
-	private String meetingdate; //미팅날짜
-	private String meetingplace; //미팅장소
-	private String category; //미팅카테고리 ex)동창회, 스터디
+	private String roomtitle;//미팅의 제목
+	private String roomdetail; //미팅의 상세내용
+	private String roomdate; //미팅날짜
+	private String roomplace; //미팅장소
+	private String roomcategory; //미팅카테고리 ex)동창회, 스터디
 	@ColumnDefault("1")
-	private int meetingprogress; //현재진행중이면1 끝나면0
-	private int meetingcharge; //벌금
-	private double latitude; //위도
-	private double longitude; //경도
-	private String meetingphoto; //모임장소 사진
-	private String hostid; //로그인한방장의 아이디
+	private int roomprogress; //현재진행중이면1 끝나면0
+	private int roomcharge; //벌금
+	private double roomlatitude; //위도
+	private double roomlongitude; //경도
+	private String roomphoto; //모임장소 사진
+	private String roomhostid; //로그인한방장의 아이디
 	
 	//연관관계의 주인은 Member가됨
-	@ManyToMany(mappedBy = "meetings")
+	@ManyToMany(mappedBy = "rooms")
 	@JsonIgnore
 	private List<Member> members = new ArrayList<>();
 	
