@@ -37,7 +37,8 @@ public class Room {
 	private double roomlongitude; //경도
 	private String roomphoto; //모임장소 사진
 	private String roomhostid; //로그인한방장의 아이디
-	
+	private String roompwd;
+
 	//연관관계의 주인은 Member가됨
 	@ManyToMany(mappedBy = "rooms")
 	@JsonIgnore

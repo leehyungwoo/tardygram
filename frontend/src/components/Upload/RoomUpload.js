@@ -15,7 +15,7 @@ class Upload extends Component{
 
 
     onChangeHandler=event=>{
-      
+      console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
       this.setState({
         file : URL.createObjectURL (event[event.length-1])
       })
@@ -35,7 +35,7 @@ class Upload extends Component{
           console.log('res: ' + res)
           console.log('res.data : ' + res.data)
           this.setState({
-            roomImage : res.data
+            roomphoto : res.data
           })
           this.props.emit(res.data);
         }).catch(err =>{
