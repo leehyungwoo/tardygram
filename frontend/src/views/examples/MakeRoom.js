@@ -2,7 +2,7 @@ import React, {Component, createRef} from "react";
 import axios from 'axios'
 import ReactDatetime from "react-datetime";
 // import TimePicker from './TimePicker.jsx'
-import TimePickerWrapper from './TimePickerWrapper.js'
+
 import {
     Button,
     Card,
@@ -84,10 +84,10 @@ class MakeRoom extends Component {
                             inputProps={{
                                 placeholder: "Date Picker Here"
                             }}
-                            timeFormat={false}
+                            timeFormat={true}
                             />
                         </InputGroup>
-                        <TimePickerWrapper timeMode="12"/>
+
                         </FormGroup>
                     </div>
                 
