@@ -25,7 +25,10 @@ import "assets/scss/argon-dashboard-react.scss";
 
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
- 
+
+import Test from "./views/examples/Test"
+
+
 axios.defaults.baseURL = 'http://localhost:9000';
 
 ReactDOM.render(

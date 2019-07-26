@@ -17,14 +17,13 @@
 */
 import React from "react";
 import axios from 'axios'
+import {CardDeck,Card,Col} from 'react-bootstrap';
 
 // reactstrap components
 
- 
-
 import {
   Badge,
-  Card,
+  // Card,
   CardHeader,
   CardFooter,
   DropdownMenu,
@@ -41,16 +40,15 @@ import {
   Row,
   UncontrolledTooltip,
   Button,
-  Col,
+
   CardBody,
   CardImg,
   CardTitle,
-  CardText
+  CardText,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
-import {Link,Route } from "react-router-dom";
-import RoomDetail from './RoomDetail'
+import {Link } from "react-router-dom";
 
 class Tables extends React.Component {
   constructor(props){
@@ -96,13 +94,46 @@ class Tables extends React.Component {
         <Header />
        
         <Container className="mt--7" fluid>
-       
+                <CardDeck>
+        
+                {this.state.mList.map((contact,index)=>{
+                       return(
+                      <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
+                       <Card >
+                         <Card.Img variant="top" src={contact.roomphoto} />
+                         <Card.Body>
+                           <Card.Title>{contact.roomtitle}</Card.Title>
+                           <Card.Text>
+                           {contact.roomdetail}
+                           </Card.Text>
+                         </Card.Body>
+                         <Card.Footer>
+                         <Button
+                            color="primary"
+                            style={{padding:0}}
+                            onClick={e => e.preventDefault()}
+                          >
+                            <Link to={"/admin/roomdetail/"+contact.roomno} style={{color:"#fff",
+                          padding: "0.625rem 1.25rem",  display:"inline-block"
+                          }}>
+                           방 참여
+                           </Link>
+                          </Button>
+                         </Card.Footer>
+                       </Card>
+                       </Col>
+                     )
+                })}
+                </CardDeck>
 
-                <Row className="justify-content-sm-center">
+
+
+
+                {/* <Row className="justify-content-sm-center">
                 {this.state.mList.map((contact,index)=>{
                   console.log(contact)
                return( 
-                <Col xs="3" sm="3" lg="3" className=" mb-3" key={index}>
+                <Col xs="12" sm="6" lg="4" xl="3" className=" mb-3" key={index}>
                       <Card>
                         <CardImg
                           alt="..."
@@ -114,21 +145,25 @@ class Tables extends React.Component {
                           <CardTitle>{contact.roomtitle}</CardTitle>
                           <CardText>
                           {contact.roomdetail}
-                          </CardText>
+                          </CardText>           
                           <Button
                             color="primary"
-  
+                            style={{padding:0}}
                             onClick={e => e.preventDefault()}
                           >
-                            <Link to={"/admin/roomdetail/"+contact.roomno} style={{color:"#fff"}}>방 참여</Link>
-                    
+                            <Link to={"/admin/roomdetail/"+contact.roomno} style={{color:"#fff",
+                          padding: "0.625rem 1.25rem",  display:"inline-block"
+                          }}>
+                           방 참여
+                           </Link>
                           </Button>
+                        
                         </CardBody>
                       </Card>
                       </Col>  
                   )
                 })}
-                </Row>
+                </Row> */}
 
 
           {/* <Row>
