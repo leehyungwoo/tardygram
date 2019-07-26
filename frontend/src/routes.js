@@ -32,21 +32,7 @@ import TimePickerWrapper from "views/examples/TimePickerWrapper.js";
 
 var routes = [
  
-  {
- 
-    path: "/index",
-    name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
-    component: Index,
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin"
-  },
+
  {
     path: "/login",
     name: "Login",
