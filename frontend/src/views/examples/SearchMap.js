@@ -74,7 +74,7 @@ class SearchMap extends Component{
             var keyword = document.getElementById('keyword').value;
             console.log(keyword)
             if (!keyword.replace(/^\s+|\s+$/g, '')) {
-                alert('키워드를 입력해주세요!');
+      
                 return false;
             }
 

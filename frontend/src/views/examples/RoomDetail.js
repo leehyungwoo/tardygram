@@ -35,13 +35,7 @@ import {
   Row,
   Col,
   Table,
-  Media, Badge, UncontrolledTooltip, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,
-
- 
- 
- 
- 
- 
+  Media, Badge, UncontrolledTooltip, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, 
   Progress,
  
  
@@ -54,25 +48,57 @@ import UserHeader from "components/Headers/UserHeader.js";
 class Profile extends React.Component {
 
   constructor(props){
-    super(props)
-     
+    super(props)    
     this.state={
- 
+      selecthost : null
     }   
-    
   }
+ 
+  componentWillMount(){
+    console.log(this.props.match.params.id)
+
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+
+    axios.get(`/room/selectone/${this.props.match.params.id}`,  {headers:headers})
+      .then(res=>{
+        console.log('전달받은 값 : ' + res.data)
+
+        let selecthost = res.data.selecthost
+        this.setState({
+          selecthost:selecthost
+        })
+       console.log(this.state.selecthost.roomtitle)
+
+
+        // res.data.mList.map((item,index)=>{  
+        //   return this.setState({
+        //     mList:[...this.state.mList, item]
+        //    })       
+        // })
+      })
+      .catch(res=>{
+        alert("통신실패")
+      })
+
+  }
+ 
+
+
   render() {
     return (
       <>
+  
       <UserHeader /> {/* Page content */}
         <Container className="mt--7" fluid>
             <Row>
-            
+          
                 <Col className="order-xl-1" xl="8">
                 <Card className="bg-secondary shadow">
                     <CardHeader className="bg-white border-0">
                         <Row className="align-items-center">
-
+                     
                             <Col className="text-left" xs="12">
                             <Button className="float-left" color="success" href="#pablo" size="sm">
                                 모임시간
@@ -97,8 +123,7 @@ class Profile extends React.Component {
                                 10000원
                             </h5>
                             </Col>
-
-
+ 
                             <Table
           className="align-items-center table "
           responsive

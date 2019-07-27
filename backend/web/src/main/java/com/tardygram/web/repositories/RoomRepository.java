@@ -85,4 +85,21 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
         , nativeQuery = true
     )
     public Room roomUpdate(String path, String id);
+
+
+    //1번방에 대한 방장정보
+    @Query(
+        value = "select * from tbl_room r JOIN tbl_members_rooms mr JOIN tbl_members mb ON r.roomno=mr.rooms_roomno and mb.memberid=mr.members_memberid where r.roomno=:roomno and r.roomhostid=mr.members_memberid"
+        , nativeQuery = true
+    )
+    public Room selecthost(int roomno);
+
+
+    //1번방에 대한 유저정보
+    @Query(
+        value = "select memberid, profileimage from tbl_room r JOIN tbl_members_rooms mr JOIN tbl_members mb ON r.roomno=mr.rooms_roomno and mb.memberid=mr.members_memberid where r.roomno=:roomno and r.roomhostid!=mr.members_memberid",
+        nativeQuery = true
+    )
+    public List<Object> selectuser(int roomno);
+
 }

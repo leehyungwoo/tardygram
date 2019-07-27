@@ -156,20 +156,23 @@ public class RoomController {
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
     }
 
-   //해당 id에 해당하는 user의 room + roompeople 2개의 테이블 조인
-   /* @GetMapping("getroom")
-   public void getroom(){
-       System.out.println("join테스트");
-       List<Object[]> result = roomrepo.joinlist("kz1324");
-       System.out.println("result.get(0) "+result.get(0));
-       System.out.println("Arrays.deepToString(result.get(0)) "+Arrays.deepToString(result.get(0)));
-       for(int i = 0; i <result.size(); i++){
-           for(int j=0; j<result.get(i).length; j++){
-               System.out.println(result.get(i)[j]);
-           }
-           System.out.println("---------------");
-       }
-   } */
+    //모임방 디테일
+    @GetMapping("/selectone/{roomno}")
+    public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable int roomno){
+        System.out.println("selectone 컨트롤러 도착");
+        System.out.println("roomno : " + roomno);
+        Room selecthost = roomrepo.selecthost(roomno);
+        List<Object> selectuser = roomrepo.selectuser(roomno);
+        System.out.println("selecthost : " + selecthost);
+        System.out.println("selectuser : " + selectuser);
+        System.out.println("selectuser.get(0) : " + selectuser.get(0));
+        HashMap map = new HashMap<>();
+        map.put("selecthost", selecthost);
+        map.put("selectuser", selectuser);
+        
+
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+    }
 
 
 
