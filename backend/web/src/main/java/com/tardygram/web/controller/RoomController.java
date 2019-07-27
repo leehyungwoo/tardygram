@@ -165,12 +165,11 @@ public class RoomController {
         List<Object> selectuser = roomrepo.selectuser(roomno);
         System.out.println("selecthost : " + selecthost);
         System.out.println("selectuser : " + selectuser);
-        System.out.println("selectuser.get(0) : " + selectuser.get(0));
-        HashMap map = new HashMap<>();
+        HashMap<String,Object> map =new HashMap<>();
         map.put("selecthost", selecthost);
         map.put("selectuser", selectuser);
         
-
+        System.out.println(map);
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
     }
 

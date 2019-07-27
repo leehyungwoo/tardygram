@@ -54,7 +54,7 @@ class Profile extends React.Component {
     }   
   }
  
-  componentWillMount(){
+  componentDidMount(){
     console.log(this.props.match.params.id)
 
     const headers = {
@@ -63,13 +63,13 @@ class Profile extends React.Component {
 
     axios.get(`/room/selectone/${this.props.match.params.id}`,  {headers:headers})
       .then(res=>{
-        console.log('전달받은 값 : ' + res.data)
-
+        console.log(res.data)
+        
         let selecthost = res.data.selecthost
         this.setState({
-          selecthost:selecthost
+          selecthost:res.data.selecthost.roomtitle
         })
-       console.log(this.state.selecthost.roomtitle)
+       console.log('',this.state)
 
 
         // res.data.mList.map((item,index)=>{  
@@ -98,7 +98,7 @@ class Profile extends React.Component {
                 <Card className="bg-secondary shadow">
                     <CardHeader className="bg-white border-0">
                         <Row className="align-items-center">
-                     
+                                {this.state.selecthost}
                             <Col className="text-left" xs="12">
                             <Button className="float-left" color="success" href="#pablo" size="sm">
                                 모임시간
@@ -476,7 +476,7 @@ class Profile extends React.Component {
                                 약속장소
                             </h3>
                         
-                            <SearchMap height="300px"></SearchMap>
+                            {/* <SearchMap height="300px"></SearchMap> */}
                           
                         </div>
                     </CardBody>
