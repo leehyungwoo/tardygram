@@ -23,6 +23,7 @@ import Tables from "views/examples/Tables.js"
 import MakeRoom from "views/examples/MakeRoom.js"
 import RoomDetail from "views/examples/RoomDetail.js"
 import DoneHost from "views/examples/DoneHost.js"
+import Uploadtest from "views/examples/Uploadtest.js"
 
 var routes = [
   {
@@ -73,6 +74,14 @@ var routes = [
     icon: "ni ni-circle-08 text-blue",
     component: DoneHost,
     layout: "/admin"
+  },
+  {
+    path: "/uploadtest",
+    name: "Uploadtest",
+    icon: "ni ni-circle-08 text-blue",
+    component: Uploadtest,
+    layout: "/admin"
   }
+
 ]
 export default routes

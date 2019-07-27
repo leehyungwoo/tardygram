@@ -101,9 +101,10 @@ public class RoomController {
 
 
    //방장이 모임방 개설
-   @PostMapping(path="/create",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-   public void insertRoom(@RequestParam("roomphoto") MultipartFile roomphoto){
+   @PostMapping(path="/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+   public void insertRoom(@RequestBody Room room, @RequestParam("roomphoto") MultipartFile roomphoto) {
     System.out.println("컨트롤러 도착");
+    //System.out.println("data : " + data);
 
     // Room room = new Room();
     // fd.setRoomprogress(1);
@@ -159,6 +160,24 @@ public class RoomController {
 
 
 
+
+
+   
+   //방장이 모임방 개설
+   @PostMapping(path="/create2", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+   public void insertRoom(@RequestParam("file") MultipartFile file) {
+    System.out.println("컨트롤러 도착");
+    System.out.println("file: " + file);
+    //System.out.println("data : " + data);
+
+    // Room room = new Room();
+    // fd.setRoomprogress(1);
+    // Member member1 = memberrepo.findById(fd.getRoomhostid()).get(); // 방장추가
+    // room.addMember(member1);
+    // member1.addRoom(fd);
+    // roomrepo.save(fd);
+
+   }
 
 
 

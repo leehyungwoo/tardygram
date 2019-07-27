@@ -116,15 +116,15 @@ class CreateHost extends Component {
 
         console.log(event)
         console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        this.setState({
-            file : URL.createObjectURL (event[event.length-1])
-          })
-          const data = new FormData()
-          data.append('file', event[event.length-1])
-        
-       
+        // this.setState({
+        //     file : URL.createObjectURL (event[event.length-1])
+        //   })
+        //   const data = new FormData()
+        //   data.append('file', event[event.length-1])
+              
       }
   
+
       Dialog = (e) => {
         switch(e) {
             case 0:
@@ -198,25 +198,6 @@ class CreateHost extends Component {
 
                         </FormGroup>
 
-
-
-                            <h1>날짜</h1>
-                            <h2>Set Group's timly room Date and time. </h2>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-calendar-grid-58" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <ReactDatetime
-                                inputProps={{
-                                    placeholder: "Date Picker Here"
-                                }}
-                                timeFormat={true}
-                                />
-                            </InputGroup>
-                            </FormGroup>
 
 
                     </div>
@@ -294,15 +275,28 @@ class CreateHost extends Component {
 
         axiosRequest=()=>{
             const headers = {
-             'Content-Type': 'application/json',
+             'Content-Type': 'application/json;charset=utf-8',
              'Access-Control-Allow-Origin':'*'
              }
              console.log(this.state)
 
+             let data ={
+                roomcategory : this.state.roomcategory,
+                roomcharge : this.state.roomcharge,
+                roomdate : this.state.roomdata,
+                roomdetail : this.state.roomdetail,
+                roomhostid : localStorage.getItem("loginId"),
+                roomlatitude : this.state.roomlatitude,
+                roomlongitude : this.state.roomlongitude,
+                roomplace : this.state.roomplace,
+                roompwd : this.state.roompwd,
+                roomtitle : this.state.roomtitle    
+             }
             
-             let id = localStorage.getItem("loginId");
+             
+             
             axios.post(`http://localhost:9000/room/create`,
-                        this.state,
+                        JSON.stringify(this.state.roomphoto),
                         {headers: headers})
                         .then(res=>{
                             alert('방만들기 성공')
@@ -314,14 +308,14 @@ class CreateHost extends Component {
         }
       
 
-        // reciveEmit=(chilstate)=>{
-        //     this.setState({
-        //         roomplace:chilstate.address,
-        //         roomlongitude:chilstate.roomlongitude,
-        //         roomlatitude:chilstate.roomlatitude
-        //     })
-        //     console.log(this.state)
-        // }
+        reciveEmit=(chilstate)=>{
+            this.setState({
+                roomplace:chilstate.address,
+                roomlongitude:chilstate.roomlongitude,
+                roomlatitude:chilstate.roomlatitude
+            })
+            console.log(this.state)
+        }
 
 
         render() {
