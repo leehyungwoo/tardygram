@@ -48,6 +48,27 @@ public class RoomController {
         
     }
 
+    // //모임방 이미지 업로드
+    // @PostMapping(path="/upload/",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    // public String sad(@RequestParam("file") MultipartFile file){
+    //     System.out.println("파일업로드 컨트롤러");
+    //     System.out.println("건너온 data : " + file);
+    //     System.out.println("파일이름 : " + file.getOriginalFilename());
+    //     try{
+    //         String DbPath = "/image/room/" + file.getOriginalFilename();
+    //         System.out.println("Dbpath : " + DbPath);
+    //         byte[] bytes = file.getBytes();
+    //         Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+    //         Files.write(path, bytes);
+    //         System.out.println("path : " + path);
+    //         //roomrepo.roomUpdate(DbPath, id);
+    //         return DbPath;
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+        
+    //     return "No Img";                     
+    // }
     
     //모임방 이미지 업로드
     @PostMapping(path="/upload/{id}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -80,16 +101,16 @@ public class RoomController {
 
 
    //방장이 모임방 개설
-   @PostMapping("/create")
-   public void insertRoom(@RequestBody Room fd ){
-    System.out.println(fd);
+   @PostMapping(path="/create",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+   public void insertRoom(@RequestParam("roomphoto") MultipartFile roomphoto){
+    System.out.println("컨트롤러 도착");
 
-    Room room = new Room();
-    fd.setRoomprogress(1);
-    Member member1 = memberrepo.findById(fd.getRoomhostid()).get(); // 방장추가
-    room.addMember(member1);
-    member1.addRoom(fd);
-    roomrepo.save(fd);
+    // Room room = new Room();
+    // fd.setRoomprogress(1);
+    // Member member1 = memberrepo.findById(fd.getRoomhostid()).get(); // 방장추가
+    // room.addMember(member1);
+    // member1.addRoom(fd);
+    // roomrepo.save(fd);
 
    }
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시

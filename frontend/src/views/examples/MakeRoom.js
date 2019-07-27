@@ -26,26 +26,55 @@ import RoomUpload from '../../components/Upload/RoomUpload'
 
 
 class CreateHost extends Component {
-    state={
-        calender:false,
-        inputVal:'',
-        pageIndex:0,
-        query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','roomcharge','roompwd','roomplace'],
-        roomcategory:'',
-        roomhostid:localStorage.getItem('loginId'),
-        roomtitle:'',
-        room:'',
-        roomdate:'',
-        roomdetail:'',
-        roomplace:'',
-        roomphoto:'',
-        roomcharge:'',
-        progressNum:0,
-        address:'',
-        roomlongitude:'',
-        roomlatitude:'',
-        roompwd:''
-      }
+    
+    constructor(props){
+        super(props)
+        this.state={
+            calender:false,
+            inputVal:'',
+            pageIndex:0,
+            query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','roomcharge','roompwd','roomplace'],
+            roomcategory:'',
+            roomhostid:localStorage.getItem('loginId'),
+            roomtitle:'',
+            room:'',
+            roomdate:'',
+            roomdetail:'',
+            roomplace:'',
+            roomphoto:[],
+            roomcharge:'',
+            progressNum:0,
+            address:'',
+            roomlongitude:'',
+            roomlatitude:'',
+            roompwd:'',
+            pictures: [],
+            files:[]            
+        }
+       
+    }
+    
+
+    onDrop = (pictureFiles, pictureBase64) => {
+       
+        // picutreFiles에 boundery 정보가 return 되고,
+        // pictureBase64 에 base64 정보가 return 된다. 기본 array로 return
+        console.log('pictureFiles',pictureFiles)
+        const data = new FormData();
+        data.append('file', pictureFiles[pictureFiles.length-1])
+        console.log('FormData',data)
+            this.setState({
+                roomphoto: data
+            });
+        // 여기에 ajax를 넣을 수 있다.
+        console.log('state에 저장된 photo : ' + this.state.roomphoto)
+        console.log('전역에있는 data : ' + data)
+      
+       };
+
+
+
+
       mydiv = createRef();
       email = createRef();
       handleIncrease=()=>{
@@ -56,20 +85,20 @@ class CreateHost extends Component {
           console.log(this.state.progressNum)      
       }
 
-      imageTag=()=>{
-        if(this.state.roomphoto){
-          return ( 
-            <img className="rounded-circle" src={this.state.roomphoto} style={{display:"block",minWidth:"300px",maxWidth:"300px",maxHeight:"200px", minHeight:"200px", margin:"0 auto"}} ></img>
-         )
-        }
-      }
+    //   imageTag=()=>{
+    //     if(this.state.roomphoto){
+    //       return ( 
+    //         <img className="rounded-circle" src={this.state.roomphoto} style={{display:"block",minWidth:"300px",maxWidth:"300px",maxHeight:"200px", minHeight:"200px", margin:"0 auto"}} ></img>
+    //      )
+    //     }
+    //   }
   
       reciveEmit=(type)=>{
         console.log(type)
         this.setState({
             roomphoto:type
         })
-        this.imageTag();
+        //this.imageTag();
       }
 
 
@@ -115,80 +144,52 @@ class CreateHost extends Component {
             case 2:
                 return (
                     <div>
- 
-                            <h1>날짜</h1>
-                            <h2>Set Group's timly room Date and time. </h2>
-                            <FormGroup>
-                                <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-calendar-grid-58" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                            <ReactDatetime
-                            inputProps={{
-                                placeholder: "Date Picker Here"
-                            }}
-
-                            ref={ref=>{this.datepicker=ref}}
-                            onChange={e=>{
-                              
-                               
-                              
-                                    if(!this.state.calender){
-                                        console.log("달력")
-                                        document.getElementsByClassName("rdtTimeToggle")[0].click()
-                                        this.setState({
-                                            calender:!this.state.calender,
-                                            roomdate:e._d
-                                        })
-                                    }else{
-                                        console.log("시계")
-                                        document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
-                                            this.setState({
-                                                calender:!this.state.calender,
-                                                roomdate:e._d
-                                            })
-                                        })
-                                    }
-
-                                }
-                            }
-                            onBlur={e=>{
+                        <h1>날짜</h1>
+                        <h2>Set Group's timly room Date and time. </h2>
+                        <FormGroup>
+                        <InputGroup className="input-group-alternative">
+                        <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                            <i className="ni ni-calendar-grid-58" />
+                        </InputGroupText>
+                        </InputGroupAddon>
+                        <ReactDatetime
+                        inputProps={{
+                            placeholder: "Date Picker Here"
+                        }}
+                        ref={ref=>{this.datepicker=ref}}
+                        onChange={e=>{
+                            if(!this.state.calender){
+                                console.log("달력")
+                                document.getElementsByClassName("rdtTimeToggle")[0].click()
                                 this.setState({
-                                    roomdate:e._d
+                                    calender:!this.state.calender,
+                                    roomdata:e._d
                                 })
-                                console.log(this.state.roomdate)
-                            }}
-                            timeFormat={true}
-                            />
-                        </InputGroup>
-
-                        </FormGroup>
-
-
-                            <h1>날짜</h1>
-                            <h2>Set Group's timly room Date and time. </h2>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-calendar-grid-58" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <ReactDatetime
-                                inputProps={{
-                                    placeholder: "Date Picker Here"
-                                }}
-                                timeFormat={true}
-                                />
-                            </InputGroup>
-                            </FormGroup>
-
-
-                    </div>
-                
-                        );
+                            }else{
+                                console.log("시계")
+                                document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
+                                    this.state.calender=!this.state.calender;
+                                    this.setState({
+                                        calender:!this.state.calender,
+                                        roomdata:e._d
+                                    })
+                                })
+                            }
+                            }
+                        }
+                        onBlur={e=>{
+                            this.setState({
+                                roomdata:e._d
+                            })
+                            console.log(this.state.roomdate)
+                        }}
+                        timeFormat={true}
+                        />
+                    </InputGroup>
+                    </FormGroup>
+                </div>
+            );
             case 3:
                 return (
                     <div>
@@ -201,11 +202,10 @@ class CreateHost extends Component {
                     <div>
                             <h1>사진</h1>
                             <div className="row">       
-                                <div className="col-md-6">
-                                <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>  
-                                <img id="image_section" src="#" alt="your image" />
+                                <div className="col-md-6">                                
+                                {/* <RoomUpload></RoomUpload> */}
+                                <ImageUploader style={{ maxWidth: '500px', margin: "20px auto" }} withPreview={true} onChange={this.onDrop}/>
                                 </div>
-                                 <div className="col-md-6 img-responsive img-thumbnail">{this.imageTag()}</div>                                
                             </div>
                     </div>
                         );         
@@ -242,9 +242,10 @@ class CreateHost extends Component {
             this.setState({
             pageIndex:this.state.pageIndex+1,
             [this.state.query[this.state.pageIndex]]:this.mydiv.value,
-            inputVal:""
+            inputVal:"",
             })
             this.mydiv.value="";
+            
         }else{
             console.log("지도")
             console.log(this.state.pageIndex)
@@ -264,7 +265,10 @@ class CreateHost extends Component {
              'Access-Control-Allow-Origin':'*'
              }
              console.log(this.state)
-            axios.post('http://localhost:9000/room/create',
+
+            
+             let id = localStorage.getItem("loginId");
+            axios.post(`http://localhost:9000/room/create`,
                         this.state,
                         {headers: headers})
                         .then(res=>{
@@ -277,14 +281,14 @@ class CreateHost extends Component {
         }
       
 
-        reciveEmit=(chilstate)=>{
-            this.setState({
-                roomplace:chilstate.address,
-                roomlongitude:chilstate.roomlongitude,
-                roomlatitude:chilstate.roomlatitude
-            })
-            console.log(this.state)
-        }
+        // reciveEmit=(chilstate)=>{
+        //     this.setState({
+        //         roomplace:chilstate.address,
+        //         roomlongitude:chilstate.roomlongitude,
+        //         roomlatitude:chilstate.roomlatitude
+        //     })
+        //     console.log(this.state)
+        // }
 
 
         render() {
@@ -335,7 +339,11 @@ class CreateHost extends Component {
 
                                                 }else{
                                                     return <div>
-                                                        <SearchMap emit={this.reciveEmit}></SearchMap>
+                                                        <SearchMap 
+                                                        emit={
+                                                            this.reciveEmit
+                                                            }
+                                                            ></SearchMap>
                                                     </div>
                                                 }
                                             })()
