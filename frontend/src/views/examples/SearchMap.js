@@ -161,8 +161,8 @@ class SearchMap extends Component{
         return(
             
             <div className="map_wrap">
-             <div id="map" style={{width:"500px", height:"400px",position:"relative",overflow:"hidden"}}></div>
-    
+             <div id="map" style={{width:"auto", minHeight:this.props.height,overflow:"hidden"}}></div>
+
                     <input name="second" id="keyword" type="text" />
                     <button type="text"  onClick={this.changeFuncSubmit}>검색!</button>
                 <p>선택하신 장소는 {this.state.address} 입니다.</p>
