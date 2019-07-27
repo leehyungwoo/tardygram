@@ -158,15 +158,15 @@ public class RoomController {
 
     //모임방 디테일
     @GetMapping("/selectone/{roomno}")
-    public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable int roomno){
+    public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long roomno){
         System.out.println("selectone 컨트롤러 도착");
         System.out.println("roomno : " + roomno);
         Room selecthost = roomrepo.selecthost(roomno);
-        List<Object> selectuser = roomrepo.selectuser(roomno);
+        List selectuser = roomrepo.selectuser(roomno);
         System.out.println("selecthost : " + selecthost);
         System.out.println("selectuser : " + selectuser);
-        System.out.println("selectuser.get(0) : " + selectuser.get(0));
-        HashMap map = new HashMap<>();
+
+        HashMap<String,Object> map = new HashMap<>();
         map.put("selecthost", selecthost);
         map.put("selectuser", selectuser);
         

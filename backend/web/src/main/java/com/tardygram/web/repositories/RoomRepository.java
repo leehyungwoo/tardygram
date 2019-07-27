@@ -3,7 +3,7 @@ package com.tardygram.web.repositories;
 import java.util.List;
 import java.util.Map;
 
- 
+import com.tardygram.web.entities.Member;
 import com.tardygram.web.entities.Room;
  
 
@@ -92,14 +92,14 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
         value = "select * from tbl_room r JOIN tbl_members_rooms mr JOIN tbl_members mb ON r.roomno=mr.rooms_roomno and mb.memberid=mr.members_memberid where r.roomno=:roomno and r.roomhostid=mr.members_memberid"
         , nativeQuery = true
     )
-    public Room selecthost(int roomno);
+    public Room selecthost(Long roomno);
 
 
     //1번방에 대한 유저정보
     @Query(
-        value = "select memberid, profileimage from tbl_room r JOIN tbl_members_rooms mr JOIN tbl_members mb ON r.roomno=mr.rooms_roomno and mb.memberid=mr.members_memberid where r.roomno=:roomno and r.roomhostid!=mr.members_memberid",
+        value = "select mb.memberid, mb.profileimage from tbl_room r JOIN tbl_members_rooms mr JOIN tbl_members mb ON r.roomno=mr.rooms_roomno and mb.memberid=mr.members_memberid where r.roomno=:roomno and r.roomhostid!=mr.members_memberid",
         nativeQuery = true
     )
-    public List<Object> selectuser(int roomno);
+    public List selectuser(Long roomno);
 
 }

@@ -50,11 +50,14 @@ class Profile extends React.Component {
   constructor(props){
     super(props)    
     this.state={
-      selecthost : null
+      selecthost : null,
+      selectuser : [],
+      roomtitle: ''
+
     }   
   }
  
-  componentWillMount(){
+  componentDidMount(){
     console.log(this.props.match.params.id)
 
     const headers = {
@@ -64,13 +67,19 @@ class Profile extends React.Component {
     axios.get(`/room/selectone/${this.props.match.params.id}`,  {headers:headers})
       .then(res=>{
         console.log('전달받은 값 : ' + res.data)
+        console.log(res.data)
 
         let selecthost = res.data.selecthost
         this.setState({
-          selecthost:selecthost
+          roomtitle : selecthost.roomtitle
         })
-       console.log(this.state.selecthost.roomtitle)
-
+        
+        res.data.selectuser.map((item, index)=>{
+          return this.setState({
+            selectuser:[...this.state.selectuser,item]
+          })
+        })
+        console.log(res.data.selectuser)
 
         // res.data.mList.map((item,index)=>{  
         //   return this.setState({
@@ -130,7 +139,7 @@ class Profile extends React.Component {
         >
           <thead className="thead">
             <tr>
-              <th scope="col">참여자이름</th>
+              <th scope="col">{this.state.roomtitle}</th>
               <th scope="col">벌금액수</th>
               <th scope="col">상태</th>
               <th scope="col" />
@@ -483,6 +492,15 @@ class Profile extends React.Component {
                 </Card>
                 </Col>
             </Row>
+            {this.state.selectuser.map((contact, i)=>{
+              return(
+                <div>
+                  <div>{contact.memberid}</div>
+                  <div>{contact.profileimage}</div>
+                  <div>asdf</div>
+              </div>
+              )
+            })}
         </Container>
       </>
     );
