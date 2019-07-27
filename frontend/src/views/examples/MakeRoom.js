@@ -164,7 +164,7 @@ class CreateHost extends Component {
                                     roomdate:e._d
                                 })
 
-                                console.log(this.state.roomdate)
+                                console.log(this.state)
                             }}
                             timeFormat={true}
                             />
@@ -314,6 +314,7 @@ class CreateHost extends Component {
                                                 }else{
                                                     return <div>
                                                         <SearchMap 
+                                                        height="500px"
                                                         emit={
                                                             this.reciveEmit
                                                             }
