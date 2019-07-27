@@ -101,17 +101,31 @@ public class RoomController {
 
 
    //방장이 모임방 개설
-   @PostMapping(path="/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-   public void insertRoom(@RequestBody Room room, @RequestParam("roomphoto") MultipartFile roomphoto) {
+   @PostMapping(path="/create")
+   public void insertRoom(@RequestBody Room data) {
     System.out.println("컨트롤러 도착");
-    //System.out.println("data : " + data);
+    System.out.println("room : " + data);
 
-    // Room room = new Room();
-    // fd.setRoomprogress(1);
-    // Member member1 = memberrepo.findById(fd.getRoomhostid()).get(); // 방장추가
-    // room.addMember(member1);
-    // member1.addRoom(fd);
-    // roomrepo.save(fd);
+    Room room = new Room();
+    data.setRoomprogress(1);
+
+    Member member = memberrepo.findById(data.getRoomhostid()).get();
+    System.out.println("member : " + member);
+    
+    if(member.getMoney() >= data.getRoomcharge()){
+        int tardycashe = member.getMoney()-data.getRoomcharge();
+        member.addRoom(data);
+        roomrepo.save(data);
+        memberrepo.roomTardy(data.getRoomhostid(), tardycashe);
+    }
+
+
+    // Room room2 = new Room();
+    // room2.setRoomprogress(1);
+    // Member member1 = memberrepo.findById(room.getRoomhostid()).get(); // 방장추가
+    // room2.addMember(member1);
+    // member1.addRoom(room2);
+    // roomrepo.save(room2);
 
    }
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시
@@ -122,7 +136,7 @@ public class RoomController {
        enterrepo.enter(m, "2");  // 4번방에 추가
    }
 
-   //연관테이블 레코드 삭제후 room테이블 레코드 삭제
+   //연관테이블 레코드 삭제후 room테이블 레코드 삭제, 각인원들에게 돈다시 줘야함
    @DeleteMapping("/delete")
    public void deleteroom(){      
         roomrepo.deleteRoom((long)1);
@@ -160,24 +174,6 @@ public class RoomController {
 
 
 
-
-
-   
-   //방장이 모임방 개설
-   @PostMapping(path="/create2", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-   public void insertRoom(@RequestParam("file") MultipartFile file) {
-    System.out.println("컨트롤러 도착");
-    System.out.println("file: " + file);
-    //System.out.println("data : " + data);
-
-    // Room room = new Room();
-    // fd.setRoomprogress(1);
-    // Member member1 = memberrepo.findById(fd.getRoomhostid()).get(); // 방장추가
-    // room.addMember(member1);
-    // member1.addRoom(fd);
-    // roomrepo.save(fd);
-
-   }
 
 
 

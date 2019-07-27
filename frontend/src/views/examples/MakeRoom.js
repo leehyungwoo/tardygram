@@ -33,7 +33,7 @@ class CreateHost extends Component {
             calender:false,
             inputVal:'',
             pageIndex:0,
-            query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','roomcharge','roompwd','roomplace'],
+            query:['roomtitle','roomcategory','roomdate','roomdetail','roomcharge','roompwd','roomplace'],
             roomcategory:'',
             roomhostid:localStorage.getItem('loginId'),
             roomtitle:'',
@@ -41,36 +41,16 @@ class CreateHost extends Component {
             roomdate:'',
             roomdetail:'',
             roomplace:'',
-            roomphoto:[],
             roomcharge:'',
             progressNum:0,
             address:'',
             roomlongitude:'',
             roomlatitude:'',
-            roompwd:'',
-            pictures: [],
-            files:[]            
+            roompwd:'',                      
         }
        
     }
     
-
-    onDrop = (pictureFiles, pictureBase64) => {
-       
-        // picutreFiles에 boundery 정보가 return 되고,
-        // pictureBase64 에 base64 정보가 return 된다. 기본 array로 return
-        console.log('pictureFiles',pictureFiles)
-        const data = new FormData();
-        data.append('file', pictureFiles[pictureFiles.length-1])
-        console.log('FormData',data)
-            this.setState({
-                roomphoto: data
-            });
-        // 여기에 ajax를 넣을 수 있다.
-        console.log('state에 저장된 photo : ' + this.state.roomphoto)
-        console.log('전역에있는 data : ' + data)
-      
-       };
 
 
 
@@ -93,13 +73,13 @@ class CreateHost extends Component {
     //     }
     //   }
   
-      reciveEmit=(type)=>{
-        console.log(type)
-        this.setState({
-            roomphoto:type
-        })
-        //this.imageTag();
-      }
+    //   reciveEmit=(type)=>{
+    //     console.log(type)
+    //     this.setState({
+    //         roomphoto:type
+    //     })
+    //     this.imageTag();
+    //   }
 
 
       onChangeHandler=event=>{
@@ -115,13 +95,7 @@ class CreateHost extends Component {
         }
 
         console.log(event)
-        console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        // this.setState({
-        //     file : URL.createObjectURL (event[event.length-1])
-        //   })
-        //   const data = new FormData()
-        //   data.append('file', event[event.length-1])
-              
+        console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")            
       }
   
 
@@ -161,9 +135,7 @@ class CreateHost extends Component {
 
                             ref={ref=>{this.datepicker=ref}}
                             onChange={e=>{
-                              
-                               
-                              
+                                                                              
                                     if(!this.state.calender){
                                         console.log("달력")
                                         document.getElementsByClassName("rdtTimeToggle")[0].click()
@@ -173,8 +145,10 @@ class CreateHost extends Component {
                                         })
                                     }else{
                                         console.log("시계")
+                                        var that = this;
+                                        
                                         document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
-                                            this.setState({
+                                            that.setState({
                                                 calender:!this.state.calender,
                                                 roomdate:e._d
                                             })
@@ -187,7 +161,7 @@ class CreateHost extends Component {
 
                                 this.setState({
                                     calender:!this.state.calender,
-                                    roomdata:e._d
+                                    roomdate:e._d
                                 })
 
                                 console.log(this.state.roomdate)
@@ -211,31 +185,20 @@ class CreateHost extends Component {
                             <h2>People will see this when we promote your group, but you’ll be able to add to it later, too</h2>
                     </div>
                         );    
+        
             case 4:
-                return (
-                    <div>
-                            <h1>사진</h1>
-                            <div className="row">       
-                                <div className="col-md-6">                                
-                                {/* <RoomUpload></RoomUpload> */}
-                                <ImageUploader style={{ maxWidth: '500px', margin: "20px auto" }} withPreview={true} onChange={this.onDrop}/>
-                                </div>
-                            </div>
-                    </div>
-                        );         
-            case 5:
                 return (
                     <div>
                             <h1>벌금</h1>
                     </div>
                         ); 
-            case 6:
+            case 5:
                 return (
                     <div>
                             <h1>방비번</h1>
                     </div>
                         );             
-            case 7:
+            case 6:
                 return (
                     <div>
                             <h1>장소</h1>
@@ -246,28 +209,26 @@ class CreateHost extends Component {
         }
     };
 
-      clickHandler=(e)=>{
-       
+    clickHandler=(e)=>{
         e.preventDefault();
         this.handleIncrease()
-        
         if(this.state.pageIndex<this.state.query.length-1){
             console.log("실행")
             this.setState({
-            pageIndex:this.state.pageIndex+1,
-            [this.state.query[this.state.pageIndex]]:this.mydiv.value,
-            inputVal:"",
+                pageIndex:this.state.pageIndex+1,
+                [this.state.query[this.state.pageIndex]]:this.mydiv.value,
+                roomdate:this.state.roomdate,
+                inputVal:"",
             })
             this.mydiv.value="";
-            
         }else{
-            console.log("지도")
-            console.log(this.state.pageIndex)
-            console.log(this.state.query.length-1)
-            if(this.state.pageIndex==this.state.query.length-1){
-                console.log("조건문실행")
-                this.axiosRequest();
-            }
+                console.log("지도")
+                console.log(this.state.pageIndex)
+                console.log(this.state.query.length-1)
+                if(this.state.pageIndex==this.state.query.length-1){
+                    console.log("조건문실행")
+                    this.axiosRequest();
+                }
         }
       }
 
@@ -279,24 +240,10 @@ class CreateHost extends Component {
              'Access-Control-Allow-Origin':'*'
              }
              console.log(this.state)
-
-             let data ={
-                roomcategory : this.state.roomcategory,
-                roomcharge : this.state.roomcharge,
-                roomdate : this.state.roomdata,
-                roomdetail : this.state.roomdetail,
-                roomhostid : localStorage.getItem("loginId"),
-                roomlatitude : this.state.roomlatitude,
-                roomlongitude : this.state.roomlongitude,
-                roomplace : this.state.roomplace,
-                roompwd : this.state.roompwd,
-                roomtitle : this.state.roomtitle    
-             }
-            
-             
+                         
              
             axios.post(`http://localhost:9000/room/create`,
-                        JSON.stringify(this.state.roomphoto),
+                        this.state,
                         {headers: headers})
                         .then(res=>{
                             alert('방만들기 성공')
@@ -349,14 +296,14 @@ class CreateHost extends Component {
                                     <form className="subscribe-form" onSubmit={(e)=>{e.preventDefault()}}>
                                         {
                                             (()=>{
-                                                if(this.state.pageIndex < 6 ){
+                                                if(this.state.pageIndex < 5 ){
                                                     return <input type="text" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
                                                         value={this.inputVal} 
                                                         ref={ref => { this.mydiv = ref }
                                                         }
                                                     />
-                                                }else if(this.state.pageIndex == 6){
+                                                }else if(this.state.pageIndex == 5){
                                                     return <input type="number" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
                                                         value={this.inputVal} 
