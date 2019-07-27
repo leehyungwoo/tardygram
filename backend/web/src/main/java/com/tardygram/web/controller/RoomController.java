@@ -166,11 +166,13 @@ public class RoomController {
         System.out.println("selecthost : " + selecthost);
         System.out.println("selectuser : " + selectuser);
 
+
         HashMap<String,Object> map = new HashMap<>();
+
         map.put("selecthost", selecthost);
         map.put("selectuser", selectuser);
         
-
+        System.out.println(map);
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
     }
 
