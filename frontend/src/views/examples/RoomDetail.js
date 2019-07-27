@@ -65,9 +65,9 @@ class Profile extends React.Component {
       .then(res=>{
         console.log(res.data)
         
-        let selecthost = res.data.selecthost
+        let {} = res.data.selecthost
         this.setState({
-          selecthost:res.data.selecthost.roomtitle
+          selecthost:res.data.selecthost
         })
        console.log('',this.state)
 
