@@ -144,52 +144,85 @@ class CreateHost extends Component {
             case 2:
                 return (
                     <div>
-                        <h1>날짜</h1>
-                        <h2>Set Group's timly room Date and time. </h2>
-                        <FormGroup>
-                        <InputGroup className="input-group-alternative">
-                        <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                            <i className="ni ni-calendar-grid-58" />
-                        </InputGroupText>
-                        </InputGroupAddon>
-                        <ReactDatetime
-                        inputProps={{
-                            placeholder: "Date Picker Here"
-                        }}
-                        ref={ref=>{this.datepicker=ref}}
-                        onChange={e=>{
-                            if(!this.state.calender){
-                                console.log("달력")
-                                document.getElementsByClassName("rdtTimeToggle")[0].click()
+
+                            <h1>날짜</h1>
+                            <h2>Set Group's timly room Date and time. </h2>
+                            <FormGroup>
+                                <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-calendar-grid-58" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                            <ReactDatetime
+                            inputProps={{
+                                placeholder: "Date Picker Here"
+                            }}
+
+                            ref={ref=>{this.datepicker=ref}}
+                            onChange={e=>{
+                              
+                               
+                              
+                                    if(!this.state.calender){
+                                        console.log("달력")
+                                        document.getElementsByClassName("rdtTimeToggle")[0].click()
+                                        this.setState({
+                                            calender:!this.state.calender,
+                                            roomdate:e._d
+                                        })
+                                    }else{
+                                        console.log("시계")
+                                        document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
+                                            this.setState({
+                                                calender:!this.state.calender,
+                                                roomdate:e._d
+                                            })
+                                        })
+                                    }
+
+                                }
+                            }
+                            onBlur={e=>{
+
                                 this.setState({
                                     calender:!this.state.calender,
                                     roomdata:e._d
                                 })
-                            }else{
-                                console.log("시계")
-                                document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
-                                    this.state.calender=!this.state.calender;
-                                    this.setState({
-                                        calender:!this.state.calender,
-                                        roomdata:e._d
-                                    })
-                                })
-                            }
-                            }
-                        }
-                        onBlur={e=>{
-                            this.setState({
-                                roomdata:e._d
-                            })
-                            console.log(this.state.roomdate)
-                        }}
-                        timeFormat={true}
-                        />
-                    </InputGroup>
-                    </FormGroup>
-                </div>
-            );
+
+                                console.log(this.state.roomdate)
+                            }}
+                            timeFormat={true}
+                            />
+                        </InputGroup>
+
+                        </FormGroup>
+
+
+
+                            <h1>날짜</h1>
+                            <h2>Set Group's timly room Date and time. </h2>
+                            <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-calendar-grid-58" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <ReactDatetime
+                                inputProps={{
+                                    placeholder: "Date Picker Here"
+                                }}
+                                timeFormat={true}
+                                />
+                            </InputGroup>
+                            </FormGroup>
+
+
+                    </div>
+                
+                        );
+
             case 3:
                 return (
                     <div>
