@@ -1,10 +1,20 @@
 import React, {Component} from 'react'
 import Location from './aboutMaps/Location'
 import {
-    Card,
-    Container,
-    Row,
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Container,
+  Row,
+  Col
   } from "reactstrap";
+
+
   // core components
   import Header from "components/Headers/Header.js";
 

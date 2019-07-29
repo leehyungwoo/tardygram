@@ -132,7 +132,6 @@ class CreateHost extends Component {
                             ref={ref=>{this.datepicker=ref}}
                             onChange={e=>{
                               
-                               
                               
                                     if(!this.state.calender){
                                         console.log("달력")
@@ -164,26 +163,6 @@ class CreateHost extends Component {
                         </InputGroup>
 
                         </FormGroup>
-
-
->>>>>>> 4c10c863d780d3dd8b0b3e537729097ecb32a6de
-                            <h1>날짜</h1>
-                            <h2>Set Group's timly room Date and time. </h2>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-calendar-grid-58" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <ReactDatetime
-                                inputProps={{
-                                    placeholder: "Date Picker Here"
-                                }}
-                                timeFormat={true}
-                                />
-                            </InputGroup>
-                            </FormGroup>
 
 
                     </div>
