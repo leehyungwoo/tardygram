@@ -28,7 +28,6 @@ import {
       longitude : "",
       distance : false,
       dist:100,
-      aTime : false,
       }
   }
   
@@ -137,7 +136,7 @@ CheckTardy = () =>{
           <br></br>
           <Button 
           onClick={this.calcDistance}>
-            도착했습니다!!                
+            도착!                
           </Button>      
         </div>
       
