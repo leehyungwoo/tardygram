@@ -40,7 +40,7 @@ import {
   Row,
   UncontrolledTooltip,
   Button,
-
+  Input,
   CardBody,
   CardImg,
   CardTitle,
@@ -49,11 +49,13 @@ import {
 // core components
 import Header from "components/Headers/Header.js";
 import {Link } from "react-router-dom";
+import { NONAME } from "dns";
 
 class Tables extends React.Component {
   constructor(props){
     super(props)
     this.state={
+     
        mList:[]
     }
     console.log(props)
@@ -87,6 +89,14 @@ class Tables extends React.Component {
        )
       }
     }
+
+    toggleInputFunc=(arg)=>{
+          if(arg){
+              return "block"
+          }else{
+              return "none"
+          }
+    }
   render() {
 
     return (
@@ -96,7 +106,7 @@ class Tables extends React.Component {
         <Container className="mt--7" fluid>
                 <CardDeck>
         
-                {this.state.mList.map((contact,index)=>{
+                {/* {this.state.mList.map((contact,index)=>{
                        return(
                       <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
                        <Card >
@@ -119,6 +129,76 @@ class Tables extends React.Component {
                            방 참여
                            </Link>
                           </Button>
+                         </Card.Footer>
+                       </Card>
+                       </Col>
+                     )
+                })} */}
+                {this.state.mList.map((contact,index)=>{
+                       return(
+                      <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
+                       <Card >
+                         <Card.Img variant="top" src={contact.roomphoto} />
+                         <Card.Body>
+                           <Card.Title>{contact.roomtitle}</Card.Title>
+                           <Card.Text>
+                           {contact.roomdetail}
+                           </Card.Text>
+                         </Card.Body>
+                         <Card.Footer>
+                         <Button
+                            color="primary"
+                            className={"btn"+index}
+                        
+                            onClick={function(){
+                              document.getElementsByClassName("input"+index)[0].style.display="block"
+                              document.getElementsByClassName("btn"+index)[0].style.display="none"
+                            }}
+                          >                        
+                           방 참여
+                          </Button>
+                          <div className={"input"+index} style={{display:"none"}}>
+                            <Input type='text'/>
+                            
+                            <Button
+                             color="success"
+                             className="mt-2"
+                             style={{padding:0}}
+                           
+                            >
+                               <Link to={"/admin/roomdetail/"+contact.roomno} 
+                               style={{color:"#fff",
+                               padding: "0.625rem 1.25rem",  display:"inline-block"
+                               }}   
+                                  onClick={e=>{
+                                    
+                                    let password= document.getElementsByClassName("input"+index)[0].children[0].value;
+                                      if(password === contact.roompwd){   //axios로 비밀번호 값 받아와서 넣기
+                                        alert("성공")
+                                      }else{
+                                        alert("실패")
+                                        e.preventDefault();
+                              
+                                        return false;
+                                      }
+                                    }}>
+                                  방 입장
+                              </Link>
+                              </Button>
+                              <Button
+                                color="danger"
+                                className="mt-2" 
+                                onClick={e=>{
+                                  document.getElementsByClassName("input"+index)[0].children[0].value=""
+                                  document.getElementsByClassName("input"+index)[0].style.display="none"
+                                  document.getElementsByClassName("btn"+index)[0].style.display="block"
+                                } 
+                             }
+                            >
+                              취 소
+                              </Button>
+
+                            </div> 
                          </Card.Footer>
                        </Card>
                        </Col>

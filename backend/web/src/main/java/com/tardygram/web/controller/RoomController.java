@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,12 +43,9 @@ public class RoomController {
 
    @GetMapping("/sucess")
    public String add() {
-        System.out.println("성공시 컨트롤러");
-   
-        return "localhost:3000";
-        
+        System.out.println("성공시 컨트롤러"); 
+        return "localhost:3000";       
     }
-
     
     //모임방 이미지 업로드
     @PostMapping(path="/upload/{id}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -78,20 +76,27 @@ public class RoomController {
 
 
 
-
    //방장이 모임방 개설
-   @PostMapping("/create")
-   public void insertRoom(@RequestBody Room fd ){
-    System.out.println(fd);
+   @PostMapping(path="/create")
+   public void insertRoom(@RequestBody Room data) {
+        System.out.println("컨트롤러 도착");
+        System.out.println("room : " + data);
 
-    Room room = new Room();
-    fd.setRoomprogress(1);
-    Member member1 = memberrepo.findById(fd.getRoomhostid()).get(); // 방장추가
-    room.addMember(member1);
-    member1.addRoom(fd);
-    roomrepo.save(fd);
+        Room room = new Room();
+        data.setRoomprogress(1);
 
+        Member member = memberrepo.findById(data.getRoomhostid()).get();
+        System.out.println("member : " + member);
+        
+        if(member.getMoney() >= data.getRoomcharge()){
+            int tardycashe = member.getMoney()-data.getRoomcharge();
+            member.addRoom(data);
+            roomrepo.save(data);
+            memberrepo.roomTardy(data.getRoomhostid(), tardycashe);
+        }
    }
+
+   
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시
    @PostMapping("/enter")
    public void enter(){
@@ -100,12 +105,12 @@ public class RoomController {
        enterrepo.enter(m, "2");  // 4번방에 추가
    }
 
-   //연관테이블 레코드 삭제후 room테이블 레코드 삭제
-   @DeleteMapping("/delete")
-   public void deleteroom(){      
-        roomrepo.deleteRoom((long)1);
-        // roomrepo.deleteById((long)3);      
-   }
+    //연관테이블 레코드 삭제후 room테이블 레코드 삭제, 각인원들에게 돈다시 줘야함
+    @DeleteMapping("/delete")
+    public void deleteroom(){      
+            roomrepo.deleteRoom((long)1);
+            // roomrepo.deleteById((long)3);      
+    }
 
 
     //모임방 전체출력
@@ -120,20 +125,39 @@ public class RoomController {
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
     }
 
-   //해당 id에 해당하는 user의 room + roompeople 2개의 테이블 조인
-   /* @GetMapping("getroom")
-   public void getroom(){
-       System.out.println("join테스트");
-       List<Object[]> result = roomrepo.joinlist("kz1324");
-       System.out.println("result.get(0) "+result.get(0));
-       System.out.println("Arrays.deepToString(result.get(0)) "+Arrays.deepToString(result.get(0)));
-       for(int i = 0; i <result.size(); i++){
-           for(int j=0; j<result.get(i).length; j++){
-               System.out.println(result.get(i)[j]);
+
+   //모임방 디테일
+   @GetMapping("/selectone/{roomno}")
+   public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long roomno){
+   // public void selectone(@PathVariable int roomno){
+       System.out.println("selectone 컨트롤러 도착");
+       System.out.println("roomno : " + roomno);
+       Room selecthost = roomrepo.selecthost(roomno);
+       List<Object []> selectuser = roomrepo.selectuser(roomno);
+       List memberList = new ArrayList<>();
+ 
+       selectuser.forEach(arr -> {
+           HashMap<String,Object> memlist =new HashMap<>();
+           String memberid = arr[0].toString();
+           memlist.put("memberid", memberid);
+      
+           try{
+               String profileimage = arr[1].toString();
+               memlist.put("profileimage", profileimage);
+               System.out.println(profileimage);
+           }catch(Exception e){
+               memlist.put("profileimage", "null");
            }
-           System.out.println("---------------");
-       }
-   } */
+           memberList.add(memlist);
+       });
+ 
+       System.out.println("selectuser : " + selectuser);
+       HashMap<String,Object> map =new HashMap<>();
+       map.put("selecthost", selecthost);
+       map.put("selectuser", memberList);
+       // System.out.println(map);
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+   }
 
 
 

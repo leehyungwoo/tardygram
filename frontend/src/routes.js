@@ -24,6 +24,7 @@ import MakeRoom from "views/examples/MakeRoom.js"
 import RoomDetail from "views/examples/RoomDetail.js"
 import DoneHost from "views/examples/DoneHost.js"
 
+
 var routes = [
   {
     path: "/login",
@@ -74,5 +75,6 @@ var routes = [
     component: DoneHost,
     layout: "/admin"
   }
+
 ]
 export default routes

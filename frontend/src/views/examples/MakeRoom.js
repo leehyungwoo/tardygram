@@ -26,26 +26,35 @@ import RoomUpload from '../../components/Upload/RoomUpload'
 
 
 class CreateHost extends Component {
-    state={
-        calender:false,
-        inputVal:'',
-        pageIndex:0,
-        query:['roomtitle','roomcategory','roomdate','roomdetail','roomphoto','roomcharge','roompwd','roomplace'],
-        roomcategory:'',
-        roomhostid:localStorage.getItem('loginId'),
-        roomtitle:'',
-        room:'',
-        roomdate:'',
-        roomdetail:'',
-        roomplace:'',
-        roomphoto:'',
-        roomcharge:'',
-        progressNum:0,
-        address:'',
-        roomlongitude:'',
-        roomlatitude:'',
-        roompwd:''
-      }
+    
+    constructor(props){
+        super(props)
+        this.state={
+            calender:false,
+            inputVal:'',
+            pageIndex:0,
+            query:['roomtitle','roomcategory','roomdate','roomdetail','roomcharge','roompwd','roomplace'],
+            roomcategory:'',
+            roomhostid:localStorage.getItem('loginId'),
+            roomtitle:'',
+            room:'',
+            roomdate:'',
+            roomdetail:'',
+            roomplace:'',
+            roomcharge:'',
+            progressNum:0,
+            address:'',
+            roomlongitude:'',
+            roomlatitude:'',
+            roompwd:'',                      
+        }
+       
+    }
+    
+
+
+
+
       mydiv = createRef();
       email = createRef();
       handleIncrease=()=>{
@@ -56,21 +65,21 @@ class CreateHost extends Component {
           console.log(this.state.progressNum)      
       }
 
-      imageTag=()=>{
-        if(this.state.roomphoto){
-          return ( 
-            <img className="rounded-circle" src={this.state.roomphoto} style={{display:"block",minWidth:"300px",maxWidth:"300px",maxHeight:"200px", minHeight:"200px", margin:"0 auto"}} ></img>
-         )
-        }
-      }
+    //   imageTag=()=>{
+    //     if(this.state.roomphoto){
+    //       return ( 
+    //         <img className="rounded-circle" src={this.state.roomphoto} style={{display:"block",minWidth:"300px",maxWidth:"300px",maxHeight:"200px", minHeight:"200px", margin:"0 auto"}} ></img>
+    //      )
+    //     }
+    //   }
   
-      reciveEmit=(type)=>{
-        console.log(type)
-        this.setState({
-            roomphoto:type
-        })
-        this.imageTag();
-      }
+    //   reciveEmit=(type)=>{
+    //     console.log(type)
+    //     this.setState({
+    //         roomphoto:type
+    //     })
+    //     this.imageTag();
+    //   }
 
 
       onChangeHandler=event=>{
@@ -86,16 +95,10 @@ class CreateHost extends Component {
         }
 
         console.log(event)
-        console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        this.setState({
-            file : URL.createObjectURL (event[event.length-1])
-          })
-          const data = new FormData()
-          data.append('file', event[event.length-1])
-        
-       
+        console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")            
       }
   
+
       Dialog = (e) => {
         switch(e) {
             case 0:
@@ -115,6 +118,7 @@ class CreateHost extends Component {
             case 2:
                 return (
                     <div>
+
                             <h1>날짜</h1>
                             <h2>Set Group's timly room Date and time. </h2>
                             <FormGroup>
@@ -131,8 +135,12 @@ class CreateHost extends Component {
 
                             ref={ref=>{this.datepicker=ref}}
                             onChange={e=>{
+<<<<<<< HEAD
                               
                               
+=======
+                                                                              
+>>>>>>> 67abf625dcb335ea652f84ce66077e2f59e05458
                                     if(!this.state.calender){
                                         console.log("달력")
                                         document.getElementsByClassName("rdtTimeToggle")[0].click()
@@ -142,8 +150,10 @@ class CreateHost extends Component {
                                         })
                                     }else{
                                         console.log("시계")
+                                        var that = this;
+                                        
                                         document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
-                                            this.setState({
+                                            that.setState({
                                                 calender:!this.state.calender,
                                                 roomdate:e._d
                                             })
@@ -153,10 +163,13 @@ class CreateHost extends Component {
                                 }
                             }
                             onBlur={e=>{
+
                                 this.setState({
+                                    calender:!this.state.calender,
                                     roomdate:e._d
                                 })
-                                console.log(this.state.roomdate)
+
+                                console.log(this.state)
                             }}
                             timeFormat={true}
                             />
@@ -165,9 +178,14 @@ class CreateHost extends Component {
                         </FormGroup>
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67abf625dcb335ea652f84ce66077e2f59e05458
                     </div>
                 
                         );
+
             case 3:
                 return (
                     <div>
@@ -175,32 +193,20 @@ class CreateHost extends Component {
                             <h2>People will see this when we promote your group, but you’ll be able to add to it later, too</h2>
                     </div>
                         );    
+        
             case 4:
-                return (
-                    <div>
-                            <h1>사진</h1>
-                            <div className="row">       
-                                <div className="col-md-6">
-                                <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>  
-                                <img id="image_section" src="#" alt="your image" />
-                                </div>
-                                 <div className="col-md-6 img-responsive img-thumbnail">{this.imageTag()}</div>                                
-                            </div>
-                    </div>
-                        );         
-            case 5:
                 return (
                     <div>
                             <h1>벌금</h1>
                     </div>
                         ); 
-            case 6:
+            case 5:
                 return (
                     <div>
                             <h1>방비번</h1>
                     </div>
                         );             
-            case 7:
+            case 6:
                 return (
                     <div>
                             <h1>장소</h1>
@@ -211,27 +217,26 @@ class CreateHost extends Component {
         }
     };
 
-      clickHandler=(e)=>{
-       
+    clickHandler=(e)=>{
         e.preventDefault();
         this.handleIncrease()
-        
         if(this.state.pageIndex<this.state.query.length-1){
             console.log("실행")
             this.setState({
-            pageIndex:this.state.pageIndex+1,
-            [this.state.query[this.state.pageIndex]]:this.mydiv.value,
-            inputVal:""
+                pageIndex:this.state.pageIndex+1,
+                [this.state.query[this.state.pageIndex]]:this.mydiv.value,
+                roomdate:this.state.roomdate,
+                inputVal:"",
             })
             this.mydiv.value="";
         }else{
-            console.log("지도")
-            console.log(this.state.pageIndex)
-            console.log(this.state.query.length-1)
-            if(this.state.pageIndex==this.state.query.length-1){
-                console.log("조건문실행")
-                this.axiosRequest();
-            }
+                console.log("지도")
+                console.log(this.state.pageIndex)
+                console.log(this.state.query.length-1)
+                if(this.state.pageIndex==this.state.query.length-1){
+                    console.log("조건문실행")
+                    this.axiosRequest();
+                }
         }
       }
 
@@ -239,11 +244,13 @@ class CreateHost extends Component {
 
         axiosRequest=()=>{
             const headers = {
-             'Content-Type': 'application/json',
+             'Content-Type': 'application/json;charset=utf-8',
              'Access-Control-Allow-Origin':'*'
              }
              console.log(this.state)
-            axios.post('http://localhost:9000/room/create',
+                         
+             
+            axios.post(`http://localhost:9000/room/create`,
                         this.state,
                         {headers: headers})
                         .then(res=>{
@@ -297,14 +304,14 @@ class CreateHost extends Component {
                                     <form className="subscribe-form" onSubmit={(e)=>{e.preventDefault()}}>
                                         {
                                             (()=>{
-                                                if(this.state.pageIndex < 6 ){
+                                                if(this.state.pageIndex < 5 ){
                                                     return <input type="text" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
                                                         value={this.inputVal} 
                                                         ref={ref => { this.mydiv = ref }
                                                         }
                                                     />
-                                                }else if(this.state.pageIndex == 6){
+                                                }else if(this.state.pageIndex == 5){
                                                     return <input type="number" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
                                                         value={this.inputVal} 
@@ -314,7 +321,12 @@ class CreateHost extends Component {
 
                                                 }else{
                                                     return <div>
-                                                        <SearchMap emit={this.reciveEmit}></SearchMap>
+                                                        <SearchMap 
+                                                        height="500px"
+                                                        emit={
+                                                            this.reciveEmit
+                                                            }
+                                                            ></SearchMap>
                                                     </div>
                                                 }
                                             })()

@@ -43,5 +43,12 @@ public interface MemberRepository extends CrudRepository<Member, String>{
         , nativeQuery = true
     )
     public int tardyCash(String id);
+
+    //방장이 방을만들면 타디캐시-시켜줌
+    @Query(
+        value = "update tbl_members set money = :money where memberid=:id ",
+        nativeQuery = true
+    )
+    public void roomTardy(String id, int money);
     
 }
