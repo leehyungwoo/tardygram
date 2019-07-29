@@ -142,7 +142,6 @@ class CreateHost extends Component {
 
                             ref={ref=>{this.datepicker=ref}}
                             onChange={e=>{
-                                                                              
                                     if(!this.state.calender){
                                         console.log("달력")
                                         document.getElementsByClassName("rdtTimeToggle")[0].click()
@@ -178,6 +177,7 @@ class CreateHost extends Component {
                         </InputGroup>
 
                         </FormGroup>
+
                         <input type="text" className="form-control" 
                                                     placeholder={this.state.query[this.state.pageIndex]} 
                                                     value={this.inputVal} 
@@ -186,6 +186,9 @@ class CreateHost extends Component {
                                                     }
                                                     />
                             <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+
+
+
                     </div>
                 
                         );
