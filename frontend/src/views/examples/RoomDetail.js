@@ -48,13 +48,23 @@ import UserHeader from "components/Headers/UserHeader.js";
 class Profile extends React.Component {
 
   constructor(props){
-    super(props)    
+    super(props)
     this.state={
-      selecthost : null,
-      selectuser : [],
-      roomtitle: ''
-
-    }   
+      roomno:"",
+      roomtitle:null,
+      roomdetail:null,
+      roomdate:null,
+      roomplace:null,
+      roomcategory:null,
+      roomprogress:null,
+      roomcharge:null,
+      roomlatitude:null,
+      roomlongitude:null,
+      roomphoto:null,
+      roomhostid:null,
+      roompwd:null,
+      selectuser:[]
+    }
   }
  
   componentDidMount(){
@@ -63,34 +73,78 @@ class Profile extends React.Component {
     const headers = {
       'Content-Type': 'application/json',
     }
-
     axios.get(`/room/selectone/${this.props.match.params.id}`,  {headers:headers})
       .then(res=>{
-
-        console.log('전달받은 값 : ' + res.data)
         console.log(res.data)
-
-        let selecthost = res.data.selecthost
+    let {roomno,
+        roomtitle,
+        roomdetail,
+        roomdate,
+        roomplace,
+        roomcategory,
+        roomprogress,
+        roomcharge,
+        roomlatitude,
+        roomlongitude,
+        roomphoto,
+        roomhostid,
+        roompwd,
+    } = res.data.selecthost;
+    console.log(res.data.selectuser)
+       let { selectuser} = res.data;
+        console.log(selectuser)
         this.setState({
-          roomtitle : selecthost.roomtitle
-        })
-        
-        res.data.selectuser.map((item, index)=>{
-          return this.setState({
-            selectuser:[...this.state.selectuser,item]
-          })
-        })
-        console.log(res.data.selectuser)
+          roomno,
+          roomtitle,
+          roomdetail,
+          roomdate,
+          roomplace,
+          roomcategory,
+          roomprogress,
+          roomcharge,
+          roomlatitude,
+          roomlongitude,
+          roomphoto,
+          roomhostid,
+          roompwd,
+          selectuser
+        });
+        console.log(this.state)
 
-        // res.data.mList.map((item,index)=>{  
-        //   return this.setState({
-        //     mList:[...this.state.mList, item]
-        //    })       
-        // })
+        
+        const kakao = window.kakao
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = { 
+            center: new kakao.maps.LatLng(this.state.roomlatitude, this.state.roomlongitude), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        var markerPosition  = new kakao.maps.LatLng(this.state.roomlatitude, this.state.roomlongitude); 
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+        var iwContent = '<div style="padding:3px; target=_blank; color:blue">'+this.state.roomplace+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          iwPosition = new kakao.maps.LatLng(this.state.roomlatitude, this.state.roomlongitude); //인포윈도우 표시 위치입니다
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+          position : iwPosition,
+          content : iwContent
+        });
+        infowindow.open(map, marker);
+
       })
       .catch(res=>{
         alert("통신실패")
       })
+
+
+
 
   }
  
@@ -108,32 +162,45 @@ class Profile extends React.Component {
                 <Card className="bg-secondary shadow">
                     <CardHeader className="bg-white border-0">
                         <Row className="align-items-center">
-                                {this.state.selecthost}
+                            <Col className="text-left  mb-3" xs="12">
+                            <Button className="float-left" color="info" href="#pablo" size="sm">
+                              모임이름
+                            </Button>
+                            <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
+                                {this.state.roomtitle} 
+                            </h5>
+                            </Col>
                             <Col className="text-left" xs="12">
                             <Button className="float-left" color="success" href="#pablo" size="sm">
                                 모임시간
                               </Button>
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
-                                1988-09-27 17:00
+                                {this.state.roomdate}
                             </h5>
                             </Col>
-                            <Col xs="12">
-                            <Button className="float-left" color="primary" href="#pablo" size="sm">
-                              모임장소
-                            </Button>
-                            <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
-                                서울시 종로구 떙떙떙떙
-                            </h5>
-                            </Col>
+                            
                             <Col className="text-left  mb-3" xs="12">
                             <Button className="float-left" color="danger" href="#pablo" size="sm">
                               벌 &nbsp;&nbsp;&nbsp; &nbsp; 금
                             </Button>
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
-                                10000원
+                                {this.state.roomcharge} 원
                             </h5>
                             </Col>
- 
+
+
+                            {this.state.selectuser.map((contact,i)=>{
+                              return(
+                                  <tr key={i}>
+                                      <td>{contact.memberid}</td>
+                                      <td>{contact.profileimage}</td>                             
+                                  </tr>
+                              );
+                            })} 
+
+
+
+
                             <Table
           className="align-items-center table "
           responsive
@@ -147,327 +214,74 @@ class Profile extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">
-                <Media className="align-items-center">
-                  <a
-                    className="avatar rounded-circle mr-3"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/bootstrap.jpg")}
-                    />
-                  </a>
-                  <Media>
-                    <span className="mb-0 text-sm">
-                      Argon Design System
-                    </span>
-                  </Media>
-                </Media>
-              </th>
-              <td>$2,500 USD</td>
-              <td>
-                <Badge color="" className="badge-dot mr-4">
-                  <i className="bg-warning" />
-                  pending
-                </Badge>
-              </td>
-              
-              
-              <td className="text-right">
-                <UncontrolledDropdown>
-                  <DropdownToggle
-                    className="btn-icon-only text-light"
-                    href="#pablo"
-                    role="button"
-                    size="sm"
-                    color=""
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fas fa-ellipsis-v" />
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-menu-arrow" right>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Another action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Something else here
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Media className="align-items-center">
-                  <a
-                    className="avatar rounded-circle mr-3"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/angular.jpg")}
-                    />
-                  </a>
-                  <Media>
-                    <span className="mb-0 text-sm">
-                      Angular Now UI Kit PRO
-                    </span>
-                  </Media>
-                </Media>
-              </th>
-              <td>$1,800 USD</td>
-              <td>
-                <Badge color="" className="badge-dot">
-                  <i className="bg-success" />
-                  completed
-                </Badge>
-              </td>
-              
-              
-              <td className="text-right">
-                <UncontrolledDropdown>
-                  <DropdownToggle
-                    className="btn-icon-only text-light"
-                    href="#pablo"
-                    role="button"
-                    size="sm"
-                    color=""
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fas fa-ellipsis-v" />
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-menu-arrow" right>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Another action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Something else here
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Media className="align-items-center">
-                  <a
-                    className="avatar rounded-circle mr-3"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/sketch.jpg")}
-                    />
-                  </a>
-                  <Media>
-                    <span className="mb-0 text-sm">
-                      Black Dashboard
-                    </span>
-                  </Media>
-                </Media>
-              </th>
-              <td>$3,150 USD</td>
-              <td>
-                <Badge color="" className="badge-dot mr-4">
-                  <i className="bg-danger" />
-                  delayed
-                </Badge>
-              </td>
-              
-              
-              <td className="text-right">
-                <UncontrolledDropdown>
-                  <DropdownToggle
-                    className="btn-icon-only text-light"
-                    href="#pablo"
-                    role="button"
-                    size="sm"
-                    color=""
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fas fa-ellipsis-v" />
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-menu-arrow" right>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Another action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Something else here
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Media className="align-items-center">
-                  <a
-                    className="avatar rounded-circle mr-3"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/react.jpg")}
-                    />
-                  </a>
-                  <Media>
-                    <span className="mb-0 text-sm">
-                      React Material Dashboard
-                    </span>
-                  </Media>
-                </Media>
-              </th>
-              <td>$4,400 USD</td>
-              <td>
-                <Badge color="" className="badge-dot">
-                  <i className="bg-info" />
-                  on schedule
-                </Badge>
-              </td>
-              
-              
-              <td className="text-right">
-                <UncontrolledDropdown>
-                  <DropdownToggle
-                    className="btn-icon-only text-light"
-                    href="#pablo"
-                    role="button"
-                    size="sm"
-                    color=""
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fas fa-ellipsis-v" />
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-menu-arrow" right>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Another action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Something else here
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Media className="align-items-center">
-                  <a
-                    className="avatar rounded-circle mr-3"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/vue.jpg")}
-                    />
-                  </a>
-                  <Media>
-                    <span className="mb-0 text-sm">
-                      Vue Paper UI Kit PRO
-                    </span>
-                  </Media>
-                </Media>
-              </th>
-              <td>$2,200 USD</td>
-              <td>
-                <Badge color="" className="badge-dot mr-4">
-                  <i className="bg-success" />
-                  completed
-                </Badge>
-              </td>
-              
-              
-              <td className="text-right">
-                <UncontrolledDropdown>
-                  <DropdownToggle
-                    className="btn-icon-only text-light"
-                    href="#pablo"
-                    role="button"
-                    size="sm"
-                    color=""
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fas fa-ellipsis-v" />
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-menu-arrow" right>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Another action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Something else here
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </td>
-            </tr>
-          </tbody>
+          
+                               {this.state.selectuser.map((user,index)=>{
+                                  return(<tr key={index}>
+                                    <th scope="row">
+                                      <Media className="align-items-center">
+                                        <a
+                                          className="avatar rounded-circle mr-3"
+                                          href="#pablo"
+                                          onClick={e => e.preventDefault()}
+                                        >
+                                          {/* {user.profileimage} */}
+                                          <img
+                                            alt="..."
+                                            src={user.profileimage}
+                                          />
+                                        </a>
+                                        <Media>
+                                          <span className="mb-0 text-sm">
+                                           {user.memberid}
+                                          </span>
+                                        </Media>
+                                      </Media>
+                                    </th>
+                                    <td>$2,500 USD</td>
+                                    <td>
+                                      <Badge color="" className="badge-dot mr-4">
+                                        <i className="bg-warning" />
+                                        pending
+                                      </Badge>
+                                    </td>
+                                    <td className="text-right">
+                                      <UncontrolledDropdown>
+                                        <DropdownToggle
+                                          className="btn-icon-only text-light"
+                                          href="#pablo"
+                                          role="button"
+                                          size="sm"
+                                          color=""
+                                          onClick={e => e.preventDefault()}
+                                        >
+                                          <i className="fas fa-ellipsis-v" />
+                                        </DropdownToggle>
+                                        <DropdownMenu className="dropdown-menu-arrow" right>
+                                          <DropdownItem
+                                            href="#pablo"
+                                            onClick={e => e.preventDefault()}
+                                          >
+                                            Action
+                                          </DropdownItem>
+                                          <DropdownItem
+                                            href="#pablo"
+                                            onClick={e => e.preventDefault()}
+                                          >
+                                            Another action
+                                          </DropdownItem>
+                                          <DropdownItem
+                                            href="#pablo"
+                                            onClick={e => e.preventDefault()}
+                                          >
+                                            Something else here
+                                          </DropdownItem>
+                                        </DropdownMenu>
+                                      </UncontrolledDropdown>
+                                    </td>
+</tr>
+                                  )
+                               })}
+                             </tbody>
         </Table>
 
 
@@ -482,26 +296,23 @@ class Profile extends React.Component {
                     <CardBody className="pt-0 pt-md-4">
 
                         <div className="text-center">
-                            <h3>
-                                약속장소
-                            </h3>
+                           <Col xs="12">
+                            <Button className="float-left" color="primary" href="#pablo" size="sm">
+                              모임장소
+                            </Button>
+                            <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
+                                {this.state.roomplace}
+                            </h5>
+                            </Col>
                         
                             {/* <SearchMap height="300px"></SearchMap> */}
-                          
+                            <div id="map" style={{width:"350px", height:"350px",position:"relative",overflow:"hidden"}}></div>
                         </div>
                     </CardBody>
                 </Card>
                 </Col>
             </Row>
-            {this.state.selectuser.map((contact, i)=>{
-              return(
-                <div>
-                  <div>{contact.memberid}</div>
-                  <div>{contact.profileimage}</div>
-                  <div>asdf</div>
-              </div>
-              )
-            })}
+            
         </Container>
       </>
     );

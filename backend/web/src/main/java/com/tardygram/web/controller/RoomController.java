@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -157,24 +158,56 @@ public class RoomController {
     }
 
     //모임방 디테일
-    @GetMapping("/selectone/{roomno}")
-    public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long roomno){
-        System.out.println("selectone 컨트롤러 도착");
-        System.out.println("roomno : " + roomno);
-        Room selecthost = roomrepo.selecthost(roomno);
-        List selectuser = roomrepo.selectuser(roomno);
-        System.out.println("selecthost : " + selecthost);
-        System.out.println("selectuser : " + selectuser);
+    // @GetMapping("/selectone/{roomno}")
+    // public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long roomno){
+    //     System.out.println("selectone 컨트롤러 도착");
+    //     System.out.println("roomno : " + roomno);
+    //     Room selecthost = roomrepo.selecthost(roomno);
+    //     List<Object[]> selectuser = roomrepo.selectuser(roomno);
+    //     //System.out.println("selecthost : " + selecthost);
+    //     System.out.println("selectuser : " + selectuser);
 
 
-        HashMap<String,Object> map = new HashMap<>();
+    //     HashMap<String,Object> map = new HashMap<>();
 
-        map.put("selecthost", selecthost);
-        map.put("selectuser", selectuser);
+    //     map.put("selecthost", selecthost);
+    //     map.put("selectuser", selectuser);
         
-        System.out.println(map);
+    //     //System.out.println(map);
+    //     return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+    // }
+    //모임방 디테일
+   @GetMapping("/selectone/{roomno}")
+   public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long roomno){
+   // public void selectone(@PathVariable int roomno){
+       System.out.println("selectone 컨트롤러 도착");
+       System.out.println("roomno : " + roomno);
+       Room selecthost = roomrepo.selecthost(roomno);
+       List<Object []> selectuser = roomrepo.selectuser(roomno);
+       List memberList = new ArrayList<>();
+ 
+       selectuser.forEach(arr -> {
+           HashMap<String,Object> memlist =new HashMap<>();
+           String memberid = arr[0].toString();
+           memlist.put("memberid", memberid);
+      
+           try{
+               String profileimage = arr[1].toString();
+               memlist.put("profileimage", profileimage);
+               System.out.println(profileimage);
+           }catch(Exception e){
+               memlist.put("profileimage", "null");
+           }
+           memberList.add(memlist);
+       });
+ 
+       System.out.println("selectuser : " + selectuser);
+       HashMap<String,Object> map =new HashMap<>();
+       map.put("selecthost", selecthost);
+       map.put("selectuser", memberList);
+       // System.out.println(map);
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
-    }
+   }
 
 
 
