@@ -135,12 +135,6 @@ class CreateHost extends Component {
 
                             ref={ref=>{this.datepicker=ref}}
                             onChange={e=>{
-<<<<<<< HEAD
-                              
-                              
-=======
-                                                                              
->>>>>>> 67abf625dcb335ea652f84ce66077e2f59e05458
                                     if(!this.state.calender){
                                         console.log("달력")
                                         document.getElementsByClassName("rdtTimeToggle")[0].click()
@@ -178,10 +172,6 @@ class CreateHost extends Component {
                         </FormGroup>
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 67abf625dcb335ea652f84ce66077e2f59e05458
                     </div>
                 
                         );

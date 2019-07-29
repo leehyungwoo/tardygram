@@ -29,26 +29,6 @@ import {
   CardHeader,
   CardBody,
   FormGroup,
-<<<<<<< HEAD
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col
-  } from "reactstrap";
-
-
-  // core components
-  import Header from "components/Headers/Header.js";
-
-class roomDetail extends Component{
-    
-    constructor(props){ 
-        super(props)
-        console.log(props.match.params.id)
-   
-=======
   Form,
   Input,
   Container,
@@ -92,7 +72,6 @@ class Profile extends React.Component {
 
     const headers = {
       'Content-Type': 'application/json',
->>>>>>> 67abf625dcb335ea652f84ce66077e2f59e05458
     }
     axios.get(`/room/selectone/${this.props.match.params.id}`,  {headers:headers})
       .then(res=>{
