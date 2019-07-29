@@ -51,11 +51,6 @@ class CreateHost extends Component {
        
     }
     
-
-
-
-
-      mydiv = createRef();
       email = createRef();
       handleIncrease=()=>{
 
@@ -94,8 +89,6 @@ class CreateHost extends Component {
             reader.readAsDataURL(input.files[0]);
         }
 
-        console.log(event)
-        console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")            
       }
   
 
@@ -105,14 +98,28 @@ class CreateHost extends Component {
                 return (
                 <div>
                         <h1>타이틀</h1>
-		                <h2>Choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</h2>
+		                <h2>모임의 제목을 입력해 주세요</h2>
+                       <input type="text" className="form-control" 
+                                                        placeholder={this.state.query[this.state.pageIndex]} 
+                                                        value={this.inputVal} 
+                                                        ref={ref => { this.mydiv = ref }
+                                                    }
+                        />
+                         <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                 </div>
                     );
             case 1:
                 return (
                     <div>
                             <h1>카테고리</h1>
-                            <h2>Be specific! This will help us promote your group to the right people. You can choose up to 15 topics.</h2>
+                            <h2>모임의 카테고리를 입력해 주세요</h2>
+                            <input type="text" className="form-control" 
+                                                        placeholder={this.state.query[this.state.pageIndex]} 
+                                                        value={this.inputVal} 
+                                                        ref={ref => { this.mydiv = ref }
+                                                    }
+                                                    />
+                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button> 
                     </div>
                         );
             case 2:
@@ -171,9 +178,14 @@ class CreateHost extends Component {
                         </InputGroup>
 
                         </FormGroup>
-
-
-
+                        <input type="text" className="form-control" 
+                                                    placeholder={this.state.query[this.state.pageIndex]} 
+                                                    value={this.inputVal} 
+                                                    style={{display:"none"}}
+                                                    ref={ref => { this.mydiv = ref }
+                                                    }
+                                                    />
+                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
                 
                         );
@@ -181,21 +193,44 @@ class CreateHost extends Component {
             case 3:
                 return (
                     <div>
-                            <h1>디테일</h1>
-                            <h2>People will see this when we promote your group, but you’ll be able to add to it later, too</h2>
+                            <h1>모임설명</h1>
+                            <h2>모임에 대한 상세내용을 입력해 주세요</h2>
+                            <input type="text" className="form-control" 
+                                                    placeholder={this.state.query[this.state.pageIndex]} 
+                                                    value={this.inputVal} 
+                                                    ref={ref => { this.mydiv = ref }
+                                                    }
+                                                    />
+                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
+                    
                         );    
         
             case 4:
                 return (
                     <div>
                             <h1>벌금</h1>
+                            <span>* 숫자로 입력해주세요</span>
+                            <input type="number" className="form-control" 
+                                                        placeholder={this.state.query[this.state.pageIndex]} 
+                                                        value={this.inputVal} 
+                                                        ref={ref => { this.mydiv = ref }
+                                                    }
+                                                    />
+                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
                         ); 
             case 5:
                 return (
                     <div>
                             <h1>방비번</h1>
+                            <input type="text" className="form-control" 
+                                                        placeholder={this.state.query[this.state.pageIndex]} 
+                                                        value={this.inputVal} 
+                                                        ref={ref => { this.mydiv = ref }
+                                                    }
+                                                    />
+                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
                         );             
             case 6:
@@ -203,8 +238,16 @@ class CreateHost extends Component {
                     <div>
                             <h1>장소</h1>
                             <h2>Group's meet locally and in person. We’ll connect you with people who live in and around your area.</h2>
+                            <SearchMap 
+                            height="500px"
+                            emit={
+                                this.reciveEmit
+                                }
+                                ></SearchMap>
+                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
-                        ); 
+                        );
+            
                         
         }
     };
@@ -235,6 +278,7 @@ class CreateHost extends Component {
    
 
         axiosRequest=()=>{
+            console.log(this.state)
             const headers = {
              'Content-Type': 'application/json;charset=utf-8',
              'Access-Control-Allow-Origin':'*'
@@ -242,25 +286,32 @@ class CreateHost extends Component {
              console.log(this.state)
                          
              
-            axios.post(`http://localhost:9000/room/create`,
-                        this.state,
-                        {headers: headers})
-                        .then(res=>{
-                            alert('방만들기 성공')
-                            this.props.history.push("/admin/DoneHost")
+             axios.post("http://localhost:9000/room/create",
+                this.state,
+                {headers: headers})
+                .then(res=>{
+                    if(res.data == "방이 생성되었습니다."){
+                        alert('방이 생성되었습니다.')
+                        this.props.history.push("/admin/DoneHost")
+                    }else{
+                        this.props.history.push("/admin/Profile")
+                        alert(res.data+ "tardy캐시를 충전하고 다시 방을 만들어주세요." )
+                    }
+                 })
+                        .catch(e=>{
+                            alert('방만들기 실패')
                         })
-                .catch(e=>{
-                    alert('방만들기 실패')
-                })
-        }
+             }
       
 
         reciveEmit=(chilstate)=>{
+            console.log(chilstate)
             this.setState({
                 roomplace:chilstate.address,
                 roomlongitude:chilstate.roomlongitude,
                 roomlatitude:chilstate.roomlatitude
             })
+            console.log("실행")
             console.log(this.state)
         }
 
@@ -292,38 +343,10 @@ class CreateHost extends Component {
                             </div>
                         </CardHeader>
                                 <CardBody>
-                                {this.Dialog(this.state.progressNum)}
+                              
                                     <form className="subscribe-form" onSubmit={(e)=>{e.preventDefault()}}>
-                                        {
-                                            (()=>{
-                                                if(this.state.pageIndex < 5 ){
-                                                    return <input type="text" className="form-control" 
-                                                        placeholder={this.state.query[this.state.pageIndex]} 
-                                                        value={this.inputVal} 
-                                                        ref={ref => { this.mydiv = ref }
-                                                        }
-                                                    />
-                                                }else if(this.state.pageIndex == 5){
-                                                    return <input type="number" className="form-control" 
-                                                        placeholder={this.state.query[this.state.pageIndex]} 
-                                                        value={this.inputVal} 
-                                                        ref={ref => { this.mydiv = ref }
-                                                        }
-                                                />
-
-                                                }else{
-                                                    return <div>
-                                                        <SearchMap 
-                                                        height="500px"
-                                                        emit={
-                                                            this.reciveEmit
-                                                            }
-                                                            ></SearchMap>
-                                                    </div>
-                                                }
-                                            })()
-                                        }
-                                        <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+                                    {this.Dialog(this.state.progressNum)}
+                                       
                                     </form>
                                 </CardBody>
                         </Card>

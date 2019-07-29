@@ -38,6 +38,8 @@ public class Room {
 	private String roomphoto; //모임장소 사진
 	private String roomhostid; //로그인한방장의 아이디
 	private String roompwd;
+	@ColumnDefault("0")
+	private int roompenaltyall;
 
 	//연관관계의 주인은 Member가됨
 	@ManyToMany(mappedBy = "rooms")

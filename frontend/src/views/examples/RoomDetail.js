@@ -144,9 +144,33 @@ class Profile extends React.Component {
       })
 
 
-
-
   }
+
+
+  enterbtn = e => {
+    e.preventDefault()
+    alert('참여버튼클릭');
+
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+    
+    let data ={
+      id : localStorage.getItem("loginId"),
+      roomno : this.state.roomno,
+      charge : this.state.roomcharge
+    }
+    
+    axios.post('/room/enter', JSON.stringify(data), {headers:headers})
+        .then(res =>{
+          alert('성공')  
+
+        })
+        .catch(res =>{
+          alert('실패')
+        })
+  }
+
  
 
 
@@ -162,13 +186,18 @@ class Profile extends React.Component {
                 <Card className="bg-secondary shadow">
                     <CardHeader className="bg-white border-0">
                         <Row className="align-items-center">
-                            <Col className="text-left  mb-3" xs="12">
+                            <Col className="text-left" xs="12">
                             <Button className="float-left" color="info" href="#pablo" size="sm">
                               모임이름
                             </Button>
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
                                 {this.state.roomtitle} 
                             </h5>
+                           
+                            <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
+                               참여하기
+                            </Button>
+                   
                             </Col>
                             <Col className="text-left" xs="12">
                             <Button className="float-left" color="success" href="#pablo" size="sm">
@@ -179,7 +208,7 @@ class Profile extends React.Component {
                             </h5>
                             </Col>
                             
-                            <Col className="text-left  mb-3" xs="12">
+                            <Col className="text-left" xs="12">
                             <Button className="float-left" color="danger" href="#pablo" size="sm">
                               벌 &nbsp;&nbsp;&nbsp; &nbsp; 금
                             </Button>
@@ -189,31 +218,31 @@ class Profile extends React.Component {
                             </Col>
 
 
-                            {this.state.selectuser.map((contact,i)=>{
+                            {/* {this.state.selectuser.map((contact,i)=>{
                               return(
                                   <tr key={i}>
                                       <td>{contact.memberid}</td>
                                       <td>{contact.profileimage}</td>                             
                                   </tr>
                               );
-                            })} 
+                            })}  */}
 
 
 
 
                             <Table
-          className="align-items-center table "
-          responsive
-        >
-          <thead className="thead">
-            <tr>
-              <th scope="col">{this.state.roomtitle}</th>
-              <th scope="col">벌금액수</th>
-              <th scope="col">상태</th>
-              <th scope="col" />
-            </tr>
-          </thead>
-          <tbody>
+                              className="align-items-center table "
+                              responsive
+                            >
+                              <thead className="thead">
+                                <tr>
+                                  <th scope="col">{this.state.roomtitle}</th>
+                                  <th scope="col">벌금액수</th>
+                                  <th scope="col">상태</th>
+                                  <th scope="col" />
+                                </tr>
+                              </thead>
+                              <tbody>
           
                                {this.state.selectuser.map((user,index)=>{
                                   return(<tr key={index}>
@@ -283,6 +312,7 @@ class Profile extends React.Component {
                                })}
                              </tbody>
         </Table>
+        
 
 
                         </Row>
@@ -307,6 +337,7 @@ class Profile extends React.Component {
                         
                             {/* <SearchMap height="300px"></SearchMap> */}
                             <div id="map" style={{width:"350px", height:"350px",position:"relative",overflow:"hidden"}}></div>
+                                                     
                         </div>
                     </CardBody>
                 </Card>

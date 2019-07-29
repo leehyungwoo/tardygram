@@ -81,7 +81,7 @@ class Profile extends React.Component {
         .then(res =>{
             //alert('통신성공  url:')
          console.log(res.data)
-   
+          
          let uInfo =res.data.uInfo
    
          this.setState({

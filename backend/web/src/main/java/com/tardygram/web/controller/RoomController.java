@@ -25,8 +25,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import lombok.Getter;
 
 /**
 * MemberController
@@ -78,7 +81,7 @@ public class RoomController {
 
    //방장이 모임방 개설
    @PostMapping(path="/create")
-   public void insertRoom(@RequestBody Room data) {
+   public String insertRoom(@RequestBody Room data) {
         System.out.println("컨트롤러 도착");
         System.out.println("room : " + data);
 
@@ -93,17 +96,27 @@ public class RoomController {
             member.addRoom(data);
             roomrepo.save(data);
             memberrepo.roomTardy(data.getRoomhostid(), tardycashe);
+            return "방이 생성되었습니다.";
+        } else{
+            return "tardycash가 부족합니다.";
         }
    }
 
-   
+
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시
+   
    @PostMapping("/enter")
-   public void enter(){
-       Member m = new Member();
-       m.setMemberid("jmh1753");         //m이라는 친구가
-       enterrepo.enter(m, "2");  // 4번방에 추가
+   public void enter(@RequestBody Room data){
+       System.out.println("enter컨트롤러 도착");
+       System.out.println("data : " + data);
+        //리퀘스트 파람으로 바꿀지 고려
+
+
+       //Member m = new Member();
+       //m.setMemberid("jmh1753");  //m이라는 친구가
+       //enterrepo.enter(m, "2");  // 4번방에 추가
    }
+
 
     //연관테이블 레코드 삭제후 room테이블 레코드 삭제, 각인원들에게 돈다시 줘야함
     @DeleteMapping("/delete")
