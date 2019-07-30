@@ -189,10 +189,11 @@ class Profile extends React.Component {
     axios.post(`/room/enter/${id}/${this.state.roomno}/${this.state.roomcharge}`, {headers:headers})
         .then(res =>{
           alert('성공')          
+          console.log(res.data)
           console.log('m2나와 : ' +res.data.m2.memberid)
           console.log('m2 이미지 : ' + res.data.m2.profileimage)
           this.setState({
-            selectuser:[...this.state.selectuser,{profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
+            selectuser:[...this.state.selectuser,{tardystate:"waiting",profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
             flag:false
           })
           console.log(this.state.selectuser)
@@ -281,7 +282,7 @@ CheckTardy = () =>{
   // 1. 거리 확인
 
   console.log(`거리값은 : ${this.state.dist}`)
-  if(this.state.dist < 50){
+  if(this.state.dist < 100){
   this.distance  =	true
   let gotTime = new Date (this.state.roomdate)
   console.log(`도착해야하는 시간은 : ${gotTime}`)
