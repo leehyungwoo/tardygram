@@ -252,7 +252,7 @@ class Register extends React.Component {
                     </InputGroupAddon>
                     <Input 
                       type="text" 
-                      className={`form-control ${this.inputClassNameHelper(this.isEnteredNameValid())}`}
+                      className={` ${this.inputClassNameHelper(this.isEnteredNameValid())}`}
                       id="uid"
                       placeholder="ID" 
                       onChange={e => this.validateName(e.target.value)}
@@ -361,7 +361,7 @@ class Register extends React.Component {
                     {/* <Input placeholder="Phone" type="number" id="uphone"/> */}
                     <Input 
                       type="text"
-                      className={`form-control ${this.inputClassNameHelper(this.isEnteredPhoneNumberValid())}`}
+                      className={`${this.inputClassNameHelper(this.isEnteredPhoneNumberValid())}`}
                       id="uphone"
                       placeholder="010-1234-1234"
                       onChange={e => this.validatePhoneNumber(e.target.value)}
@@ -379,7 +379,7 @@ class Register extends React.Component {
                     </InputGroupAddon>
                     <Input 
                     type="email"
-                    className={`form-control ${this.inputClassNameHelper(this.isEnteredEmailValid())}`}
+                    className={`${this.inputClassNameHelper(this.isEnteredEmailValid())}`}
                     id="uemail"
                     aria-describedby="emailHelp"
                     placeholder="abc@gmail.com"
