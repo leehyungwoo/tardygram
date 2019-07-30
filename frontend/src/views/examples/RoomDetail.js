@@ -20,6 +20,7 @@ import axios from 'axios'
 import {Link,Route } from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 import SearchMap from "./SearchMap"
+import Moment from 'react-moment';
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 
 // reactstrap components
@@ -222,8 +223,8 @@ class Profile extends React.Component {
                             <Button className="float-left" color="success" href="#pablo" size="sm">
                                 모임시간
                               </Button>
-                            <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
-                                {this.state.roomdate}
+                            <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>                           
+                            <Moment format="YYYY년 M월 DD일 h:mm">{this.state.roomdate}</Moment>
                             </h5>
                             </Col>
                             
