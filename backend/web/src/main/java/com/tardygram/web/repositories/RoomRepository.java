@@ -108,4 +108,11 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     )
     public List<Object[]> selectuser(Long roomno);
 
+    //총벌금 합산
+    @Query(
+        value = "update tbl_room set roompenaltyall = roompenaltyall+(:roomcharge) where roomno=:roomno",
+        nativeQuery = true
+    )
+    public void insertPenaltyall(Long roomno, int roomcharge);
+
 }

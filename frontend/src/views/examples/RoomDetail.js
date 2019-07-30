@@ -67,6 +67,7 @@ class Profile extends React.Component {
     }
   }
  
+
   componentDidMount(){
     console.log(this.props.match.params.id)
 
@@ -147,6 +148,8 @@ class Profile extends React.Component {
   }
 
 
+  
+ 
   enterbtn = e => {
     e.preventDefault()
     alert('참여버튼클릭');
@@ -155,22 +158,23 @@ class Profile extends React.Component {
       'Content-Type': 'application/json',
     }
     
-    let data ={
-      id : localStorage.getItem("loginId"),
-      roomno : this.state.roomno,
-      charge : this.state.roomcharge
-    }
-    
-    axios.post('/room/enter', JSON.stringify(data), {headers:headers})
+    let id = localStorage.getItem("loginId")   
+    axios.post(`/room/enter/${id}/${this.state.roomno}/${this.state.roomcharge}`, {headers:headers})
         .then(res =>{
           alert('성공')  
+          if(res.data == "방에 참여하셨습니다."){
+            alert('방에 참여하셨습니다.')
+            
 
+          }else{
+            alert("tardy캐시를 확인하세요.")
+          }
         })
         .catch(res =>{
           alert('실패')
         })
   }
-
+  
  
 
 

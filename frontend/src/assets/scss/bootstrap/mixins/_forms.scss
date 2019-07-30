@@ -50,23 +50,24 @@
     @include border-radius($tooltip-border-radius);
   }
 
-  .form-control,
-  .custom-select {
-    .was-validated &:#{$state},
-    &.is-#{$state} {
-      border-color: $color;
+  /*수정*/
+  // .form-control,
+  // .custom-select {
+  //   .was-validated &:#{$state},
+  //   &.is-#{$state} {
+  //     border-color: $color;
 
-      &:focus {
-        border-color: $color;
-        box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
-      }
+  //     &:focus {
+  //       border-color: $color;
+  //       box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
+  //     }
 
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
-        display: block;
-      }
-    }
-  }
+  //     ~ .#{$state}-feedback,
+  //     ~ .#{$state}-tooltip {
+  //       display: block;
+  //     }
+  //   }
+  // }
 
   .form-control-file {
     .was-validated &:#{$state},
