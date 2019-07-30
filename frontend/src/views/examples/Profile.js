@@ -20,7 +20,7 @@ import axios from 'axios'
 import {Link,Route } from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
-
+import moment from 'moment';
 // reactstrap components
 import {
   Button,
@@ -70,6 +70,8 @@ class Profile extends React.Component {
 
 
   componentDidMount(){
+    console.log(moment().format('YYYY MM Do , hh:mm:ss a'))
+    console.log(moment().format('llll'))
     console.log("라이프사이클 로직실행")
     
      const headers = {
@@ -196,24 +198,8 @@ class Profile extends React.Component {
                 </Row>
                 <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                   <div className="d-flex justify-content-between">
-                    <Button
-                      className="mr-4"
-                      color="info"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Connect
-                    </Button>
-                    <Button
-                      className="float-right"
-                      color="default"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Message
-                    </Button>
+                    
+              
                   </div>
                 </CardHeader>
                 <CardBody className="pt-0 pt-md-4">
@@ -251,9 +237,6 @@ class Profile extends React.Component {
    
                         <Upload emit={this.reciveEmit}></Upload>
                       </div>
-                    <a href="#pablo" onClick={e => e.preventDefault()}>
-                      Show more
-                    </a>
                   </div>
                 </CardBody>
               </Card>
@@ -266,14 +249,7 @@ class Profile extends React.Component {
                       <h3 className="mb-0">My account</h3>
                     </Col>
                     <Col className="text-right" xs="4">
-                      <Button
-                        color="primary"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                        size="sm"
-                      >
-                        Settings
-                      </Button>
+            
                     </Col>
                   </Row>
                 </CardHeader>

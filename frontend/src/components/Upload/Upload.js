@@ -20,10 +20,9 @@ class Upload extends Component{
     //     //여기 axios
     // }
     onChangeHandler=event=>{
-      this.setState({
-        file : URL.createObjectURL (event[event.length-1])
-      })
- 
+      // this.setState({
+      //   file : URL.createObjectURL (event[event.length-1])
+      // })
       const data = new FormData()
       data.append('file', event[event.length-1])
 
@@ -46,7 +45,7 @@ class Upload extends Component{
     render(){
         return (
           <>
-              <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>                     
+              <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>   
           </>
         );
 

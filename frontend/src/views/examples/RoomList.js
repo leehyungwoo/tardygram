@@ -51,7 +51,7 @@ import Header from "components/Headers/Header.js";
 import {Link } from "react-router-dom";
 import { NONAME } from "dns";
 
-class Tables extends React.Component {
+class RoomList extends React.Component {
   constructor(props){
     super(props)
     this.state={
@@ -472,4 +472,4 @@ class Tables extends React.Component {
   }
 }
 
-export default Tables;
+export default RoomList;
