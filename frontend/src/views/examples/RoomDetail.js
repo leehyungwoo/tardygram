@@ -64,7 +64,8 @@ class Profile extends React.Component {
       roomhostid:null,
       roompwd:null,
       selectuser:[],
-      flag:true
+      flag:true,
+      roompenaltyall:null
     }
   }
  
@@ -91,6 +92,7 @@ class Profile extends React.Component {
         roomphoto,
         roomhostid,
         roompwd,
+        roompenaltyall
     } = res.data.selecthost;
     console.log(res.data.selectuser)
        let { selectuser} = res.data;
@@ -109,7 +111,8 @@ class Profile extends React.Component {
           roomphoto,
           roomhostid,
           roompwd,
-          selectuser
+          selectuser,
+          roompenaltyall
         });
         console.log(this.state)
 
@@ -226,10 +229,10 @@ class Profile extends React.Component {
                             
                             <Col className="text-left" xs="12">
                             <Button className="float-left" color="danger" href="#pablo" size="sm">
-                              벌 &nbsp;&nbsp;&nbsp; &nbsp; 금
+                              벌금총액
                             </Button>
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
-                                {this.state.roomcharge} 원
+                                {this.state.roompenaltyall} 원
                             </h5>
                             </Col>
 
@@ -252,7 +255,7 @@ class Profile extends React.Component {
                             >
                               <thead className="thead">
                                 <tr>
-                                  <th scope="col">{this.state.roomtitle}</th>
+                                  <th scope="col">users</th>
                                   <th scope="col">벌금액수</th>
                                   <th scope="col">상태</th>
                                   <th scope="col" />
@@ -282,11 +285,11 @@ class Profile extends React.Component {
                                         </Media>
                                       </Media>
                                     </th>
-                                    <td>$2,500 USD</td>
+                                    <td>{this.state.roomcharge} 원</td>
                                     <td>
                                       <Badge color="" className="badge-dot mr-4">
                                         <i className="bg-warning" />
-                                        pending
+                                        {user.tardystate}
                                       </Badge>
                                     </td>
                                     <td className="text-right">

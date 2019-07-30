@@ -103,7 +103,7 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     // public List<Member> selectuser(Long roomno);
 
     @Query(
-        value = "select memberid,profileimage from tbl_members mb JOIN tbl_members_rooms mr ON mb.memberid=mr.members_memberid where mr.rooms_roomno=:roomno",
+        value = "select memberid,profileimage, tardystate from tbl_members mb JOIN tbl_members_rooms mr ON mb.memberid=mr.members_memberid where mr.rooms_roomno=:roomno",
         nativeQuery = true
     )
     public List<Object[]> selectuser(Long roomno);
@@ -115,10 +115,5 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     )
     public void insertPenaltyall(Long roomno, int roomcharge);
 
-    @Query(
-        value = "select * from tbl_members where memberid=:id",
-        nativeQuery = true
-    )
-    public Member selectuser2(String id);
 
 }

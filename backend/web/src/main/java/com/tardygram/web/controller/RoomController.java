@@ -13,6 +13,7 @@ import com.tardygram.web.entities.Member;
 import com.tardygram.web.repositories.EnterRepository;
 import com.tardygram.web.repositories.RoomRepository;
 import com.tardygram.web.repositories.MemberRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -97,6 +98,7 @@ public class RoomController {
             roomrepo.save(data);
             memberrepo.roomTardy(data.getRoomhostid(), tardycashe);
             roomrepo.insertPenaltyall(data.getRoomno(), data.getRoomcharge());
+            
             return "방이 생성되었습니다.";
         } else{
             return "tardycash가 부족합니다.";
@@ -172,8 +174,10 @@ public class RoomController {
       
            try{
                String profileimage = arr[1].toString();
-               memlist.put("profileimage", profileimage);
+               memlist.put("profileimage", profileimage);             
                System.out.println(profileimage);
+               String tardystate = "waiting";
+               memlist.put("tardystate", tardystate);
            }catch(Exception e){
                memlist.put("profileimage", "null");
            }

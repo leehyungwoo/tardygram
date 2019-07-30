@@ -43,6 +43,7 @@ public class Member {
 	private String profileimage;
 	@ColumnDefault("0")
 	private int money;
+	private String tardystate;
    
    public Member(String memberid) {
 		super();
@@ -56,6 +57,7 @@ public class Member {
 	@ManyToMany(cascade = CascadeType.ALL) 
 	private List<Room> rooms = new ArrayList<>();
 
+	
 	public void addRoom(Room room) {		
 		this.rooms.add(room);
 	}
