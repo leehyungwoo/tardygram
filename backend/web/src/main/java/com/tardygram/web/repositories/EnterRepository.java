@@ -13,13 +13,13 @@ import org.springframework.stereotype.Repository;
  * MemberRepository
  */
 @Repository
-public interface EnterRepository extends CrudRepository<Member, String>{
+public interface EnterRepository extends CrudRepository<Member, Integer>{
 
     @Query(
         value = "insert into tbl_members_rooms (members_memberid, rooms_roomno) values(:memberid, :roomno)",
         nativeQuery = true
     )
-    public void enter(Member memberid, String roomno);
+    public void enter(Member memberid, int roomno);
 
     
 }

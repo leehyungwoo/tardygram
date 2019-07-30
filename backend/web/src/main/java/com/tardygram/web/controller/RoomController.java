@@ -96,6 +96,7 @@ public class RoomController {
             member.addRoom(data);
             roomrepo.save(data);
             memberrepo.roomTardy(data.getRoomhostid(), tardycashe);
+            roomrepo.insertPenaltyall(data.getRoomno(), data.getRoomcharge());
             return "방이 생성되었습니다.";
         } else{
             return "tardycash가 부족합니다.";
@@ -103,18 +104,26 @@ public class RoomController {
    }
 
 
-   //모임방에 방원이 될 사람이 참여하기 버튼클릭시
-   
-   @PostMapping("/enter")
-   public void enter(@RequestBody Room data){
+   //모임방에 방원이 될 사람이 참여하기 버튼클릭시  
+   @PostMapping("/enter/{id}/{roomno}/{roomcharge}")
+   public String enter(@PathVariable String id, @PathVariable int roomno, @PathVariable int roomcharge){
        System.out.println("enter컨트롤러 도착");
-       System.out.println("data : " + data);
-        //리퀘스트 파람으로 바꿀지 고려
-
-
-       //Member m = new Member();
-       //m.setMemberid("jmh1753");  //m이라는 친구가
-       //enterrepo.enter(m, "2");  // 4번방에 추가
+       System.out.println("id : " + id);
+       System.out.println("roomno : " + roomno);
+       System.out.println("roomcharge : " + roomcharge);
+       
+       int tardycashe = memberrepo.tardyCash(id);
+       if(tardycashe >= roomcharge){
+            Member m = new Member();
+            m.setMemberid(id);
+            enterrepo.enter(m, roomno);
+            int money = tardycashe - roomcharge;
+            memberrepo.roomTardy(id, money);
+            roomrepo.insertPenaltyall(Long.parseLong(Integer.toString(roomno)), roomcharge);
+            return "방에 참여하셨습니다.";
+       }else {
+           return "tardy캐시를 확인하세요";
+       }
    }
 
 
