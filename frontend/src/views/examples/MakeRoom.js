@@ -129,7 +129,8 @@ class CreateHost extends Component {
                             <FormGroup>
                                 <InputGroup className="input-group-alternative">
                                 <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
+                                
+                                <InputGroupText >
                                     <i className="ni ni-calendar-grid-58" />
                                 </InputGroupText>
                                 </InputGroupAddon>
@@ -320,18 +321,20 @@ class CreateHost extends Component {
                 this.state,
                 {headers: headers})
                 .then(res=>{
-                    if(res.data == "방이 생성되었습니다."){
+                    console.log(res)
+
+                    if(res.data.status == "00") {
                         alert('방이 생성되었습니다.')
-                        this.props.history.push("/admin/doneHost")
+                        this.props.history.push("/admin/roomdetail/"+res.data.roomno)
                     }else{
-                        alert(res.data+ "tardy캐시를 충전하고 다시 방을 만들어주세요." )
+                        alert(res.data.msg )
                         this.props.history.push("/admin/user-profile")
 
                     }
                  })
-                        .catch(e=>{
-                            alert('방만들기 실패')
-                        })
+                .catch(e=>{
+                    alert('방만들기 실패')
+                })
              }
       
 

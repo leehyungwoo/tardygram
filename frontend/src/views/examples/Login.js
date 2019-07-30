@@ -162,7 +162,7 @@ class Login extends React.Component {
                                 })
                                 alert("로그인성공")
                                 localStorage.setItem("loginId",res.data.dataid)
-                                this.props.history.push("/admin/tables")
+                                this.props.history.push("/admin/roomlist")
                             }else{
                               alert(res.msg);
                               localStorage.setItem("loginId","")

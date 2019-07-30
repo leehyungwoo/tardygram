@@ -82,7 +82,7 @@ public class RoomController {
 
    //방장이 모임방 개설
    @PostMapping(path="/create")
-   public String insertRoom(@RequestBody Room data) {
+   public ResponseEntity<HashMap<String, Object>> insertRoom(@RequestBody Room data) {
         System.out.println("컨트롤러 도착");
         System.out.println("room : " + data);
 
@@ -92,17 +92,26 @@ public class RoomController {
         Member member = memberrepo.findById(data.getRoomhostid()).get();
         System.out.println("member : " + member);
         
+        HashMap<String,Object> map =new HashMap<>();
+      
+
         if(member.getMoney() >= data.getRoomcharge()){
             int tardycashe = member.getMoney()-data.getRoomcharge();
             member.addRoom(data);
-            roomrepo.save(data);
+         
+            Long roomno = roomrepo.save(data).getRoomno(); 
             memberrepo.roomTardy(data.getRoomhostid(), tardycashe);
             roomrepo.insertPenaltyall(data.getRoomno(), data.getRoomcharge());
-            
-            return "방이 생성되었습니다.";
+            map.put("status", "00");
+            map.put("msg", "방이 생성되었습니다.");
+            map.put("roomno",roomno);
         } else{
-            return "tardycash가 부족합니다.";
+            map.put("status", "11");
+            map.put("msg", "tardy캐시를 충전하고 다시 방을 만들어주세요.");
         }
+
+
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
    }
 
 //    List<Object []> selectuser = roomrepo.selectuser(roomno);

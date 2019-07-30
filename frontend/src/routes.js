@@ -19,7 +19,7 @@
 import Profile from "views/examples/Profile.js"
 import Register from "views/examples/Register.js"
 import Login from "views/examples/Login.js"
-import Tables from "views/examples/Tables.js"
+import RoomList from "views/examples/RoomList.js"
 import MakeRoom from "views/examples/MakeRoom.js"
 import RoomDetail from "views/examples/RoomDetail.js"
 import DoneHost from "views/examples/DoneHost.js"
@@ -48,10 +48,10 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/tables",
-    name: "Tables",
+    path: "/roomlist",
+    name: "RoomList",
     icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
+    component: RoomList,
     layout: "/admin"
   },
   {
