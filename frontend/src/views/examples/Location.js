@@ -65,7 +65,7 @@ import {
         Rad 	= Math.PI/180;
         radLat1 = Rad * that.state.longitude;
         console.log(that.state.longitude)
-        radLat2 = Rad * 126.95633090000005;
+        radLat2 = Rad * 126.95633090000005;   
         //목적지 경도
         radDist = Rad * (that.state.latitude - 37.563398);
         //목적지 위도

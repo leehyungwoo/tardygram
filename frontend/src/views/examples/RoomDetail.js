@@ -21,6 +21,8 @@ import {Link,Route } from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 import SearchMap from "./SearchMap"
 import Moment from 'react-moment';
+import 'moment-timezone';
+
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 
 // reactstrap components
@@ -66,7 +68,12 @@ class Profile extends React.Component {
       roompwd:null,
       selectuser:[],
       flag:true,
-      roompenaltyall:null
+      roompenaltyall:null,
+      latitude : "",
+      longitude : "",
+      distance : false,
+      dist:100,
+
     }
   }
  
@@ -150,6 +157,7 @@ class Profile extends React.Component {
       })
 
 
+
   }
 
 
@@ -193,8 +201,106 @@ class Profile extends React.Component {
           alert('실패')
         })
   }
+
+
+
+  //여기는 거리계산
+  calcDistance=()=>{
+    console.log("1",this)
+    let that = this
+    var startPos;
+    var geoOptions = {
+      enableHighAccuracy: true
+    }
+    
+    var geoError = function(error) {
+      console.log("2",'Error occurred. Error code: ' + error.code);
+      // error.code can be:
+      //   0: unknown error
+      //   1: permission denied
+      //   2: position unavailable (error response from location provider)
+      //   3: timed out
+    };
+    if (navigator.geolocation) {
+      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+      navigator.geolocation.getCurrentPosition(function(position) {
+        startPos = position;
+        that.setState({
+          latitude: startPos.coords.latitude,
+          longitude: startPos.coords.longitude
+        })
+        console.log("2","that.setState 실행");
   
- 
+        var EARTH_R, Rad, radLat1, radLat2, radDist; 
+        var distance, ret;
+    
+        EARTH_R = 6371000.0;
+        Rad 	= Math.PI/180;
+        radLat1 = Rad * that.state.longitude;
+        console.log(that.state.longitude)
+        radLat2 = Rad * that.state.roomlongitude;   
+        //목적지 경도
+        radDist = Rad * (that.state.latitude - that.state.roomlatitude);
+        //목적지 위도
+        distance = Math.sin(radLat1) * Math.sin(radLat2);
+        distance = distance + Math.cos(radLat1) * Math.cos(radLat2) * Math.cos(radDist);
+        ret 	= EARTH_R * Math.acos(distance);
+    
+        var rtn = Math.round(Math.round(ret) / 1000);
+         if(rtn <= 0)
+         {
+           rtn = Math.round(ret);
+          //  +" m"
+         }
+        //  else
+        //  {
+        //    rtn = rtn + " km";
+        // }
+        // ${place_name}
+        console.log("3",`현재위치와  목적지 사이의 거리는 ${rtn}M 입니다.`  );
+        that.setState({
+          dist : rtn,
+        })
+        that.CheckTardy()
+
+      }, geoError, geoOptions)
+      //목적지와 현위치랑 거리비교
+    }  
+   
+}
+
+
+//여기는 시간체크하는곳
+CheckTardy = () =>{
+  // this.getLocation();
+  // this.calcDistance()
+
+  console.log("4","체크타디 실행");
+  console.log(this.state.longitude);
+  console.log(this.state.latitude);
+  // 1. 거리 확인
+
+  console.log(`거리값은 : ${this.state.dist}`)
+  if(this.state.dist < 50){
+  this.distance  =	true
+  let gotTime = new Date (this.state.roomdate)
+  console.log(`도착해야하는 시간은 : ${gotTime}`)
+  //약속시간
+  let nowTime = new Date();
+  //현재시간
+  console.log(`현재시간 : ${nowTime}`)
+  console.log(`약속시간 : ${gotTime}`)
+  let myTime = gotTime.getTime() - nowTime.getTime()
+    if(myTime > 1){
+      alert("도착하셨습니다.")
+    }else{
+      alert("지각이에요.")
+    }
+  }else{
+    alert("도착 후에 눌러주세요")
+  }
+}
+
 
 
   render() {
@@ -294,38 +400,7 @@ class Profile extends React.Component {
                                       </Badge>
                                     </td>
                                     <td className="text-right">
-                                      <UncontrolledDropdown>
-                                        <DropdownToggle
-                                          className="btn-icon-only text-light"
-                                          href="#pablo"
-                                          role="button"
-                                          size="sm"
-                                          color=""
-                                          onClick={e => e.preventDefault()}
-                                        >
-                                          <i className="fas fa-ellipsis-v" />
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-arrow" right>
-                                          <DropdownItem
-                                            href="#pablo"
-                                            onClick={e => e.preventDefault()}
-                                          >
-                                            Action
-                                          </DropdownItem>
-                                          <DropdownItem
-                                            href="#pablo"
-                                            onClick={e => e.preventDefault()}
-                                          >
-                                            Another action
-                                          </DropdownItem>
-                                          <DropdownItem
-                                            href="#pablo"
-                                            onClick={e => e.preventDefault()}
-                                          >
-                                            Something else here
-                                          </DropdownItem>
-                                        </DropdownMenu>
-                                      </UncontrolledDropdown>
+                                    <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.calcDistance}>확인</Button>
                                     </td>
 </tr>
                                   )
