@@ -103,15 +103,16 @@ public class RoomController {
         }
    }
 
-
+//    List<Object []> selectuser = roomrepo.selectuser(roomno);
    //모임방에 방원이 될 사람이 참여하기 버튼클릭시  
    @PostMapping("/enter/{id}/{roomno}/{roomcharge}")
-   public String enter(@PathVariable String id, @PathVariable int roomno, @PathVariable int roomcharge){
+   public ResponseEntity<HashMap<String, Object>> enter(@PathVariable String id, @PathVariable int roomno, @PathVariable int roomcharge){
        System.out.println("enter컨트롤러 도착");
        System.out.println("id : " + id);
        System.out.println("roomno : " + roomno);
        System.out.println("roomcharge : " + roomcharge);
-       
+       HashMap<String,Object> map =new HashMap<>();
+
        int tardycashe = memberrepo.tardyCash(id);
        if(tardycashe >= roomcharge){
             Member m = new Member();
@@ -120,9 +121,15 @@ public class RoomController {
             int money = tardycashe - roomcharge;
             memberrepo.roomTardy(id, money);
             roomrepo.insertPenaltyall(Long.parseLong(Integer.toString(roomno)), roomcharge);
-            return "방에 참여하셨습니다.";
+            //return "방에 참여하셨습니다.";
+            Member m2 = memberrepo.findById(id).get();
+            System.out.println("m2 : " + m2);
+            map.put("m2", m2);
+            return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
        }else {
-           return "tardy캐시를 확인하세요";
+           //return "tardy캐시를 확인하세요";
+           map.put("no", "실패");
+           return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
        }
    }
 

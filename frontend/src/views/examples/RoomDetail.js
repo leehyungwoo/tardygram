@@ -63,7 +63,8 @@ class Profile extends React.Component {
       roomphoto:null,
       roomhostid:null,
       roompwd:null,
-      selectuser:[]
+      selectuser:[],
+      flag:true
     }
   }
  
@@ -148,7 +149,21 @@ class Profile extends React.Component {
   }
 
 
-  
+  joinBtn=(e)=>{
+    if(this.state.flag){
+    return (
+      <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
+      참여하기
+      </Button> 
+      )
+    }else{
+      return(
+        <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn} disabled>
+        참여하기
+        </Button>
+      )
+    }
+  }
  
   enterbtn = e => {
     e.preventDefault()
@@ -161,14 +176,14 @@ class Profile extends React.Component {
     let id = localStorage.getItem("loginId")   
     axios.post(`/room/enter/${id}/${this.state.roomno}/${this.state.roomcharge}`, {headers:headers})
         .then(res =>{
-          alert('성공')  
-          if(res.data == "방에 참여하셨습니다."){
-            alert('방에 참여하셨습니다.')
-            
-
-          }else{
-            alert("tardy캐시를 확인하세요.")
-          }
+          alert('성공')          
+          console.log('m2나와 : ' +res.data.m2.memberid)
+          console.log('m2 이미지 : ' + res.data.m2.profileimage)
+          this.setState({
+            selectuser:[...this.state.selectuser,{profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
+            flag:false
+          })
+          console.log(this.state.selectuser)
         })
         .catch(res =>{
           alert('실패')
@@ -197,10 +212,7 @@ class Profile extends React.Component {
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
                                 {this.state.roomtitle} 
                             </h5>
-                           
-                            <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
-                               참여하기
-                            </Button>
+                           {this.joinBtn()}
                    
                             </Col>
                             <Col className="text-left" xs="12">

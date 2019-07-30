@@ -115,4 +115,10 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     )
     public void insertPenaltyall(Long roomno, int roomcharge);
 
+    @Query(
+        value = "select * from tbl_members where memberid=:id",
+        nativeQuery = true
+    )
+    public Member selectuser2(String id);
+
 }
