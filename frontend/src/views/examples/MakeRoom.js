@@ -46,7 +46,8 @@ class CreateHost extends Component {
             address:'',
             roomlongitude:'',
             roomlatitude:'',
-            roompwd:'',                      
+            roompwd:'',
+            paneltyState:false               
         }
        
     }
@@ -101,9 +102,8 @@ class CreateHost extends Component {
 		                <h2>모임의 제목을 입력해 주세요</h2>
                        <input type="text" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
-                                                        value={this.inputVal} 
-                                                        ref={ref => { this.mydiv = ref }
-                                                    }
+                                                        ref={ref => { this.mydiv = ref }}
+                                                    required
                         />
                          <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                 </div>
@@ -115,9 +115,7 @@ class CreateHost extends Component {
                             <h2>모임의 카테고리를 입력해 주세요</h2>
                             <input type="text" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
-                                                        value={this.inputVal} 
-                                                        ref={ref => { this.mydiv = ref }
-                                                    }
+                                                        ref={ref => { this.mydiv = ref }}
                                                     />
                             <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button> 
                     </div>
@@ -180,10 +178,8 @@ class CreateHost extends Component {
 
                         <input type="text" className="form-control" 
                                                     placeholder={this.state.query[this.state.pageIndex]} 
-                                                    value={this.inputVal} 
                                                     style={{display:"none"}}
-                                                    ref={ref => { this.mydiv = ref }
-                                                    }
+                                                    ref={ref => { this.mydiv = ref }}
                                                     />
                             <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
 
@@ -200,9 +196,7 @@ class CreateHost extends Component {
                             <h2>모임에 대한 상세내용을 입력해 주세요</h2>
                             <input type="text" className="form-control" 
                                                     placeholder={this.state.query[this.state.pageIndex]} 
-                                                    value={this.inputVal} 
-                                                    ref={ref => { this.mydiv = ref }
-                                                    }
+                                                    ref={ref => { this.mydiv = ref }}
                                                     />
                             <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
@@ -214,24 +208,23 @@ class CreateHost extends Component {
                     <div>
                             <h1>벌금</h1>
                             <span>* 숫자로 입력해주세요</span>
-                            <input type="number" className="form-control" 
-                                                        placeholder={this.state.query[this.state.pageIndex]} 
-                                                        value={this.inputVal} 
-                                                        ref={ref => { this.mydiv = ref }
-                                                    }
+                            <input type="text" className="form-control" 
+                                                         placeholder={this.state.query[this.state.pageIndex]} 
+                                                         ref={ref => { this.mydiv = ref }}
+                                                         onChange={this.paneltyCharge}
                                                     />
-                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+
+                                                {this.paneltyBtn()}
+                             
                     </div>
                         ); 
             case 5:
                 return (
                     <div>
                             <h1>방비번</h1>
-                            <input type="text" className="form-control" 
+                            <input type="password" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
-                                                        value={this.inputVal} 
-                                                        ref={ref => { this.mydiv = ref }
-                                                    }
+                                                        ref={ref => { this.mydiv = ref }}
                                                     />
                             <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
@@ -255,6 +248,40 @@ class CreateHost extends Component {
         }
     };
 
+    paneltyBtn=()=>{
+      
+            if (this.state.paneltyState) {
+              return (
+                <Button type="button" 
+                className="btn btn-success" 
+                onClick={this.clickHandler}
+                
+                >Success</Button>
+              )
+            } 
+            return (
+
+                 <Button type="button" 
+                 className="btn btn-success"
+                 disabled 
+                 onClick={this.clickHandler}
+                 
+                 >Success</Button>
+        
+            )
+         
+
+    }
+    paneltyCharge=(e)=>{
+        console.log(e.target.value)
+        if(e.target.value.match(/[^0-9]/)) {
+            alert("문자가 섞여있습니다") 
+        }else{
+            this.setState({
+                paneltyState:true
+            })
+        }
+    }
     clickHandler=(e)=>{
         e.preventDefault();
         this.handleIncrease()
@@ -295,10 +322,11 @@ class CreateHost extends Component {
                 .then(res=>{
                     if(res.data == "방이 생성되었습니다."){
                         alert('방이 생성되었습니다.')
-                        this.props.history.push("/admin/DoneHost")
+                        this.props.history.push("/admin/doneHost")
                     }else{
-                        this.props.history.push("/admin/Profile")
                         alert(res.data+ "tardy캐시를 충전하고 다시 방을 만들어주세요." )
+                        this.props.history.push("/admin/user-profile")
+
                     }
                  })
                         .catch(e=>{
