@@ -74,11 +74,7 @@ class Main extends Component {
 
   }
 
-  viewTime = ()=>{
-     setInterval(function(){
-      return "hi" 
-    },1000)
-  }
+
   render() {
 
     return (
@@ -131,7 +127,7 @@ class Main extends Component {
                       </Countdown> */}
                     </h4>
 
-                     {this.viewTime()}
+                     {this.state.roomdate}
 
 
 
