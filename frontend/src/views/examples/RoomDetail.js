@@ -183,7 +183,10 @@ class Profile extends React.Component {
 
 
   //여기는 거리계산
-  calcDistance=(roomno, memberid)=>{
+  calcDistance=(roomno, memberid,tardystate)=>{
+    if(tardystate==="arrived"){
+      return alert("이미 도착 하셨습니다")
+   }
     console.log("0", roomno)
     console.log("0", memberid)
     console.log("1",this)
@@ -288,14 +291,25 @@ CheckTardy = () =>{
                 alert('성공')   
 
                 // {tardystate:"waiting",profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}
-                var index =2;
-                var makeindex =this.state.selectuser;
-   
-                makeindex[index].tardystate = res.data
+                var id = localStorage.getItem("loginId")                
+                var that = this;
+                this.state.selectuser.forEach((user,index)=>{
 
-         
-               this.setState({selectuser:[...this.state.selectuser]})    
-             
+                    if(user.memberid === id){
+                                               
+                        var makeindex =that.state.selectuser;
+            
+                        makeindex[index].tardystate = res.data
+
+                        that.setState({selectuser:[...that.state.selectuser]})    
+                      
+                    }
+
+
+                })
+                
+                
+               
               })
               .catch(res =>{
                 alert('실패')
@@ -382,6 +396,7 @@ CheckTardy = () =>{
                               <tbody>
           
                                {this.state.selectuser.map((user,index)=>{
+                                 console.log(user)
                                   return(<tr key={index}>
                                     <th scope="row">
                                       <Media className="align-items-center">
@@ -411,9 +426,18 @@ CheckTardy = () =>{
                                       </Badge>
                                     </td>
                                     <td className="text-right">
-                                    <Button className="float-right" color="default" href="#pablo" size="sm" onClick={(e) => this.calcDistance(this.state.roomno, user.memberid)}>확인</Button>
+                                      {(()=>{
+                                        if(localStorage.getItem("loginId") === user.memberid){
+
+                                       
+                                            return (<Button className="float-right" color="default"  size="sm" onClick={(e) => this.calcDistance(this.state.roomno, user.memberid,user.tardystate)}>확인</Button>)
+
+
+                                          }
+                                      })()}
+                                    
                                     </td>
-</tr>
+                                </tr>
                                   )
                                })}
                              </tbody>
