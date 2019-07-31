@@ -57,7 +57,10 @@ class Profile extends React.Component {
 
   componentDidMount(){
     console.log(this.props.match.params.id)
-
+    var len =this.state.selectuser.length;
+    this.setState({
+      roompenaltyall:this.state.roompenaltyall*len
+    })
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -165,15 +168,24 @@ class Profile extends React.Component {
     let id = localStorage.getItem("loginId")   
     axios.post(`/room/enter/${id}/${this.state.roomno}/${this.state.roomcharge}`, {headers:headers})
         .then(res =>{
-          alert('성공')          
-          console.log(res.data)
-          console.log('m2나와 : ' +res.data.m2.memberid)
-          console.log('m2 이미지 : ' + res.data.m2.profileimage)
-          this.setState({
-            selectuser:[...this.state.selectuser,{tardystate:res.data.m2.tardystate,profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
-            flag:false
-          })
-          console.log(this.state.selectuser)
+          alert("통신성공")
+          if(res.data.status === "00"){
+            alert(res.data.msg)
+            console.log('m2나와 : ' +res.data.m2.memberid)
+            console.log('m2 이미지 : ' + res.data.m2.profileimage)
+            console.log(this.state.roompenaltyall)
+            this.setState({
+              selectuser:[...this.state.selectuser,{tardystate:res.data.m2.tardystate,profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
+              flag:false,
+              roompenaltyall:this.state.roompenaltyall+this.state.roomcharge
+            })
+
+           
+
+            console.log(this.state.selectuser)
+          }else{
+            alert(res.data.msg)
+          }
         })
         .catch(res =>{
           alert('실패')
@@ -466,7 +478,7 @@ CheckTardy = () =>{
                             </Col>
                         
                             {/* <SearchMap height="300px"></SearchMap> */}
-                            <div id="map" style={{width:"350px", height:"350px",position:"relative",overflow:"hidden"}}></div>
+                            <div id="map" style={{width:"100%", height:"350px",position:"relative",overflow:"hidden"}}></div>
                                                      
                         </div>
                     </CardBody>

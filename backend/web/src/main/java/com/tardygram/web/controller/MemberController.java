@@ -51,6 +51,8 @@ public class MemberController {
     // 회원가입
     @PostMapping("/join")
     public ResponseEntity<Member> insertMember(@RequestBody Member joinFd) {
+        joinFd.setProfileimage("/image/member/user.jpg");
+        joinFd.setTardystate("waiting");
         return new ResponseEntity<Member>(memberrepo.save(joinFd), HttpStatus.OK);
     }
 
