@@ -20,10 +20,8 @@ import axios from "axios"
 
 // reactstrap components
 import {
-  Modal,
   Button,
   Card,
-  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -40,13 +38,13 @@ class Login extends React.Component {
 
   constructor(props){
     super(props)
-    //  alert("로긴")
-  }
-
-  state={
+   this.state={
     memberid:'',
     pwd:''
   }
+  }
+
+
   email=createRef();
 
 

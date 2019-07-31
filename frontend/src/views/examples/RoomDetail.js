@@ -56,6 +56,8 @@ class Profile extends React.Component {
  
 
   componentDidMount(){
+
+
     console.log(this.props.match.params.id)
     var len =this.state.selectuser.length;
     this.setState({
@@ -105,13 +107,13 @@ class Profile extends React.Component {
         console.log(this.state)
 
         
-        function relayout() {    
+        // function relayout() {    
             
-            // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-            // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-            // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-            map.relayout();
-        }
+        //     // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+        //     // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+        //     // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+        //     map.relayout();
+        // }
       
         
         const kakao = window.kakao
@@ -152,12 +154,15 @@ class Profile extends React.Component {
 
 
   joinBtn=(e)=>{
-    if(this.state.flag){
-    return (
-      <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
-      참여하기
-      </Button> 
-      )
+  
+    if(this.state.roomhostid !== localStorage.getItem("loginId")){
+        if(this.state.flag){
+          return (
+            <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
+            참여하기
+            </Button> 
+            )
+          }
     }else{
       return(
         <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn} disabled>
@@ -181,6 +186,8 @@ class Profile extends React.Component {
           alert("통신성공")
           if(res.data.status === "00"){
             alert(res.data.msg)
+      
+       
             console.log('m2나와 : ' +res.data.m2.memberid)
             console.log('m2 이미지 : ' + res.data.m2.profileimage)
             console.log(this.state.roompenaltyall)
@@ -190,11 +197,10 @@ class Profile extends React.Component {
               roompenaltyall:this.state.roompenaltyall+this.state.roomcharge
             })
 
-           
-
             console.log(this.state.selectuser)
           }else{
             alert(res.data.msg)
+            this.props.history.push("/admin/user-profile")
           }
         })
         .catch(res =>{
