@@ -18,10 +18,11 @@
 import React from "react";
 import axios from 'axios'
 import {CardDeck,Card,Col} from 'react-bootstrap';
-
 // reactstrap components
 
 import {
+  UncontrolledAlert,
+  Alert,
   Badge,
   // Card,
   CardHeader,
@@ -63,6 +64,7 @@ class RoomList extends React.Component {
 
   componentDidMount(){
     console.log("search 디드마운트 실행")
+    
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -102,10 +104,10 @@ class RoomList extends React.Component {
     return (
       <>
         <Header />
-       
-        <Container className="mt--7" fluid>
-                <CardDeck>
         
+        <Container className="mt--7" fluid>
+        
+                <CardDeck>
                 {/* {this.state.mList.map((contact,index)=>{
                        return(
                       <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
@@ -136,6 +138,8 @@ class RoomList extends React.Component {
                 })} */}
                 {this.state.mList.map((contact,index)=>{
                        return(
+                         
+                           
                       <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
                        <Card >
                          <Card.Img variant="top" src={contact.roomphoto} />
@@ -467,6 +471,8 @@ class RoomList extends React.Component {
           </Row> */}
         
         </Container>
+      
+
       </>
     );
   }

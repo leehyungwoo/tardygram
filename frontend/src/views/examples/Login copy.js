@@ -20,7 +20,6 @@ import axios from "axios"
 
 // reactstrap components
 import {
-  Alert,
   Modal,
   Button,
   Card,
@@ -51,19 +50,7 @@ class Login extends React.Component {
   email=createRef();
 
 
-  successAlert=()=>{
-    return(
-    <Alert color="warning">
-      <span className="alert-inner--icon">
-        <i className="ni ni-like-2" />
-      </span>{" "}
-      <span className="alert-inner--text">
-        <strong>Warning!</strong> This is a warning alert—check it out
-        that has an icon too!
-      </span>
-    </Alert>
-    )
-  }
+  
 
 
   
@@ -177,8 +164,11 @@ class Login extends React.Component {
                                   pwd:''
                                 })
                                 alert("로그인성공")
+
                                 localStorage.setItem("loginId",res.data.dataid)
-                                {this.props.history.push("/admin/roomlist")}
+                                this.props.history.push("/admin/roomlist")
+
+                             
                             }else{
                               alert(res.msg);
                               localStorage.setItem("loginId","")
