@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import ImageUploader from 'react-images-upload';
+import {
+  Button
+} from "reactstrap";
 import axios from "axios"
 import {FormGroup} from "reactstrap";
 
@@ -15,61 +17,57 @@ class RoomUpload extends Component{
     constructor(props) {
       super(props);
       this.state = { pictures: [] };
-      this.onDrop = this.onDrop.bind(this);
+      console.log("프룹스",props)
+      // this.onDrop = this.onDrop.bind(this);
   }
 
-
-    // onChangeHandler=event=>{
-    //   console.log("실행!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    //   this.setState({
-    //     file : URL.createObjectURL (event[event.length-1])
-    //   })
-
-    //   const data = new FormData()
-    //   data.append('file', event[event.length-1])
-
-    //   const headers ={
-    //     "Content-Type":'multipart/form-data'
-    //   }
-
-    //   let id = localStorage.getItem("loginId")
-    //   axios.post(`http://localhost:9000/room/upload/${id}`, data ,{ headers
-    //     })
-    //     .then(res => {
-    //       console.log('res: ' + res)
-    //       console.log('res.data : ' + res.data)
-    //       this.setState({
-    //         roomphoto : res.data
-    //       })
-    //       this.props.emit(res.data);
-    //     }).catch(err =>{
-    //       console.log(err)
-    //     })
-      
-    // }
-
-
-    onDrop = (pictureFiles, pictureBase64) => {
-      // picutreFiles에 boundery 정보가 return 되고,
-      // pictureBase64 에 base64 정보가 return 된다. 기본 array로 return
+  onChangeHandler=event=>{
+    console.log("실행")
+    // this.setState({
+    //   file : URL.createObjectURL (event[event.length-1])
+    // })
+    const data = new FormData()
+    data.append('file', event[event.length-1])
+    console.log(data)
+    
+  
    
-      this.setState({
-          files: this.state.files.concat(pictureFiles)
-      });
-      // 여기에 ajax를 넣을 수 있다.
-      console.log("files는 : " + this.state.files)
-     };
+    console.log('나는 프롭스다 : ' + this.props.keyparams)
+    let roomno = this.props.keyparams
+    axios.post(`/room/upload/${roomno}`, data )
+      .then(res => {
+        console.log(res)
+
+        this.props.emit();
+      }).catch(err =>{
+        console.log(err)
+      })
+    
+  }
+
 
     
     render(){
         return (
-          // <>       
-          //   <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onDrop}/>                     
-          // </>
+          <>
+       
    
-          <ImageUploader style={{ maxWidth: '500px', margin: "20px auto" }} withPreview={true} />
-  
+          <input 
+            type="file" 
+            id="uploadInput" 
+            style={{width:"1px", height:"1px",visibility:"hidden", oveflow:"hidden"}} 
+            withPreview={true} 
+            onChange={this.onChangeHandler}
+          />
+          <Button
+          color="info"
+          onClick={e => {document.getElementById("uploadInput").click()}}
+        > 
+           Room Image Upload
+           </Button>
+           </>
         );
+
 
   }
 

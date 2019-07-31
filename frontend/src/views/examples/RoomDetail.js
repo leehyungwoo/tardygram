@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import Moment from 'react-moment';
 import 'moment-timezone';
-
+import RoomUpload from '../../components/Upload/RoomUpload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 
 // reactstrap components
@@ -51,6 +51,7 @@ class Profile extends React.Component {
       longitude : "",
       distance : false,
       dist:100,
+      roomBgimage:""
     }
   }
  
@@ -161,8 +162,18 @@ class Profile extends React.Component {
 
 
   }
-
-
+  // imageTag=()=>{
+  //   if(this.state.roomBgimage){
+      
+  //   }
+  // }
+  // reciveEmit=(type)=>{
+  //   console.log(type)
+  //   this.setState({
+  //     roomBgimage:type
+  //   })
+  //   this.imageTag();
+  // }
   joinBtn=(e)=>{
   
     if(this.state.roomhostid !== localStorage.getItem("loginId")){
@@ -299,7 +310,9 @@ class Profile extends React.Component {
 
    
 }
-
+reciveEmit=()=>{
+  console.log("자식이 부모를 건드는")
+}
 
 //여기는 시간체크하는곳
 CheckTardy = () =>{
@@ -400,13 +413,9 @@ CheckTardy = () =>{
                   This is your profile page. You can see the progress you've
                   made with your work and manage your projects or assigned tasks
                 </p>
-                <Button
-                  color="info"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
-                >
-                  Edit profile
-                </Button>
+          
+                  <RoomUpload keyparams={this.props.match.params.id} emit={this.reciveEmit} ></RoomUpload>
+                
               </Col>
             </Row>
           </Container>
