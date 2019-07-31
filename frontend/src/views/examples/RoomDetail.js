@@ -105,6 +105,15 @@ class Profile extends React.Component {
         console.log(this.state)
 
         
+        function relayout() {    
+            
+            // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+            // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+            // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+            map.relayout();
+        }
+      
+        
         const kakao = window.kakao
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
@@ -130,6 +139,7 @@ class Profile extends React.Component {
           content : iwContent
         });
         infowindow.open(map, marker);
+
 
       })
       .catch(res=>{
@@ -476,10 +486,11 @@ CheckTardy = () =>{
                                 {this.state.roomplace}
                             </h5>
                             </Col>
-                        
                             {/* <SearchMap height="300px"></SearchMap> */}
-                            <div id="map" style={{width:"100%", height:"350px",position:"relative",overflow:"hidden"}}></div>
-                                                     
+
+                            <div id="map" style={{width: "100%", height: "350px", position: "relative", overflow: "hidden"}}></div>
+                            {/* ,position:"relative",overflow:"hidden" */}
+
                         </div>
                     </CardBody>
                 </Card>

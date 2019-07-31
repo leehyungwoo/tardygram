@@ -159,7 +159,7 @@ class Register extends React.Component {
        alert('회원가입 실패')
     })
 
-
+  
 
   }
   birthdaySet(value){
