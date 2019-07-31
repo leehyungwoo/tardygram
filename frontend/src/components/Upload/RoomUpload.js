@@ -30,11 +30,13 @@ class RoomUpload extends Component{
     data.append('file', event[event.length-1])
     console.log(data)
     
-  
+    const headers ={
+      "Content-Type":'multipart/form-data'
+    }
    
     console.log('나는 프롭스다 : ' + this.props.keyparams)
     let roomno = this.props.keyparams
-    axios.post(`/room/upload/${roomno}`, data )
+    axios.post(`/room/upload/${roomno}`, data ,{ headers})
       .then(res => {
         console.log(res)
 
