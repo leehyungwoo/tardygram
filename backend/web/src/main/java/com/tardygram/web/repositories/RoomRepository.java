@@ -103,7 +103,7 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     // public List<Member> selectuser(Long roomno);
 
     @Query(
-        value = "select memberid,profileimage, tardystate from tbl_members mb JOIN tbl_members_rooms mr ON mb.memberid=mr.members_memberid where mr.rooms_roomno=:roomno",
+        value = "select memberid,profileimage,tardystate from tbl_members mb JOIN tbl_members_rooms mr ON mb.memberid=mr.members_memberid where mr.rooms_roomno=:roomno",
         nativeQuery = true
     )
     public List<Object[]> selectuser(Long roomno);
@@ -115,5 +115,12 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     )
     public void insertPenaltyall(Long roomno, int roomcharge);
 
+
+    //위치 시간 검사 통과한 사람의 tardystate를 arrived로 변환
+    @Query(
+        value = "update tbl_members set tardystate='arrived' where memberid=:memberid",
+        nativeQuery = true
+    )
+    public void changeState(String memberid);
 
 }

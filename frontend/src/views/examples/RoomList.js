@@ -1,56 +1,19 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import axios from 'axios'
 import {CardDeck,Card,Col} from 'react-bootstrap';
+
 // reactstrap components
 
 import {
-  UncontrolledAlert,
-  Alert,
-  Badge,
-  // Card,
-  CardHeader,
-  CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
-  Table,
   Container,
-  Row,
-  UncontrolledTooltip,
   Button,
   Input,
-  CardBody,
-  CardImg,
-  CardTitle,
-  CardText,
+ 
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import {Link } from "react-router-dom";
-import { NONAME } from "dns";
 
 class RoomList extends React.Component {
   constructor(props){
@@ -64,7 +27,6 @@ class RoomList extends React.Component {
 
   componentDidMount(){
     console.log("search 디드마운트 실행")
-    
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -87,7 +49,7 @@ class RoomList extends React.Component {
     imageTag=()=>{
       if(this.state.profileimage){
         return ( 
-          <img className="rounded-circle" src={this.state.profileimage} style={{minWidth:"140px",maxHeight:"220px"}} ></img>
+          <img className="rounded-circle" alt="" src={this.state.profileimage} style={{minWidth:"140px",maxHeight:"220px"}} ></img>
        )
       }
     }
@@ -104,10 +66,10 @@ class RoomList extends React.Component {
     return (
       <>
         <Header />
-        
+       
         <Container className="mt--7" fluid>
-        
                 <CardDeck>
+        
                 {/* {this.state.mList.map((contact,index)=>{
                        return(
                       <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
@@ -138,8 +100,6 @@ class RoomList extends React.Component {
                 })} */}
                 {this.state.mList.map((contact,index)=>{
                        return(
-                         
-                           
                       <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
                        <Card >
                          <Card.Img variant="top" src={contact.roomphoto} />
@@ -471,8 +431,6 @@ class RoomList extends React.Component {
           </Row> */}
         
         </Container>
-      
-
       </>
     );
   }

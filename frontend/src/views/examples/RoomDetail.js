@@ -1,25 +1,7 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import axios from 'axios'
-import {Link,Route } from "react-router-dom";
-import Upload from '../../components/Upload/Upload'
-import SearchMap from "./SearchMap"
+
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -31,15 +13,11 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
   Container,
   Row,
   Col,
   Table,
-  Media, Badge, UncontrolledTooltip, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, 
-  Progress,
+  Media, Badge
  
  
 } from "reactstrap";
@@ -73,7 +51,6 @@ class Profile extends React.Component {
       longitude : "",
       distance : false,
       dist:100,
-
     }
   }
  
@@ -203,7 +180,7 @@ class Profile extends React.Component {
           console.log('m2나와 : ' +res.data.m2.memberid)
           console.log('m2 이미지 : ' + res.data.m2.profileimage)
           this.setState({
-            selectuser:[...this.state.selectuser,{tardystate:"waiting",profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
+            selectuser:[...this.state.selectuser,{tardystate:res.data.m2.tardystate,profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
             flag:false
           })
           console.log(this.state.selectuser)
@@ -216,7 +193,12 @@ class Profile extends React.Component {
 
 
   //여기는 거리계산
-  calcDistance=()=>{
+  calcDistance=(roomno, memberid,tardystate)=>{
+    if(tardystate==="arrived"){
+      return alert("이미 도착 하셨습니다")
+   }
+    console.log("0", roomno)
+    console.log("0", memberid)
     console.log("1",this)
     let that = this
     var startPos;
@@ -277,6 +259,7 @@ class Profile extends React.Component {
       }, geoError, geoOptions)
       //목적지와 현위치랑 거리비교
     }  
+
    
 }
 
@@ -292,7 +275,7 @@ CheckTardy = () =>{
   // 1. 거리 확인
 
   console.log(`거리값은 : ${this.state.dist}`)
-  if(this.state.dist < 100){
+  if(this.state.dist < 500){
   this.distance  =	true
   let gotTime = new Date (this.state.roomdate)
   console.log(`도착해야하는 시간은 : ${gotTime}`)
@@ -304,12 +287,53 @@ CheckTardy = () =>{
   let myTime = gotTime.getTime() - nowTime.getTime()
     if(myTime > 1){
       alert("도착하셨습니다.")
+      alert(this.state.roomno)
+      alert(localStorage.getItem('loginId'))
+        const headers = {
+          'Content-Type': 'application/json',
+        }
+        // let data = {
+        //   roomno : this.state.roomno,
+        //   memberid : localStorage.getItem('loginId')
+        // }
+        axios.put(`/room/checkroom/${localStorage.getItem('loginId')}`, {headers:headers})
+              .then(res =>{
+                alert('성공')   
+
+                // {tardystate:"waiting",profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}
+                var id = localStorage.getItem("loginId")                
+                var that = this;
+                this.state.selectuser.forEach((user,index)=>{
+
+                    if(user.memberid === id){
+                                               
+                        var makeindex =that.state.selectuser;
+            
+                        makeindex[index].tardystate = res.data
+
+                        that.setState({selectuser:[...that.state.selectuser]})    
+                      
+                    }
+
+
+                })
+                
+                
+               
+              })
+              .catch(res =>{
+                alert('실패')
+              })
     }else{
       alert("지각이에요.")
     }
   }else{
     alert("도착 후에 눌러주세요")
   }
+
+  
+
+
 }
 
 
@@ -382,6 +406,7 @@ CheckTardy = () =>{
                               <tbody>
           
                                {this.state.selectuser.map((user,index)=>{
+                                 console.log(user)
                                   return(<tr key={index}>
                                     <th scope="row">
                                       <Media className="align-items-center">
@@ -411,9 +436,18 @@ CheckTardy = () =>{
                                       </Badge>
                                     </td>
                                     <td className="text-right">
-                                    <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.calcDistance}>확인</Button>
+                                      {(()=>{
+                                        if(localStorage.getItem("loginId") === user.memberid){
+
+                                       
+                                            return (<Button className="float-right" color="default"  size="sm" onClick={(e) => this.calcDistance(this.state.roomno, user.memberid,user.tardystate)}>확인</Button>)
+
+
+                                          }
+                                      })()}
+                                    
                                     </td>
-</tr>
+                                </tr>
                                   )
                                })}
                              </tbody>

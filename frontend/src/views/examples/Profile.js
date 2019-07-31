@@ -1,23 +1,7 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
+ 
 import React from "react";
 import axios from 'axios'
-import {Link,Route } from "react-router-dom";
+import {Link } from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 import moment from 'moment';
@@ -34,7 +18,7 @@ import {
   Row,
   Col,
   Table,
-  Media, Badge, UncontrolledTooltip, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
+  Badge
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
@@ -100,16 +84,16 @@ class Profile extends React.Component {
            memberCount : res.data.memberCount
          }) 
    
-         res.data.hostProgressEx.map((item,index)=>{
+         res.data.hostProgressEx.map((item)=>{
              return this.setState({
                hostProgressEx:[...this.state.hostProgressEx,item] 
              })
          })
    
-         res.data.MemberProgressEx.map((item,index)=>{
-           this.setState({
-             MemberProgressEx:[...this.state.MemberProgressEx,item] 
-           })
+         res.data.MemberProgressEx.map((item)=>{
+              return this.setState({
+                MemberProgressEx:[...this.state.MemberProgressEx,item] 
+              })
          })
     
         })
@@ -123,7 +107,7 @@ class Profile extends React.Component {
    imageTag=()=>{
       if(this.state.profileimage){
         return ( 
-          <img className="rounded-circle" src={this.state.profileimage} style={{minWidth:"140px",maxHeight:"220px"}} ></img>
+          <img className="rounded-circle" src={this.state.profileimage} alt="" style={{minWidth:"140px",maxHeight:"220px"}} ></img>
        )
       }
     }

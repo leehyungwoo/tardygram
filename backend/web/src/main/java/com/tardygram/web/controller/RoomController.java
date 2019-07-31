@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,10 +89,10 @@ public class RoomController {
 
         Room room = new Room();
         data.setRoomprogress(1);
-
+        data.setRoomphoto("/image/room/b.jpg");
         Member member = memberrepo.findById(data.getRoomhostid()).get();
         System.out.println("member : " + member);
-        
+        member.setTardystate("waiting");
         HashMap<String,Object> map =new HashMap<>();
       
 
@@ -128,6 +129,7 @@ public class RoomController {
        if(tardycashe >= roomcharge){
             Member m = new Member();
             m.setMemberid(id);
+            m.setTardystate("waiting");
             enterrepo.enter(m, roomno);
             int money = tardycashe - roomcharge;
             memberrepo.roomTardy(id, money);
@@ -175,20 +177,27 @@ public class RoomController {
        Room selecthost = roomrepo.selecthost(roomno);
        List<Object []> selectuser = roomrepo.selectuser(roomno);
        List memberList = new ArrayList<>();
- 
+    
        selectuser.forEach(arr -> {
            HashMap<String,Object> memlist =new HashMap<>();
            String memberid = arr[0].toString();
+           String tardystate = arr[2].toString();
+          
            memlist.put("memberid", memberid);
+        //    System.out.println(arr[0].toString()); ID
+        //    System.out.println(arr[1].toString()); Image
+        //    System.out.println(arr[2].toString()); tardyState
       
            try{
                String profileimage = arr[1].toString();
                memlist.put("profileimage", profileimage);             
-               System.out.println(profileimage);
-               String tardystate = "waiting";
-               memlist.put("tardystate", tardystate);
+               memlist.put("tardystate", tardystate);             
+       
+             
+          
            }catch(Exception e){
                memlist.put("profileimage", "null");
+               memlist.put("tardyState", "null");
            }
            memberList.add(memlist);
        });
@@ -203,6 +212,14 @@ public class RoomController {
 
 
 
+   //룸디테일에서 확인버튼 누르면 tardystate변경
+   @PutMapping("/checkroom/{memberid}")
+   public ResponseEntity<String> checkroom(@PathVariable String memberid){
+        System.out.println("체크룸컨트롤러도착");
+        System.out.println("memberid : " + memberid);
+        roomrepo.changeState(memberid);
+        return new ResponseEntity<String>("arrived", HttpStatus.OK);
+   }
 
 
 

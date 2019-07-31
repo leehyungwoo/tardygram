@@ -1,20 +1,4 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
+ 
 import React from "react";
 import axios from "axios";
 import ReactDatetime from "react-datetime";
@@ -23,8 +7,6 @@ import ReactDatetime from "react-datetime";
 import {
   Button,
   Card,
-  CardHeader,
-  ButtonGroup,
   CardBody,
   FormGroup,
   Form,
@@ -35,7 +17,6 @@ import {
   Row,
   Col,
   Label,
-  Alert,
   } from "reactstrap";
 
 class Register extends React.Component {
@@ -47,7 +28,8 @@ class Register extends React.Component {
     emailEntered: '',
     isEmailValid: false,
     phoneNumberEntered: '',
-    isPhoneNumberValid: false
+    isPhoneNumberValid: false,
+
   };
   validateName = nameEntered => {
     if (nameEntered.length > 1) {
@@ -182,14 +164,12 @@ class Register extends React.Component {
   }
   birthdaySet(value){
       console.log("birth value>>>",value);
-      this.state.birthday = this.value
       this.setState({
         birthday: value
       })
   }
   genderSet(value){
     console.log("gender value>>>",value);
-    this.state.gender = this.value
     this.setState({
       gender: value
     })
@@ -316,7 +296,7 @@ class Register extends React.Component {
                         <i className="ni ni-user-run" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <div className="custom-control custom-radio mb-2">
+                    <div className="custom-control custom-radio mr-3"  style={{marginTop:"11px", marginBottom:"11px"}}>
                       <Input
                         className="custom-control-input"
                         id="Man"
@@ -330,7 +310,7 @@ class Register extends React.Component {
                         Man
                       </Label>
                    </div>
-                    <div className="custom-control custom-radio mb-2">
+                    <div className="custom-control custom-radio "  style={{marginTop:"11px", marginBottom:"11px"}}>
                       <Input
                         className="custom-control-input"
                         id="Woman"
@@ -391,18 +371,16 @@ class Register extends React.Component {
                 </FormGroup>
 
                 <div className="text-muted font-italic">
-                  <small>
-                    password strength:{" "}
-                    <span className="text-success font-weight-700">strong</span>
-                  </small>
+                 
                 </div>
                 <Row className="my-4">
                   <Col xs="12">
-                    <div className="custom-control custom-control-alternative custom-checkbox">
+                    {/* <div className="custom-control custom-control-alternative custom-checkbox">
                       <input
                         className="custom-control-input"
                         id="customCheckRegister"
                         type="checkbox"
+                        required
                       />
                       <label
                         className="custom-control-label"
@@ -415,7 +393,7 @@ class Register extends React.Component {
                           </a>
                         </span>
                       </label>
-                    </div>
+                    </div> */}
                   </Col>
                 </Row>
                 

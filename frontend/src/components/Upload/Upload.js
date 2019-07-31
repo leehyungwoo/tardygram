@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from "axios"
-import {FormGroup} from "reactstrap";
 class Upload extends Component{
     constructor(props) {
         super(props);
