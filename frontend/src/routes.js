@@ -7,6 +7,7 @@ import RoomList from "views/examples/RoomList.js"
 import MakeRoom from "views/examples/MakeRoom.js"
 import RoomDetail from "views/examples/RoomDetail.js"
 import DoneHost from "views/examples/DoneHost.js"
+import Main from "views/examples/Main/Main.js"
 
 
 var routes = [
@@ -23,6 +24,13 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth"
+  },
+  {
+    path: "/index",
+    name: "Main",
+    icon: "ni ni-circle-08 text-pink",
+    component: Main,
+    layout: "/admin"
   },
   {
     path: "/user-profile",

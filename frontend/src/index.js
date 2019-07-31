@@ -11,7 +11,6 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 
 
-
 axios.defaults.baseURL = 'http://localhost:9000';
 
 ReactDOM.render(
