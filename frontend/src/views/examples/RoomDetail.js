@@ -22,8 +22,8 @@ import {
  
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
-
+ 
+ 
 
 
 class Profile extends React.Component {
@@ -106,7 +106,17 @@ class Profile extends React.Component {
         });
         console.log(this.state)
 
-        
+        var that = this;
+        this.state.selectuser.forEach((user)=>{
+          console.log(user)
+          console.log(user.memberid)
+          console.log(user.memberid)
+          if(user.memberid === localStorage.getItem("loginId")){
+            that.setState({
+              flag:false
+            })
+          }
+        })
         // function relayout() {    
             
         //     // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
@@ -156,11 +166,18 @@ class Profile extends React.Component {
   joinBtn=(e)=>{
   
     if(this.state.roomhostid !== localStorage.getItem("loginId")){
+      console.log("버튼",this.state.flag)
         if(this.state.flag){
           return (
             <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
             참여하기
             </Button> 
+            )
+          }else{
+            return(
+            <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn} disabled>
+            참여하기
+            </Button>
             )
           }
     }else{
@@ -198,6 +215,8 @@ class Profile extends React.Component {
             })
 
             console.log(this.state.selectuser)
+         
+
           }else{
             alert(res.data.msg)
             this.props.history.push("/admin/user-profile")
@@ -360,7 +379,38 @@ CheckTardy = () =>{
     return (
       <>
   
-      <UserHeader /> {/* Page content */}
+  <div
+          className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+          style={{
+            minHeight: "600px",
+            backgroundImage:
+              "url(" + require("assets/img/theme/profile-cover.jpg") + ")",
+            backgroundSize: "cover",
+            backgroundPosition: "center top"
+          }}
+        >
+          {/* Mask */}
+          <span className="mask bg-gradient-default opacity-8" />
+          {/* Header container */}
+          <Container className="d-flex align-items-center" fluid>
+            <Row>
+              <Col lg="7" md="10">
+                <h1 className="display-2 text-white">Hello Jesse</h1>
+                <p className="text-white mt-0 mb-5">
+                  This is your profile page. You can see the progress you've
+                  made with your work and manage your projects or assigned tasks
+                </p>
+                <Button
+                  color="info"
+                  href="#pablo"
+                  onClick={e => e.preventDefault()}
+                >
+                  Edit profile
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+        </div>
         <Container className="mt--7" fluid>
             <Row>
           
