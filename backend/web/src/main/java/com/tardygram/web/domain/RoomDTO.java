@@ -8,4 +8,9 @@ public class RoomDTO {
     private String roomcategory, roomtitle,
     roomdate, roomplace, roomdetail, roomphoto;
     private int roomcharge, roomprogress;
+    
+
+
+
+    
 }

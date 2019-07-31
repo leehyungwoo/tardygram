@@ -161,6 +161,20 @@ public class MemberController {
         return "No Img";                     
     }
 
+
+    //메인페이지에 남은시간 계산  
+    @GetMapping("/mainchk/{id}")
+    public ResponseEntity<HashMap<String, Object>> mainchk(@PathVariable String id) {
+        System.out.println("mainchk 컨트롤러");
+        System.out.println("프론트에서 오는 id : " + id);
+        HashMap<String, Object> map = new HashMap<>();
+        System.out.println(memberrepo.mainchk(id)); 
+        
+
+        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+
+    }
+
     
 
 }

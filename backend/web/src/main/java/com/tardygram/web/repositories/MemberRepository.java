@@ -1,8 +1,12 @@
 package com.tardygram.web.repositories;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.tardygram.web.domain.RoomRelativeDTO;
 import com.tardygram.web.entities.Member;
+import com.tardygram.web.entities.Room;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -50,5 +54,13 @@ public interface MemberRepository extends CrudRepository<Member, String>{
         nativeQuery = true
     )
     public void roomTardy(String id, int money);
+
+
+    //메인페이지에 뿌릴 데이터들
+    @Query(
+        value = "select * from tbl_members_rooms mr JOIN tbl_room r ON mr.rooms_roomno=r.roomno where mr.members_memberid=:id",
+        nativeQuery = true
+    )
+    public List<Object []> mainchk(String id);
     
 }
