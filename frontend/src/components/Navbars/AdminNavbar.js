@@ -12,7 +12,8 @@ import {
   Container,
   Media
 } from "reactstrap";
-import Profile from '../../views/examples/Profile'
+
+
 class AdminNavbar extends React.Component {
   render() {
     return (
@@ -50,22 +51,24 @@ class AdminNavbar extends React.Component {
                   </DropdownItem>
                   <DropdownItem to="/admin/user-profile" tag={Link}>
                     <i className="ni ni-single-02" />
-                    <span onClick={Profile}>My profile</span>
+                    <span>My profile</span>
                   </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
-                    <i className="ni ni-settings-gear-65" />
-                    <span>Settings</span>
-                  </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
+
+                  <DropdownItem to="/admin/makeroom" tag={Link}>
                     <i className="ni ni-calendar-grid-58" />
-                    <span>Activity</span>
+                    <span>Make Room</span>
                   </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <DropdownItem to="/admin/roomlist" tag={Link}>
                     <i className="ni ni-support-16" />
-                    <span>Support</span>
+                    <span>Room List</span>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                  <DropdownItem onClick={e => {
+                    e.preventDefault();
+                    localStorage.removeItem("loginId")
+                    this.props.history.push("/auth/login")
+                    
+                  }}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>
                   </DropdownItem>

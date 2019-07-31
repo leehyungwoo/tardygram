@@ -499,7 +499,11 @@ CheckTardy = () =>{
                                     <td>{this.state.roomcharge} 원</td>
                                     <td>
                                       <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-warning" />
+                                      {(()=>{if(user.tardystate === "arrived"){
+                                        return (<i className="bg-success" />)
+                                      }else{
+                                        return (<i className="bg-warning" />)
+                                      }})()}
                                         {user.tardystate}
                                       </Badge>
                                     </td>
