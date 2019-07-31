@@ -12,7 +12,7 @@ import {
   Container,
   Media
 } from "reactstrap";
-
+import Profile from '../../views/examples/Profile'
 class AdminNavbar extends React.Component {
   render() {
     return (
@@ -50,7 +50,7 @@ class AdminNavbar extends React.Component {
                   </DropdownItem>
                   <DropdownItem to="/admin/user-profile" tag={Link}>
                     <i className="ni ni-single-02" />
-                    <span>My profile</span>
+                    <span onClick={Profile}>My profile</span>
                   </DropdownItem>
                   <DropdownItem to="/admin/user-profile" tag={Link}>
                     <i className="ni ni-settings-gear-65" />

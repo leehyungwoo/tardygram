@@ -1,11 +1,29 @@
- 
+/*!
+
+=========================================================
+* Argon Dashboard React - v1.0.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React,{createRef} from "react";
 import axios from "axios"
 
 // reactstrap components
 import {
+  Modal,
   Button,
   Card,
+  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -13,6 +31,7 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
+  Row,
   Col
 } from "reactstrap";
 
@@ -21,15 +40,20 @@ class Login extends React.Component {
 
   constructor(props){
     super(props)
-    this.state={    
-      memberid:'',
-       pwd:''
-   }
+    //  alert("로긴")
   }
 
-  
+  state={
+    memberid:'',
+    pwd:''
+  }
   email=createRef();
 
+
+  
+
+
+  
   render() {
     return (
       <>
@@ -124,6 +148,8 @@ class Login extends React.Component {
                 </div> */}
                 <div className="text-center">
                   <Button className="my-4" color="primary" type="button" onClick={(e)=>{
+                          
+
                         console.log(this.state.memberid)
                         let headers= {
                           "Content-type":"application/json;charset=UTF-8"
@@ -138,8 +164,11 @@ class Login extends React.Component {
                                   pwd:''
                                 })
                                 alert("로그인성공")
+
                                 localStorage.setItem("loginId",res.data.dataid)
                                 this.props.history.push("/admin/roomlist")
+
+                             
                             }else{
                               alert(res.msg);
                               localStorage.setItem("loginId","")
@@ -155,7 +184,7 @@ class Login extends React.Component {
               </Form>
             </CardBody>
           </Card>
-          {/* <Row className="mt-3">
+          <Row className="mt-3">
             <Col xs="6">
               <a
                 className="text-light"
@@ -174,7 +203,7 @@ class Login extends React.Component {
                 <small>Create new account</small>
               </a>
             </Col>
-          </Row> */}
+          </Row>
         </Col>
       </>
     );
