@@ -167,13 +167,13 @@ class Profile extends React.Component {
       
   //   }
   // }
-  // reciveEmit=(type)=>{
-  //   console.log(type)
-  //   this.setState({
-  //     roomBgimage:type
-  //   })
-  //   this.imageTag();
-  // }
+  reciveEmit=(type)=>{
+    console.log(type)
+    this.setState({
+      roomBgimage:type
+    })
+    
+  }
   joinBtn=(e)=>{
   
     if(this.state.roomhostid !== localStorage.getItem("loginId")){
