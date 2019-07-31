@@ -57,6 +57,8 @@ public class RoomController {
         return "localhost:3000";       
     }
     
+
+     
     //모임방 이미지 업로드
     @PostMapping(path="/upload/{roomno}",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String roomUpload(@RequestParam("file") MultipartFile file, @PathVariable String roomno){
