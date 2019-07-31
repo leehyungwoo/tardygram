@@ -56,11 +56,11 @@ public interface MemberRepository extends CrudRepository<Member, String>{
     public void roomTardy(String id, int money);
 
 
-    //메인페이지에 뿌릴 데이터들
+    //메인페이지에 뿌릴 시간
     @Query(
-        value = "select * from tbl_members_rooms mr JOIN tbl_room r ON mr.rooms_roomno=r.roomno where mr.members_memberid=:id",
+        value = "select roomdate from tbl_members_rooms mr JOIN tbl_room r ON mr.rooms_roomno=r.roomno where mr.members_memberid=:id",
         nativeQuery = true
     )
-    public List<Object []> mainchk(String id);
+    public String mainchk(String id);
     
 }
