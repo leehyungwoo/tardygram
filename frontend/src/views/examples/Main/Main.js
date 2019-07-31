@@ -3,8 +3,8 @@ import axios from 'axios'
 import Header from "components/Headers/Header.js";
 import Moment from 'react-moment';
 import 'moment-timezone';
-import ReactDOM from 'react-dom';
-import Countdown from 'react-countdown-now'
+// import Countdown from './CountDown'
+import GoodClock from './GoodClock'
 import {
   Button,
   Card,
@@ -31,6 +31,7 @@ class Main extends Component {
    
   }
 
+  
   componentDidMount(){
 
     const headers = {
@@ -43,12 +44,9 @@ class Main extends Component {
           console.log(this)
           alert("통신성공")
           this.setState({
-            roomdate : res.data
+            roomdate : new Date(res.data)
           })
- 
-          
- 
-
+          console.log(this.state)
           console.log(this.state.roomdate)
 
 
@@ -80,7 +78,8 @@ class Main extends Component {
     },1000)
   }
   render() {
-
+    const currentDate = new Date();
+    const year = (currentDate.getMonth() === 11 && currentDate.getDate() > 23) ? currentDate.getFullYear() + 1 : currentDate.getFullYear();
     return (
       <>
         <Header />  
@@ -112,7 +111,6 @@ class Main extends Component {
               </Card>
             </Col>
 
-
             <Col className="order-xl-1" xl="8">
               <Card className="bg-secondary shadow">
                 <CardHeader className="bg-white border-0">
@@ -125,29 +123,24 @@ class Main extends Component {
                 <CardBody>
                     <h4 className="text-muted mb-4">
                       {this.state.memberid} (님) 다음 모임까지 135651시간 남았습니다. 
-                      <Moment fromNow>2019-07-31T14:00:00.000Z</Moment>
+                      {/* <Moment fromNow>2019-07-31T14:00:00.000Z</Moment> */}
                       {/* <Countdown date={Date.now()+ 10000}>
                         alert("지각하셨습니다.")
                       </Countdown> */}
                     </h4>
+                    {/* <Countdown timeTillDate="05 26 2019, 6:00 am" timeFormat="MM DD YYYY, h:mm a" /> */}
+                    {console.log("여기 출력해주세요 :"+ currentDate)}
 
+                    <GoodClock date={`${year}-${this.state.roomdate}`} />
                      {this.viewTime()}
-
-
-
                     <div>
                       asdfasdfasdf
                     </div>
                     <div>
                       asdfasdfasdf
                     </div>
-                    
-
                     <hr className="my-4" />
                    
-                  
-                    
-           
                 </CardBody>
               </Card>
             </Col>

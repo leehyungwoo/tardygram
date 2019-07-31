@@ -8,6 +8,8 @@ import moment from 'moment';
 import Moment from 'react-moment';
 import 'moment-timezone';
 // reactstrap components
+// import 'https://fonts.googleapis.com/css?family=Oswald:700';
+
 import {
   Button,
   Card,
