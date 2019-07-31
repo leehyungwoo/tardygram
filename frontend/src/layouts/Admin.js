@@ -18,7 +18,6 @@ class Admin extends React.Component {
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      // console.log(prop)
       if (prop.layout === "/admin") {
         return (
           <Route
@@ -32,18 +31,19 @@ class Admin extends React.Component {
       }
     });
   };
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (
-        this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path
-        ) !== -1
-      ) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
+  // getBrandText = path => {
+  //   for (let i = 0; i < routes.length; i++) {      
+  //     if (
+  //       this.props.location.pathname.indexOf(
+  //         routes[i].layout + routes[i].path
+  //       ) !== -1
+  //     ) {
+  //       console.log(routes[i].name)
+  //       return routes[i].name;
+  //     }
+  //   }
+  //   return "Brand";
+  // };
   render() {
     return (
       <>
@@ -59,7 +59,7 @@ class Admin extends React.Component {
         <div className="main-content" ref="mainContent">
           <AdminNavbar
             {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
+            // brandText={this.getBrandText(this.props.location.pathname)}
           />
           <Switch>{this.getRoutes(routes)}</Switch>
           <Container fluid>
