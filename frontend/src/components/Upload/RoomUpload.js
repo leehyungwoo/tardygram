@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {
-  Button
-} from "reactstrap";
+import ImageUploader from 'react-images-upload';
+// import {
+//   Button
+// } from "reactstrap";
 import axios from "axios"
 import {FormGroup} from "reactstrap";
+import './css/RoomUpload.css'
 
 class RoomUpload extends Component{
     // constructor(props) {
@@ -20,23 +22,28 @@ class RoomUpload extends Component{
       console.log("프룹스",props)
       // this.onDrop = this.onDrop.bind(this);
   }
+  componentDidMount(){
 
+  }
   onChangeHandler=event=>{
     console.log("실행")
     // this.setState({
     //   file : URL.createObjectURL (event[event.length-1])
     // })
     const data = new FormData()
+    console.log(event)
     data.append('file', event[event.length-1])
     console.log(data)
     
   
+    const headers ={
+      "Content-Type":'multipart/form-data'
+    }
    
-    console.log('나는 프롭스다 : ' + this.props.keyparams)
     let roomno = this.props.keyparams
-    axios.post(`/room/upload/${roomno}`, data )
+    axios.post(`/room/upload/${roomno}`, data ,{headers})
       .then(res => {
-        console.log(res)
+        console.log("여기",res)
 
         this.props.emit();
       }).catch(err =>{
@@ -48,26 +55,15 @@ class RoomUpload extends Component{
 
     
     render(){
+      
         return (
           <>
        
-   
-          <input 
-            type="file" 
-            id="uploadInput" 
-            style={{width:"1px", height:"1px",visibility:"hidden", oveflow:"hidden"}} 
-            withPreview={true} 
-            onChange={this.onChangeHandler}
-          />
-          <Button
-          color="info"
-          onClick={e => {document.getElementById("uploadInput").click()}}
-        > 
-           Room Image Upload
-           </Button>
+            <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>   
+          
            </>
         );
-
+        
 
   }
 
