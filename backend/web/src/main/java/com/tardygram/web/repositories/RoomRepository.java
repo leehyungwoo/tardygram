@@ -116,4 +116,11 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     public void insertPenaltyall(Long roomno, int roomcharge);
 
 
+    //위치 시간 검사 통과한 사람의 tardystate를 arrived로 변환
+    @Query(
+        value = "update tbl_members set tardystate='arrived' where memberid=:memberid",
+        nativeQuery = true
+    )
+    public void changeState(String memberid);
+
 }

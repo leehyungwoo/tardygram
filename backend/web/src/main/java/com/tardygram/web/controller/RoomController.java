@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -203,6 +204,14 @@ public class RoomController {
 
 
 
+   //룸디테일에서 확인버튼 누르면 tardystate변경
+   @PutMapping("/checkroom/{memberid}")
+   public ResponseEntity<String> checkroom(@PathVariable String memberid){
+        System.out.println("체크룸컨트롤러도착");
+        System.out.println("memberid : " + memberid);
+        roomrepo.changeState(memberid);
+        return new ResponseEntity<String>("arrived", HttpStatus.OK);
+   }
 
 
 
