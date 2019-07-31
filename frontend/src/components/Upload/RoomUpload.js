@@ -17,6 +17,7 @@ class RoomUpload extends Component{
     constructor(props) {
       super(props);
       this.state = { pictures: [] };
+      console.log("프룹스",props)
       // this.onDrop = this.onDrop.bind(this);
   }
 
@@ -27,15 +28,17 @@ class RoomUpload extends Component{
     // })
     const data = new FormData()
     data.append('file', event[event.length-1])
-
-    const headers ={
-      "Content-Type":'multipart/form-data'
-    }
-    var id = localStorage.getItem("loginId")
-    axios.post(`/member/upload/${id}`, data ,{ headers})
+    console.log(data)
+    
+  
+   
+    console.log('나는 프롭스다 : ' + this.props.keyparams)
+    let roomno = this.props.keyparams
+    axios.post(`/room/upload/${roomno}`, data )
       .then(res => {
         console.log(res)
-        this.props.emit(res.data);
+
+        this.props.emit();
       }).catch(err =>{
         console.log(err)
       })
@@ -50,11 +53,11 @@ class RoomUpload extends Component{
        
    
           <input 
-          type="file" 
-          id="uploadInput" 
-          style={{width:"1px", height:"1px",visibility:"hidden", oveflow:"hidden"}} 
-          withPreview={true} 
-          onChange={this.onChangeHandler}
+            type="file" 
+            id="uploadInput" 
+            style={{width:"1px", height:"1px",visibility:"hidden", oveflow:"hidden"}} 
+            withPreview={true} 
+            onChange={this.onChangeHandler}
           />
           <Button
           color="info"

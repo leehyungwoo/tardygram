@@ -310,7 +310,9 @@ class Profile extends React.Component {
 
    
 }
-
+reciveEmit=()=>{
+  console.log("자식이 부모를 건드는")
+}
 
 //여기는 시간체크하는곳
 CheckTardy = () =>{
@@ -412,7 +414,7 @@ CheckTardy = () =>{
                   made with your work and manage your projects or assigned tasks
                 </p>
           
-                  <RoomUpload ></RoomUpload>
+                  <RoomUpload keyparams={this.props.match.params.id} emit={this.reciveEmit} ></RoomUpload>
                 
               </Col>
             </Row>
