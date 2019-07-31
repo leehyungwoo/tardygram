@@ -1,7 +1,6 @@
 import React, {Component, createRef} from "react";
 import axios from 'axios'
 import ReactDatetime from "react-datetime";
-import ImageUploader from 'react-images-upload';
 import 'react-times/css/material/default.css';
 import 'react-times/css/classic/default.css';
 
@@ -22,7 +21,7 @@ import {
 import SearchMap from './SearchMap'
 
 import Header from "components/Headers/Header.js";
-import RoomUpload from '../../components/Upload/RoomUpload'
+
 
 
 class CreateHost extends Component {
@@ -244,7 +243,10 @@ class CreateHost extends Component {
                             <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
                         );
-            
+            default :
+                return ( 
+                    <div></div>
+                )
                         
         }
     };
@@ -299,7 +301,7 @@ class CreateHost extends Component {
                 console.log("지도")
                 console.log(this.state.pageIndex)
                 console.log(this.state.query.length-1)
-                if(this.state.pageIndex==this.state.query.length-1){
+                if(this.state.pageIndex===this.state.query.length-1){
                     console.log("조건문실행")
                     this.axiosRequest();
                 }
@@ -323,7 +325,7 @@ class CreateHost extends Component {
                 .then(res=>{
                     console.log(res)
 
-                    if(res.data.status == "00") {
+                    if(res.data.status === "00") {
                         alert('방이 생성되었습니다.')
                         this.props.history.push("/admin/roomdetail/"+res.data.roomno)
                     }else{

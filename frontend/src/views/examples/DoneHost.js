@@ -1,20 +1,20 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom'
 import RoomList from './RoomList'
-import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    FormGroup,
-    Form,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Row,
-    Col
-  } from "reactstrap";
+// import {
+//     Button,
+//     Card,
+//     CardHeader,
+//     CardBody,
+//     FormGroup,
+//     Form,
+//     Input,
+//     InputGroupAddon,
+//     InputGroupText,
+//     InputGroup,
+//     Row,
+//     Col
+//   } from "reactstrap";
   
 class DoneHost extends Component {
     render() {

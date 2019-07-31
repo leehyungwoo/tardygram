@@ -1,7 +1,5 @@
-import React, {Component,createRef} from 'react'
+import React, {Component} from 'react'
 
-import {Form,} from "reactstrap";
-import { throws } from 'assert';
 class SearchMap extends Component{
     
     constructor(props){ 
@@ -22,33 +20,14 @@ class SearchMap extends Component{
             keyword:document.getElementById("keyword").value
         })
 
-    }
-     componentDidMount(){
-        const kakao = window.kakao;
-        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-        new kakao.maps.InfoWindow({zIndex:1});
-
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-            mapOption = {
-                center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-            };  
-
-        // 지도를 생성합니다    
-        new kakao.maps.Map(mapContainer, mapOption); 
-     }
-
-    //  shouldComponentUpdate
-    shouldComponentUpdate(newProps, newState){
         let that = this;
-        let address=null;
-        var place_name = null;
+        // var address=null;
+        // var place_name = null;
         let wedo = null;
         let gyeongdo = null;
         let japo = null;
         // 마커를 담을 배열입니다
-        var markers = [];
-        console.log(this.state)
+     
         const kakao = window.kakao;
         // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
         var infowindow = new kakao.maps.InfoWindow({zIndex:1});
@@ -107,17 +86,18 @@ class SearchMap extends Component{
         
         // 지도에 마커를 표시하는 함수입니다
         function displayMarker(place) {
-            
+            console.log("콜백+++++++++++++")
             var callback = function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
-                    console.log('그런 너를 마주칠까 ' + result[0].address.address_name + '을 못가');
-                    address = result[0].address.address_name;
+                    console.log("콜백+++++++++++++")
+                    // address = result[0].address.address_name;
                         that.setState({
                             address:result[0].address.address_name
                         })
                     that.props.emit(that.state)
                 }
             };
+            
             // 마커를 생성하고 지도에 표시합니다
             var marker = new kakao.maps.Marker({
                 map: map,
@@ -135,7 +115,7 @@ class SearchMap extends Component{
             kakao.maps.event.addListener(marker, 'click', function() {
                 // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                 
-                place_name= place.place_name
+                // place_name= place.place_name
                 infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
                 japo = marker.getPosition()
@@ -154,8 +134,26 @@ class SearchMap extends Component{
                 // return place.place_name;
             });
         }
-        return true;
+
+
+
     }
+     componentDidMount(){
+        const kakao = window.kakao;
+        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+        new kakao.maps.InfoWindow({zIndex:1});
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };  
+
+        // 지도를 생성합니다    
+        new kakao.maps.Map(mapContainer, mapOption); 
+     }
+
+ 
 
     render(){
         return(

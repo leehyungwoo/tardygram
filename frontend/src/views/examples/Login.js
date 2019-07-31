@@ -1,20 +1,4 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
+ 
 import React,{createRef} from "react";
 import axios from "axios"
 
@@ -22,7 +6,6 @@ import axios from "axios"
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -30,7 +13,6 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Row,
   Col
 } from "reactstrap";
 
@@ -39,20 +21,15 @@ class Login extends React.Component {
 
   constructor(props){
     super(props)
-    //  alert("로긴")
+    this.state={    
+      memberid:'',
+       pwd:''
+   }
   }
 
-  state={
-    memberid:'',
-    pwd:''
-  }
+  
   email=createRef();
 
-
-  
-
-
-  
   render() {
     return (
       <>
@@ -178,7 +155,7 @@ class Login extends React.Component {
               </Form>
             </CardBody>
           </Card>
-          <Row className="mt-3">
+          {/* <Row className="mt-3">
             <Col xs="6">
               <a
                 className="text-light"
@@ -197,7 +174,7 @@ class Login extends React.Component {
                 <small>Create new account</small>
               </a>
             </Col>
-          </Row>
+          </Row> */}
         </Col>
       </>
     );
