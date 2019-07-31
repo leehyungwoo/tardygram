@@ -6,18 +6,12 @@ import 'moment-timezone';
 // import Countdown from './CountDown'
 import GoodClock from './GoodClock'
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
   Container,
   Row,
   Col,
-  Table,
-  Badge
 } from "reactstrap";
 
 class Main extends Component {
@@ -26,6 +20,9 @@ class Main extends Component {
     this.state = {
       memberid : localStorage.getItem('loginId'),
       roomdate:"",
+      roomGmonth : "",
+      roomGdate : "",
+      roomGhours : "",
      
     }
    
@@ -37,17 +34,42 @@ class Main extends Component {
     const headers = {
       'Content-Type': 'application/json',
     }
-    
+
     
     axios.get(`/member/mainchk/${this.state.memberid}`, {headers:headers})
         .then(res =>{
           console.log(this)
-          alert("통신성공")
+          // alert("통신성공")
+
+          let data = res.data;
+          let date = new Date(data);
+
+          let gmonth = date.getMonth()+1;
+          
+          let gdate = date.getDate();
+          let ghours = date.getHours();
+          if(gmonth<10){
+            gmonth = "0"+gmonth;
+          }
+          if(gdate<10){
+            gdate = "0"+gdate;
+          }
+
+          if(ghours<10){
+            ghours = "0"+ghours;
+          }
+
           this.setState({
-            roomdate : new Date(res.data)
+            roomdate :date, 
+            roomGmonth:gmonth,
+            roomGdate:gdate,
+            roomGtime:ghours,
+            
           })
           console.log(this.state)
-          console.log(this.state.roomdate)
+          // console.log(this.state.roomdate)
+          // console.log(this.state.roomMonth)
+          // console.log(this.state.roomDay)
 
 
 
@@ -129,10 +151,11 @@ class Main extends Component {
                       </Countdown> */}
                     </h4>
                     {/* <Countdown timeTillDate="05 26 2019, 6:00 am" timeFormat="MM DD YYYY, h:mm a" /> */}
-                    {console.log("여기 출력해주세요 :"+ currentDate)}
 
-                    <GoodClock date={`${year}-${this.state.roomdate}`} />
-                     {this.viewTime()}
+                        {console.log(`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T00:00:00`)}
+                    <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T22:00:00`} />
+                    <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T${this.state.roomGtime}:00:00`} />
+                     {this.viewTime()} 
                     <div>
                       asdfasdfasdf
                     </div>
