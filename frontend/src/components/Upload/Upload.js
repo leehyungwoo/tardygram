@@ -19,6 +19,7 @@ class Upload extends Component{
     //     //여기 axios
     // }
     onChangeHandler=event=>{
+      console.log("실행")
       // this.setState({
       //   file : URL.createObjectURL (event[event.length-1])
       // })
