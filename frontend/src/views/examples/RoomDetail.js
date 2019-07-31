@@ -22,8 +22,8 @@ import {
  
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
-
+ 
+ 
 
 
 class Profile extends React.Component {
@@ -56,8 +56,13 @@ class Profile extends React.Component {
  
 
   componentDidMount(){
-    console.log(this.props.match.params.id)
 
+
+    console.log(this.props.match.params.id)
+    var len =this.state.selectuser.length;
+    this.setState({
+      roompenaltyall:this.state.roompenaltyall*len
+    })
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -101,14 +106,24 @@ class Profile extends React.Component {
         });
         console.log(this.state)
 
-        
-        function relayout() {    
+        var that = this;
+        this.state.selectuser.forEach((user)=>{
+          console.log(user)
+          console.log(user.memberid)
+          console.log(user.memberid)
+          if(user.memberid === localStorage.getItem("loginId")){
+            that.setState({
+              flag:false
+            })
+          }
+        })
+        // function relayout() {    
             
-            // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-            // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-            // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-            map.relayout();
-        }
+        //     // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+        //     // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+        //     // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+        //     map.relayout();
+        // }
       
         
         const kakao = window.kakao
@@ -149,12 +164,22 @@ class Profile extends React.Component {
 
 
   joinBtn=(e)=>{
-    if(this.state.flag){
-    return (
-      <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
-      참여하기
-      </Button> 
-      )
+  
+    if(this.state.roomhostid !== localStorage.getItem("loginId")){
+      console.log("버튼",this.state.flag)
+        if(this.state.flag){
+          return (
+            <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
+            참여하기
+            </Button> 
+            )
+          }else{
+            return(
+            <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn} disabled>
+            참여하기
+            </Button>
+            )
+          }
     }else{
       return(
         <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn} disabled>
@@ -175,15 +200,27 @@ class Profile extends React.Component {
     let id = localStorage.getItem("loginId")   
     axios.post(`/room/enter/${id}/${this.state.roomno}/${this.state.roomcharge}`, {headers:headers})
         .then(res =>{
-          alert('성공')          
-          console.log(res.data)
-          console.log('m2나와 : ' +res.data.m2.memberid)
-          console.log('m2 이미지 : ' + res.data.m2.profileimage)
-          this.setState({
-            selectuser:[...this.state.selectuser,{tardystate:res.data.m2.tardystate,profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
-            flag:false
-          })
-          console.log(this.state.selectuser)
+          alert("통신성공")
+          if(res.data.status === "00"){
+            alert(res.data.msg)
+      
+       
+            console.log('m2나와 : ' +res.data.m2.memberid)
+            console.log('m2 이미지 : ' + res.data.m2.profileimage)
+            console.log(this.state.roompenaltyall)
+            this.setState({
+              selectuser:[...this.state.selectuser,{tardystate:res.data.m2.tardystate,profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
+              flag:false,
+              roompenaltyall:this.state.roompenaltyall+this.state.roomcharge
+            })
+
+            console.log(this.state.selectuser)
+         
+
+          }else{
+            alert(res.data.msg)
+            this.props.history.push("/admin/user-profile")
+          }
         })
         .catch(res =>{
           alert('실패')
@@ -342,7 +379,38 @@ CheckTardy = () =>{
     return (
       <>
   
-      <UserHeader /> {/* Page content */}
+  <div
+          className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+          style={{
+            minHeight: "600px",
+            backgroundImage:
+              "url(" + require("assets/img/theme/profile-cover.jpg") + ")",
+            backgroundSize: "cover",
+            backgroundPosition: "center top"
+          }}
+        >
+          {/* Mask */}
+          <span className="mask bg-gradient-default opacity-8" />
+          {/* Header container */}
+          <Container className="d-flex align-items-center" fluid>
+            <Row>
+              <Col lg="7" md="10">
+                <h1 className="display-2 text-white">Hello Jesse</h1>
+                <p className="text-white mt-0 mb-5">
+                  This is your profile page. You can see the progress you've
+                  made with your work and manage your projects or assigned tasks
+                </p>
+                <Button
+                  color="info"
+                  href="#pablo"
+                  onClick={e => e.preventDefault()}
+                >
+                  Edit profile
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+        </div>
         <Container className="mt--7" fluid>
             <Row>
           
@@ -431,7 +499,11 @@ CheckTardy = () =>{
                                     <td>{this.state.roomcharge} 원</td>
                                     <td>
                                       <Badge color="" className="badge-dot mr-4">
-                                        <i className="bg-warning" />
+                                      {(()=>{if(user.tardystate === "arrived"){
+                                        return (<i className="bg-success" />)
+                                      }else{
+                                        return (<i className="bg-warning" />)
+                                      }})()}
                                         {user.tardystate}
                                       </Badge>
                                     </td>
@@ -475,8 +547,10 @@ CheckTardy = () =>{
                             </h5>
                             </Col>
                             {/* <SearchMap height="300px"></SearchMap> */}
+
                             <div id="map" style={{width: "100%", height: "350px", position: "relative", overflow: "hidden"}}></div>
                             {/* ,position:"relative",overflow:"hidden" */}
+
                         </div>
                     </CardBody>
                 </Card>

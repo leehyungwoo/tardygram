@@ -89,7 +89,7 @@ public class RoomController {
 
         Room room = new Room();
         data.setRoomprogress(1);
-        data.setRoomphoto("/image/room/b.jpg");
+        data.setRoomphoto("/image/room/kakaofriends.jpg");
         Member member = memberrepo.findById(data.getRoomhostid()).get();
         System.out.println("member : " + member);
         member.setTardystate("waiting");
@@ -137,11 +137,14 @@ public class RoomController {
             //return "방에 참여하셨습니다.";
             Member m2 = memberrepo.findById(id).get();
             System.out.println("m2 : " + m2);
+            map.put("status", "00");
+            map.put("msg", "성공했습니다");
             map.put("m2", m2);
             return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
        }else {
            //return "tardy캐시를 확인하세요";
-           map.put("no", "실패");
+           map.put("status", "11");
+           map.put("msg", "타디캐시가 없습니다");
            return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
        }
    }
@@ -168,48 +171,45 @@ public class RoomController {
     }
 
 
-   //모임방 디테일
-   @GetMapping("/selectone/{roomno}")
-   public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long roomno){
-   // public void selectone(@PathVariable int roomno){
-       System.out.println("selectone 컨트롤러 도착");
-       System.out.println("roomno : " + roomno);
-       Room selecthost = roomrepo.selecthost(roomno);
-       List<Object []> selectuser = roomrepo.selectuser(roomno);
-       List memberList = new ArrayList<>();
-    
-       selectuser.forEach(arr -> {
-           HashMap<String,Object> memlist =new HashMap<>();
-           String memberid = arr[0].toString();
-           String tardystate = arr[2].toString();
-          
-           memlist.put("memberid", memberid);
-        //    System.out.println(arr[0].toString()); ID
-        //    System.out.println(arr[1].toString()); Image
-        //    System.out.println(arr[2].toString()); tardyState
-      
-           try{
-               String profileimage = arr[1].toString();
-               memlist.put("profileimage", profileimage);             
-               memlist.put("tardystate", tardystate);             
-       
-             
-          
-           }catch(Exception e){
-               memlist.put("profileimage", "null");
-               memlist.put("tardyState", "null");
-           }
-           memberList.add(memlist);
-       });
+//모임방 디테일
+@GetMapping("/selectone/{roomno}")
+public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long roomno){
+// public void selectone(@PathVariable int roomno){
+    System.out.println("selectone 컨트롤러 도착");
+    System.out.println("roomno : " + roomno);
+    Room selecthost = roomrepo.selecthost(roomno);
+    List<Object []> selectuser = roomrepo.selectuser(roomno);
+    List memberList = new ArrayList<>();
  
-       System.out.println("selectuser : " + selectuser);
-       HashMap<String,Object> map =new HashMap<>();
-       map.put("selecthost", selecthost);
-       map.put("selectuser", memberList);
-       // System.out.println(map);
-        return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
-   }
+    selectuser.forEach(arr -> {
+        HashMap<String,Object> memlist =new HashMap<>();
+        String memberid = arr[0].toString();
+        String tardystate = arr[2].toString();
+       
+        memlist.put("memberid", memberid);
+     //    System.out.println(arr[0].toString()); ID
+     //    System.out.println(arr[1].toString()); Image
+     //    System.out.println(arr[2].toString()); tardyState
+   
+        try{
+            String profileimage = arr[1].toString();
+            memlist.put("profileimage", profileimage);             
+            memlist.put("tardystate", tardystate);             
+                
+        }catch(Exception e){
+            memlist.put("profileimage", "null");
+            memlist.put("tardyState", "null");
+        }
+        memberList.add(memlist);
+    });
 
+    System.out.println("selectuser : " + selectuser);
+    HashMap<String,Object> map =new HashMap<>();
+    map.put("selecthost", selecthost);
+    map.put("selectuser", memberList);
+    // System.out.println(map);
+     return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+}
 
 
    //룸디테일에서 확인버튼 누르면 tardystate변경

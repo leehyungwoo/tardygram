@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.transaction.Transactional; 
 import com.tardygram.web.entities.Room;
+import com.tardygram.web.domain.RoomRelativeDTO;
 import com.tardygram.web.entities.Member;
 import com.tardygram.web.repositories.RoomRepository;
 import com.tardygram.web.repositories.MemberRepository;
@@ -51,6 +52,8 @@ public class MemberController {
     // 회원가입
     @PostMapping("/join")
     public ResponseEntity<Member> insertMember(@RequestBody Member joinFd) {
+        joinFd.setProfileimage("/image/member/user.jpg");
+        joinFd.setTardystate("waiting");
         return new ResponseEntity<Member>(memberrepo.save(joinFd), HttpStatus.OK);
     }
 
@@ -157,6 +160,19 @@ public class MemberController {
         }
         
         return "No Img";                     
+    }
+
+
+    //메인페이지에 남은시간  
+    @GetMapping("/mainchk/{id}")
+    public ResponseEntity<String> mainchk(@PathVariable String id) {
+        System.out.println("mainchk 컨트롤러");
+        System.out.println("프론트에서 오는 id : " + id);
+       
+        String roomdate = memberrepo.mainchk(id);
+     
+        return new ResponseEntity<String>(roomdate, HttpStatus.OK);
+
     }
 
     
