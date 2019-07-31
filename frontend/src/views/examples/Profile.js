@@ -5,6 +5,8 @@ import {Link } from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 import moment from 'moment';
+import Moment from 'react-moment';
+import 'moment-timezone';
 // reactstrap components
 import {
   Button,
@@ -208,7 +210,7 @@ class Profile extends React.Component {
                       <span className="font-weight-light">({this.state.gender})</span>
                     </h3>
                     <div className="h5 font-weight-450">                 
-                      birthday : {this.state.birthday}<br/>
+                    birthday : <Moment format="YYYY년 M월 DD일 h:mm">{this.state.birthday}</Moment><br/>
                       tardycash : {this.state.money}<br/>
                       <input type="text" placeholder="금액" onChange={this.amount}></input>                  
                       <Button color="warning" outline type="button" size="sm" onClick={this.Kakaopay}>충전</Button>
