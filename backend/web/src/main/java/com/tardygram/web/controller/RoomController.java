@@ -68,23 +68,20 @@ public class RoomController {
         System.out.println("roomno : " + roomno);
         System.out.println("파일이름 : " + file.getOriginalFilename());
 
-        // try{
-        //     String DbPath = "/image/room/" + file.getOriginalFilename();
-        //     System.out.println("Dbpath : " + DbPath);
-        //     byte[] bytes = file.getBytes();
-        //     Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-        //     Files.write(path, bytes);
-        //     System.out.println("path : " + path);
-        //     System.out.println(id);
-            
-        //     //roomrepo.roomUpdate(DbPath, id);
-        //     return DbPath;
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
+        try{
+            String DbPath = "/image/room/" + file.getOriginalFilename();
+            System.out.println("Dbpath : " + DbPath);
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+            System.out.println("path : " + path);
+            roomrepo.roomphotoUpdate(DbPath, roomno);
+            return DbPath;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
-        // return "No Img";      
-        return null;               
+        return "No Img";                 
     }
 
 
