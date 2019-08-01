@@ -227,7 +227,17 @@ public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long room
    }
 
 
+   @DeleteMapping("/closeroom/{roomno}/{roompenaltyall}")
+   public ResponseEntity<String> closeroom(@PathVariable String roomno, @PathVariable String roompenaltyall){
+        System.out.println("클로즈룸컨트롤러도착");
+        System.out.println("roomno :" + roomno);
+        System.out.println("roompenaltyall : " + roompenaltyall);
+        
 
+
+
+        return new ResponseEntity<String>("성공", HttpStatus.OK);
+   }
 
 
 
