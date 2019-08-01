@@ -85,8 +85,7 @@ class Main extends Component {
   
   
   componentDidMount(){
-    // setInterval(this.clock, inc);
-    // this.clock();
+
  
     if(localStorage.getItem("loginId")){
       window.timer = setInterval(this.setDate, inc);
@@ -100,8 +99,6 @@ class Main extends Component {
     
     axios.get(`/member/mainchk/${this.state.memberid}`, {headers:headers})
         .then(res =>{
-          console.log(this)
-          // alert("통신성공")
 
           let data = res.data;
           let date = new Date(data);
@@ -128,27 +125,7 @@ class Main extends Component {
             roomGtime:ghours,
             
           })
-          console.log(this.state)
-          // console.log(this.state.roomdate)
-          // console.log(this.state.roomMonth)
-          // console.log(this.state.roomDay)
 
-
-
-          // console.log(`도착해야하는 시간은 : ${gotTime}`)
-          // //약속시간
-          // let nowTime = new Date();
-          // //현재시간
-
-       
-
-          // console.log(`현재시간 : ${nowTime}`)
-          // console.log(`약속시간 : ${gotTime}`)
-       
-
-          // let myTime = gotTime.getTime() - nowTime.getTime()
-          //myTime은 남은시간 계산
-          // console.log(myTime)
         })
         .catch(res =>{
           alert('실패')
@@ -222,7 +199,7 @@ class Main extends Component {
                 <CardHeader className="bg-white border-0">
                   <Row className="align-items-center">
                     <Col xs="12">
-                      <h3 className="mb-0">tardygram에 오신것을 환영합니다.</h3>
+                      <h3 className="mb-0"></h3>
                     </Col>               
                   </Row>
                 </CardHeader>
@@ -236,17 +213,12 @@ class Main extends Component {
                     </h4>
                     {/* <Countdown timeTillDate="05 26 2019, 6:00 am" timeFormat="MM DD YYYY, h:mm a" /> */}
 
-                        {console.log(`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T00:00:00`)}
+                        
                     <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T${this.state.roomGtime}:00:00`} />
-                   
-                    <div>
-                      asdfasdfasdf
-                    </div>
-                    <div>
-             
-                    </div>
+     
+
                     <hr className="my-4" />
-                      <ChartGraph></ChartGraph>
+                    <ChartGraph></ChartGraph>
                 </CardBody>
               </Card>
             </Col>

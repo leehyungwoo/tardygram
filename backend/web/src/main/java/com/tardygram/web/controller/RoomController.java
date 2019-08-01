@@ -234,7 +234,7 @@ public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long room
             roomrepo.turnTardycashe(deviceCharge, arrivedMember[i]);
         }
         }catch(ArithmeticException e){
-            
+
         }
         
         
@@ -242,6 +242,36 @@ public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long room
         roomrepo.deleteFinalRoom(roomno);
 
         return new ResponseEntity<String>("성공", HttpStatus.OK);
+   }
+
+
+   //차트데이터 넣기
+   @GetMapping("/chart")
+   public ResponseEntity<HashMap<String,Object>> chartData(){
+    System.out.println("차트 컨트롤러");
+    int totalMember = memberrepo.totalMember();
+    int totalRoom = roomrepo.totalRoom();
+
+    HashMap map = new HashMap<>();
+    map.put("totalMember", totalMember);
+    map.put("totalRoom", totalRoom);
+
+    int roomTotalCharge = 0;
+    try{
+        int[] roomChage = roomrepo.roomCharge();
+        for(int i=0; i<roomChage.length; i++){
+            roomTotalCharge = roomTotalCharge + roomChage[i];
+        }
+        System.out.println("roomTotalCharge : " + roomTotalCharge);
+        double avg = roomTotalCharge/totalRoom;
+        System.out.println("avg : " + avg);
+        map.put("avg", avg);
+    }catch(ArithmeticException e){
+
+    }
+
+
+    return new ResponseEntity<HashMap<String,Object>>(map, HttpStatus.OK);
    }
 
 

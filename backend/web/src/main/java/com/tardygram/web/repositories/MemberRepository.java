@@ -62,5 +62,11 @@ public interface MemberRepository extends CrudRepository<Member, String>{
         nativeQuery = true
     )
     public String mainchk(String id);
+
+    //총 회원의 수 
+    @Query(
+        value = "select count(*) from tbl_members", nativeQuery = true
+    )
+    public int totalMember();
     
 }

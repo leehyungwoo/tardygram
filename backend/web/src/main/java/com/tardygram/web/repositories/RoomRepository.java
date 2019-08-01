@@ -157,6 +157,15 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     )
     public void deleteFinalRoom(String roomno);
 
+    //방의 전체 갯수
+    @Query(
+        value = "select count(*) from tbl_room", nativeQuery = true
+    )
+    public int totalRoom();
 
-
+    //방들의 벌금 배열로 나열
+    @Query(
+        value = "select roomcharge from tbl_room ", nativeQuery = true
+    )
+    public int[] roomCharge();
 }

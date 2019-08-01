@@ -30,7 +30,7 @@ class UserHeader extends React.Component {
               <Col lg="12" md="6">
                 <h1 className="display-2 text-white">Tardygram에 오신것을 환영합니다!</h1>
                 <p className="text-white mt-0 mb-5">
-                  This is your profile page. You can see the progress you've
+                  This is your Main page. You can see the progress you've
                   made with your work and manage your projects or assigned tasks
                 </p>
                 {/* <Button

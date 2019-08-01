@@ -5,6 +5,7 @@ import Chart from "chart.js";
 import { Bar } from "react-chartjs-2";
 // reactstrap components
 import { Card, CardBody } from "reactstrap";
+import axios from 'axios'
 
 Chart.elements.Rectangle.prototype.draw = function() {
   var ctx = this._chart.ctx;
@@ -349,67 +350,77 @@ let chartExample1 = {
 };
 
 // Example 2 of Chart inside src/views/Index.js (Total orders - Card)
-let chartExample2 = {
-  options: {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            callback: function(value) {
-              if (!(value % 10)) {
-                //return '$' + value + 'k'
-                return value;
-              }
-            }
-          }
-        }
-      ]
-    },
-    tooltips: {
-      callbacks: {
-        label: function(item, data) {
-          var label = data.datasets[item.datasetIndex].label || "";
-          var yLabel = item.yLabel;
-          var content = "";
-          if (data.datasets.length > 1) {
-            content += label;
-          }
-          content += yLabel;
-          return content;
-        }
-      }
-    }
-  },
-  data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [
-      {
-        label: "Sales",
-        data: [100, 100, 50, 22, 17, 29]
-      }
-    ]
-  }
-};
-
+let chartExample2;
+function abc(a,b,c,d,e,f){
+ chartExample2 = {
+       options: {
+         scales: {
+           yAxes: [
+             {
+               ticks: {
+                 callback: function(value) {
+                   if (!(value % 10)) {
+                     //return '$' + value + 'k'
+                     return value;
+                   }
+                 }
+               }
+             }
+           ]
+         },
+         tooltips: {
+           callbacks: {
+             label: function(item, data) {
+               var label = data.datasets[item.datasetIndex].label || "";
+               var yLabel = item.yLabel;
+               var content = "";
+               if (data.datasets.length > 1) {
+                 content += label;
+               }
+               content += yLabel;
+               return content;
+             }
+           }
+         }
+       },
+       data: {
+         labels: ["회원 수", "방의 수", "평균 벌금(1000원)"],
+         datasets: [
+           {
+             label: "Sales",
+             data: [a, b, c]
+           }
+         ]
+       }
+     };
+}
  
-
-
-
-
-
-
-
-
-
 
 
 
 class ChartGraph extends React.Component {
   componentWillMount() {
     if (window.Chart) {
-      parseOptions(Chart, chartOptions());
+      parseOptions(Chart, chartOptions());             
     }
+    abc(0,0,0,0,0,0)
   }
+
+
+  componentDidMount(){
+    const headers = {
+      'Content-Type': 'application/json',
+    }  
+    axios.get(`/room/chart`,  {headers:headers})
+        .then(res =>{
+            abc(res.data.totalMember,res.data.totalRoom,res.data.avg/1000)
+        })
+        .catch(res =>{
+            alert('통신 실패')
+        })
+  }
+
+
   render() {
     return (
       <>
