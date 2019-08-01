@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 // import Countdown from './CountDown'
 import GoodClock from './GoodClock'
+
 import {
   Card,
   CardHeader,
@@ -13,7 +14,6 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
 class Main extends Component {
   constructor(props){
     super(props)
@@ -31,6 +31,7 @@ class Main extends Component {
   
   componentDidMount(){
 
+    
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -144,7 +145,7 @@ class Main extends Component {
                 </CardHeader>
                 <CardBody>
                     <h4 className="text-muted mb-4">
-                      {this.state.memberid} (님) 다음 모임까지 135651시간 남았습니다. 
+                      {this.state.memberid} (님) 다음 모임까지
                       {/* <Moment fromNow>2019-07-31T14:00:00.000Z</Moment> */}
                       {/* <Countdown date={Date.now()+ 10000}>
                         alert("지각하셨습니다.")
@@ -153,14 +154,13 @@ class Main extends Component {
                     {/* <Countdown timeTillDate="05 26 2019, 6:00 am" timeFormat="MM DD YYYY, h:mm a" /> */}
 
                         {console.log(`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T00:00:00`)}
-                    <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T22:00:00`} />
                     <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T${this.state.roomGtime}:00:00`} />
                      {this.viewTime()} 
                     <div>
                       asdfasdfasdf
                     </div>
                     <div>
-                      asdfasdfasdf
+                    {this.state.clock}
                     </div>
                     <hr className="my-4" />
                    
