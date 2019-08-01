@@ -383,9 +383,30 @@ CheckTardy = () =>{
   }
 
   
-
-
 }
+
+
+closebtn=(e)=>{
+  return <Button className="float-right" color="default" size="sm" onClick={this.closeroom}>
+          마감
+         </Button>
+}
+
+closeroom=(e)=>{
+  const headers = {
+    'Content-Type': 'application/json',
+  }
+  console.log(this.state.roomno)
+  console.log(this.state.roompenaltyall)
+  axios.delete(`/room/closeroom/${this.state.roomno}/${this.state.roompenaltyall}`,  {headers:headers})
+      .then(res =>{
+        alert('통신성공')
+      })
+      .catch(res =>{
+          alert('통신 실패')
+      })
+}
+
 
 
 
@@ -452,6 +473,7 @@ CheckTardy = () =>{
                             <Button className="float-left" color="danger" href="#pablo" size="sm">
                               벌금총액
                             </Button>
+                            {this.closebtn()}
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
                                 {this.state.roompenaltyall} 원
                             </h5>

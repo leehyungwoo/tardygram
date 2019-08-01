@@ -153,7 +153,7 @@ class Main extends Component {
                     {/* <Countdown timeTillDate="05 26 2019, 6:00 am" timeFormat="MM DD YYYY, h:mm a" /> */}
 
                         {console.log(`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T00:00:00`)}
-                    <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T22:00:00`} />
+                  
                     <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T${this.state.roomGtime}:00:00`} />
                      {this.viewTime()} 
                     <div>
