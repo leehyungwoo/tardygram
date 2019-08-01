@@ -155,8 +155,10 @@ class Main extends Component {
         })
 
   }
+ componentWillUnmount(){
+   clearInterval(window.timer)
+ }
 
- 
   render() {
     const currentDate = new Date();
     const year = (currentDate.getMonth() === 11 && currentDate.getDate() > 23) ? currentDate.getFullYear() + 1 : currentDate.getFullYear();
