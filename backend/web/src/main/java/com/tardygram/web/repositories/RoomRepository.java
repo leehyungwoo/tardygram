@@ -17,19 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long>{
-
-   /*  @Query(
-        value = "select * from room JOIN roompeople ON room.roomno = roompeople.roomno2 WHERE memberid2=:memberid",
-        nativeQuery = true    
-    )
-    public List<Object[]> joinlist(String memberid); */
-
-    @Query(
-        value = "delete from tbl_members_rooms where rooms_roomno= :roomno"
-        , nativeQuery = true
-    )
-    public void deleteRoom(Long roomno);
-
+ 
 
     @Query(
         value = "select * from tbl_room m where m.roomprogress=1 and m.roomhostid=:roomhostid "
@@ -130,5 +118,45 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
         , nativeQuery = true
     )
     public Room roomphotoUpdate(String path, String roomno);
+
+
+    //방디테일에서 마감버튼 누를시 방원들의 상태가 arrived가 된 갯수
+    @Query(
+        value = "select count(*) from tbl_members mb JOIN tbl_members_rooms mr ON mb.memberid = mr.members_memberid where mb.tardystate='arrived' and mr.rooms_roomno=:roomno",
+        nativeQuery = true
+    )
+    public int arrivedcount(String roomno);
+
+
+    //상태가 arrived가 된 id 출력 (roomno조건)
+    @Query(
+        value = "select memberid from tbl_members mb JOIN tbl_members_rooms mr ON mb.memberid = mr.members_memberid where mb.tardystate='arrived' and mr.rooms_roomno=:roomno"
+        , nativeQuery = true
+    )
+    public String[] arrivedMember(String roomno);
+
+
+    //상태가 arrived인 유저에게 벌금을 다시 돌려줌
+    @Query(
+        value = "update tbl_members set money=money+(:deviceCharge) where memberid=:memberid",
+        nativeQuery = true
+    )
+    public void turnTardycashe(int deviceCharge, String memberid);
+
+    //연관테이블 삭제
+    @Query(
+        value = "delete from tbl_members_rooms where rooms_roomno = :roomno"
+        , nativeQuery = true
+    )
+    public void deleteRoom(String roomno);
+
+    //룸테이블 삭제
+    @Query(
+        value = "delete from tbl_room where roomno=:roomno"
+        , nativeQuery = true
+    )
+    public void deleteFinalRoom(String roomno);
+
+
 
 }

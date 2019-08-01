@@ -401,6 +401,8 @@ closeroom=(e)=>{
   axios.delete(`/room/closeroom/${this.state.roomno}/${this.state.roompenaltyall}`,  {headers:headers})
       .then(res =>{
         alert('통신성공')
+        alert(res.data)
+        this.props.history.push("/admin/roomlist")
       })
       .catch(res =>{
           alert('통신 실패')
@@ -431,7 +433,7 @@ closeroom=(e)=>{
           {/* Header container */}
           <Container className="d-flex align-items-center" fluid>
             <Row>
-              <Col lg="7" md="10" style={{minWidth:"200px"}}>
+              <Col lg="12" md="10" style={{minWidth:"200px"}}>
                 <h1 className="display-2 text-white">{this.state.roomtitle}</h1>
                 <p className="text-white mt-0 mb-5">
                   {this.state.roomdetail}

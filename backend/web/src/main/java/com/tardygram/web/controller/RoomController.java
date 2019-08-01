@@ -147,11 +147,11 @@ public class RoomController {
 
 
     //연관테이블 레코드 삭제후 room테이블 레코드 삭제, 각인원들에게 돈다시 줘야함
-    @DeleteMapping("/delete")
-    public void deleteroom(){      
-            roomrepo.deleteRoom((long)1);
-            // roomrepo.deleteById((long)3);      
-    }
+    // @DeleteMapping("/delete")
+    // public void deleteroom(){      
+    //         roomrepo.deleteRoom((long)1);
+    //         // roomrepo.deleteById((long)3);      
+    // }
 
 
     //모임방 전체출력
@@ -223,9 +223,23 @@ public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long room
         System.out.println("클로즈룸컨트롤러도착");
         System.out.println("roomno :" + roomno);
         System.out.println("roompenaltyall : " + roompenaltyall);
+        int arrivedcount = roomrepo.arrivedcount(roomno);
+        //System.out.println("총벌금/도착인원 : " + Integer.parseInt(roompenaltyall)/arrivedcount);
+        try{
+            int deviceCharge =  Integer.parseInt(roompenaltyall)/arrivedcount;
+            String[] arrivedMember =roomrepo.arrivedMember(roomno);
+            System.out.println("arrivedMember[0] : " + arrivedMember[0]);
+            for(int i=0; i<arrivedMember.length; i++){
+            System.out.println(arrivedMember[i]);
+            roomrepo.turnTardycashe(deviceCharge, arrivedMember[i]);
+        }
+        }catch(ArithmeticException e){
+            
+        }
         
-
-
+        
+        roomrepo.deleteRoom(roomno);
+        roomrepo.deleteFinalRoom(roomno);
 
         return new ResponseEntity<String>("성공", HttpStatus.OK);
    }
