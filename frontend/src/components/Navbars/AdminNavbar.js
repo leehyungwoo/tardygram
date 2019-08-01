@@ -1,6 +1,7 @@
  
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios"
 // reactstrap components
 import {
   DropdownMenu,
@@ -15,6 +16,45 @@ import {
 
 
 class AdminNavbar extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state={
+      profileimage:null
+    }
+  }
+
+  componentDidMount(){
+      
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+  
+    let id = localStorage.getItem("loginId");
+    axios.get(`/member/mypage/${id}`,  {headers:headers})
+        .then(res =>{
+            //alert('통신성공  url:')
+        console.log(res.data)
+          
+        let uInfo =res.data.uInfo
+  
+        this.setState({
+          birthday:uInfo.birthday,
+          email:uInfo.email,
+          gender:uInfo.gender,
+          memberid:uInfo.memberid,
+          money:uInfo.money,
+          name:uInfo.name,
+          profileimage:uInfo.profileimage,
+          phone:uInfo.phone,
+          pwd:uInfo.pwd,
+          hostCount: res.data.hostCount,
+          memberCount : res.data.memberCount
+        }) 
+        })
+  }
+  
+  
   render() {
     return (
       <>
@@ -35,8 +75,9 @@ class AdminNavbar extends React.Component {
                     <span className="avatar avatar-sm rounded-circle">
                       <img
                         alt="..."
-                        src={require("assets/img/theme/team-4-800x800.jpg")}
+                        src={this.state.profileimage}
                       />
+                      
                     </span>
                     <Media className="ml-2 d-none d-lg-block">
                       <span className="mb-0 text-sm font-weight-bold">

@@ -4,8 +4,8 @@ import ImageUploader from 'react-images-upload';
 //   Button
 // } from "reactstrap";
 import axios from "axios"
-import {FormGroup} from "reactstrap";
-import './css/RoomUpload.css'
+ 
+import './css/RoomUpload.scss'
 
 class RoomUpload extends Component{
     // constructor(props) {
@@ -46,7 +46,7 @@ class RoomUpload extends Component{
       .then(res => {
         console.log("여기",res)
 
-        this.props.emit();
+        this.props.emit(res.data);
       }).catch(err =>{
         console.log(err)
       })
@@ -58,11 +58,11 @@ class RoomUpload extends Component{
     render(){
       
         return (
-          <>
+          <div className="RoomUpload">
        
             <ImageUploader className="form-control-alternative"  type="file"name="file" onChange={this.onChangeHandler}/>   
           
-           </>
+           </div>
         );
         
 

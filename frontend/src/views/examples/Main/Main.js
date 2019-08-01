@@ -145,7 +145,7 @@ class Main extends Component {
                 <CardBody>
                     <h4 className="text-muted mb-4">
                       {this.state.memberid} (님) 다음 모임까지 135651시간 남았습니다. 
-                      {/* <Moment fromNow>2019-07-31T14:00:00.000Z</Moment> */}
+                      <Moment fromNow>2019-07-31T14:00:00.000Z</Moment>
                       {/* <Countdown date={Date.now()+ 10000}>
                         alert("지각하셨습니다.")
                       </Countdown> */}

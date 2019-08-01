@@ -7,17 +7,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.MultipartConfigElement;
-
 import com.tardygram.web.entities.Room;
 import com.tardygram.web.entities.Member;
 import com.tardygram.web.repositories.EnterRepository;
 import com.tardygram.web.repositories.RoomRepository;
 import com.tardygram.web.repositories.MemberRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,14 +24,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam; 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
-
-import lombok.Getter;
-
+ 
 /**
 * MemberController
 */
@@ -97,7 +88,7 @@ public class RoomController {
         data.setRoomphoto("/image/room/kakaofriends.jpg");
         Member member = memberrepo.findById(data.getRoomhostid()).get();
         System.out.println("member : " + member);
-        member.setTardystate("waiting");
+        member.setTardystate("-"); //wating
         HashMap<String,Object> map =new HashMap<>();
       
 
@@ -134,7 +125,7 @@ public class RoomController {
        if(tardycashe >= roomcharge){
             Member m = new Member();
             m.setMemberid(id);
-            m.setTardystate("waiting");
+            m.setTardystate("-");  //waiting
             enterrepo.enter(m, roomno);
             int money = tardycashe - roomcharge;
             memberrepo.roomTardy(id, money);

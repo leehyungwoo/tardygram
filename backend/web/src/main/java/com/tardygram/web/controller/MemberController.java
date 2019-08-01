@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.transaction.Transactional; 
 import com.tardygram.web.entities.Room;
-import com.tardygram.web.domain.RoomRelativeDTO;
+
 import com.tardygram.web.entities.Member;
 import com.tardygram.web.repositories.RoomRepository;
 import com.tardygram.web.repositories.MemberRepository;
@@ -53,7 +53,7 @@ public class MemberController {
     @PostMapping("/join")
     public ResponseEntity<Member> insertMember(@RequestBody Member joinFd) {
         joinFd.setProfileimage("/image/member/user.jpg");
-        joinFd.setTardystate("waiting");
+        joinFd.setTardystate("-");
         return new ResponseEntity<Member>(memberrepo.save(joinFd), HttpStatus.OK);
     }
 

@@ -104,7 +104,7 @@ class CreateHost extends Component {
                                                         ref={ref => { this.mydiv = ref }}
                                                     required
                         />
-                         <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+                         <Button style={{marginTop:"15px"}} type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                 </div>
                     );
             case 1:
@@ -116,7 +116,7 @@ class CreateHost extends Component {
                                                         placeholder={this.state.query[this.state.pageIndex]} 
                                                         ref={ref => { this.mydiv = ref }}
                                                     />
-                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button> 
+                            <Button style={{marginTop:"15px"}} type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button> 
                     </div>
                         );
             case 2:
@@ -181,7 +181,7 @@ class CreateHost extends Component {
                                                     style={{display:"none"}}
                                                     ref={ref => { this.mydiv = ref }}
                                                     />
-                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+                            <Button style={{marginTop:"15px"}} type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
 
 
 
@@ -198,7 +198,7 @@ class CreateHost extends Component {
                                                     placeholder={this.state.query[this.state.pageIndex]} 
                                                     ref={ref => { this.mydiv = ref }}
                                                     />
-                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+                            <Button style={{marginTop:"15px"}} type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
                     
                         );    
@@ -207,7 +207,7 @@ class CreateHost extends Component {
                 return (
                     <div>
                             <h1>벌금</h1>
-                            <span>* 숫자로 입력해주세요</span>
+                            <span style={{color:"red", fontSize:"12px"}}>* 숫자로 입력해주세요</span>
                             <input type="text" className="form-control" 
                                                          placeholder={this.state.query[this.state.pageIndex]} 
                                                          ref={ref => { this.mydiv = ref }}
@@ -222,11 +222,11 @@ class CreateHost extends Component {
                 return (
                     <div>
                             <h1>방비번</h1>
-                            <input type="password" className="form-control" 
+                            <input type="text" className="form-control" 
                                                         placeholder={this.state.query[this.state.pageIndex]} 
                                                         ref={ref => { this.mydiv = ref }}
                                                     />
-                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+                            <Button style={{marginTop:"15px"}} type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
                         );             
             case 6:
@@ -240,7 +240,7 @@ class CreateHost extends Component {
                                 this.reciveEmit
                                 }
                                 ></SearchMap>
-                            <Button type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
+                            <Button style={{marginTop:"15px"}} type="button" className="btn btn-success" onClick={this.clickHandler}>Success</Button>
                     </div>
                         );
             default :
@@ -255,7 +255,7 @@ class CreateHost extends Component {
       
             if (this.state.paneltyState) {
               return (
-                <Button type="button" 
+                <Button style={{marginTop:"15px"}} type="button" 
                 className="btn btn-success" 
                 onClick={this.clickHandler}
                 
@@ -264,7 +264,7 @@ class CreateHost extends Component {
             } 
             return (
 
-                 <Button type="button" 
+                 <Button style={{marginTop:"15px"}} type="button" 
                  className="btn btn-success"
                  disabled 
                  onClick={this.clickHandler}
