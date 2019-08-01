@@ -34,7 +34,7 @@ class AdminNavbar extends React.Component {
     axios.get(`/member/mypage/${id}`,  {headers:headers})
         .then(res =>{
             //alert('통신성공  url:')
-        console.log(res.data)
+     
           
         let uInfo =res.data.uInfo
   

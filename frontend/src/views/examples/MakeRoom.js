@@ -57,7 +57,7 @@ class CreateHost extends Component {
           this.setState({
             progressNum : this.state.progressNum + 1
           })
-          console.log(this.state.progressNum)      
+       
       }
 
     //   imageTag=()=>{
@@ -141,14 +141,14 @@ class CreateHost extends Component {
                             ref={ref=>{this.datepicker=ref}}
                             onChange={e=>{
                                     if(!this.state.calender){
-                                        console.log("달력")
+                                      
                                         document.getElementsByClassName("rdtTimeToggle")[0].click()
                                         this.setState({
                                             calender:!this.state.calender,
                                             roomdate:e._d
                                         })
                                     }else{
-                                        console.log("시계")
+                                 
                                         var that = this;
                                         
                                         document.getElementsByClassName("rdtSwitch")[0].addEventListener("click",()=>{
@@ -168,7 +168,7 @@ class CreateHost extends Component {
                                     roomdate:e._d
                                 })
 
-                                console.log(this.state)
+                              
                             }}
                             timeFormat={true}
                             />
@@ -276,7 +276,7 @@ class CreateHost extends Component {
 
     }
     paneltyCharge=(e)=>{
-        console.log(e.target.value)
+      
         if(e.target.value.match(/[^0-9]/)) {
             alert("문자가 섞여있습니다") 
         }else{
@@ -289,7 +289,7 @@ class CreateHost extends Component {
         e.preventDefault();
         this.handleIncrease()
         if(this.state.pageIndex<this.state.query.length-1){
-            console.log("실행")
+           
             this.setState({
                 pageIndex:this.state.pageIndex+1,
                 [this.state.query[this.state.pageIndex]]:this.mydiv.value,
@@ -298,11 +298,8 @@ class CreateHost extends Component {
             })
             this.mydiv.value="";
         }else{
-                console.log("지도")
-                console.log(this.state.pageIndex)
-                console.log(this.state.query.length-1)
+               
                 if(this.state.pageIndex===this.state.query.length-1){
-                    console.log("조건문실행")
                     this.axiosRequest();
                 }
         }
@@ -311,19 +308,19 @@ class CreateHost extends Component {
    
 
         axiosRequest=()=>{
-            console.log(this.state)
+          
             const headers = {
              'Content-Type': 'application/json;charset=utf-8',
              'Access-Control-Allow-Origin':'*'
              }
-             console.log(this.state)
+           
                          
              
              axios.post("http://localhost:9000/room/create",
                 this.state,
                 {headers: headers})
                 .then(res=>{
-                    console.log(res)
+                
 
                     if(res.data.status === "00") {
                         alert('방이 생성되었습니다.')
@@ -341,14 +338,13 @@ class CreateHost extends Component {
       
 
         reciveEmit=(chilstate)=>{
-            console.log(chilstate)
+        
             this.setState({
                 roomplace:chilstate.address,
                 roomlongitude:chilstate.roomlongitude,
                 roomlatitude:chilstate.roomlatitude
             })
-            console.log("실행")
-            console.log(this.state)
+    
         }
 
 

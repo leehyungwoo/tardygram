@@ -131,7 +131,7 @@ class Login extends React.Component {
                   <Button className="my-4" color="primary" type="button" onClick={(e)=>{
                           
 
-                        console.log(this.state.memberid)
+                 
                         let headers= {
                           "Content-type":"application/json;charset=UTF-8"
                         }
@@ -147,16 +147,16 @@ class Login extends React.Component {
                                 alert("로그인성공")
 
                                 localStorage.setItem("loginId",res.data.dataid)
-                                this.props.history.push("/admin/roomlist")
+                                this.props.history.push("/admin/index")
 
                              
                             }else{
-                              alert(res.msg);
+                              alert(res.data.msg);
                               localStorage.setItem("loginId","")
                             }
                             })
                            .catch(e=>{
-                              alert(' 실패')
+                              alert('Id 또는 비밀번호를 확인해주세요')
                             })
                   }}>
                     Sign in

@@ -19,11 +19,11 @@ class Upload extends Component{
     //     //여기 axios
     // }
     onChangeHandler=event=>{
-      console.log("실행")
+     
       // this.setState({
       //   file : URL.createObjectURL (event[event.length-1])
       // })
-      console.log(event)
+     
       const data = new FormData()
       data.append('file', event[event.length-1])
 
@@ -35,10 +35,10 @@ class Upload extends Component{
       axios.post(`http://localhost:9000/member/upload/${id}`, data ,{ headers
         })
         .then(res => {
-          console.log(res)
+        
           this.props.emit(res.data);
         }).catch(err =>{
-          console.log(err)
+        
         })
       
     }

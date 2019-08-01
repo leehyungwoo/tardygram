@@ -22,18 +22,18 @@ class RoomList extends React.Component {
      
        mList:[]
     }
-    console.log(props)
+   
   }
 
   componentDidMount(){
-    console.log("search 디드마운트 실행")
+
     const headers = {
       'Content-Type': 'application/json',
     }
  
     axios.get(`/room/selectall`,  {headers:headers})
       .then(res=>{
-        console.log(res.data.mList)
+
         res.data.mList.map((item,index)=>{  
           return this.setState({
             mList:[...this.state.mList, item]

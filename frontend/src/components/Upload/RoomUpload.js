@@ -19,21 +19,21 @@ class RoomUpload extends Component{
     constructor(props) {
       super(props);
       this.state = { pictures: [] };
-      console.log("프룹스",props)
+    
       // this.onDrop = this.onDrop.bind(this);
   }
   componentDidMount(){
 
   }
   onChangeHandler=event=>{
-    console.log("실행")
+   
     // this.setState({
     //   file : URL.createObjectURL (event[event.length-1])
     // })
     const data = new FormData()
-    console.log(event)
+ 
     data.append('file', event[event.length-1])
-    console.log(data)
+
     
  
     const headers ={
@@ -44,11 +44,11 @@ class RoomUpload extends Component{
     axios.post(`/room/upload/${roomno}`, data ,{headers})
  
       .then(res => {
-        console.log("여기",res)
+    
 
         this.props.emit(res.data);
       }).catch(err =>{
-        console.log(err)
+     
       })
     
   }

@@ -141,12 +141,7 @@ class Register extends React.Component {
         phone: document.getElementById("uphone").value,
         email: document.getElementById("uemail").value
     }
-    console.log(this.state.birthday)
-    console.log(this.state.gender)
-    console.log(data.memberid)
-    console.log(data.name)
-    console.log(data.phone)
-    console.log(data.email)
+   
     
     const headers = {
       'Content-Type': 'application/json',
@@ -163,13 +158,13 @@ class Register extends React.Component {
 
   }
   birthdaySet(value){
-      console.log("birth value>>>",value);
+   
       this.setState({
         birthday: value
       })
   }
   genderSet(value){
-    console.log("gender value>>>",value);
+ 
     this.setState({
       gender: value
     })
@@ -234,7 +229,7 @@ class Register extends React.Component {
                       type="text" 
                       className={` ${this.inputClassNameHelper(this.isEnteredNameValid())}`}
                       id="uid"
-                      placeholder="ID" 
+                      placeholder="Id" 
                       onChange={e => this.validateName(e.target.value)}
                       required
                       />

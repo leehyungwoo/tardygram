@@ -187,7 +187,7 @@ class Main extends Component {
                     </div>
                   </Row>
                   <div className="text-center">                    
-                      ASDF
+               
                     <hr className="my-4" />    
                   </div>
                 </CardBody>

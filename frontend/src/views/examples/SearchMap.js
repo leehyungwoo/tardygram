@@ -51,7 +51,7 @@ class SearchMap extends Component{
         function searchPlaces() {
 
             var keyword = document.getElementById('keyword').value;
-            console.log(keyword)
+         
             if (!keyword.replace(/^\s+|\s+$/g, '')) {
       
                 return false;
@@ -86,10 +86,10 @@ class SearchMap extends Component{
         
         // 지도에 마커를 표시하는 함수입니다
         function displayMarker(place) {
-            console.log("콜백+++++++++++++")
+       
             var callback = function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
-                    console.log("콜백+++++++++++++")
+           
                     // address = result[0].address.address_name;
                         that.setState({
                             address:result[0].address.address_name
@@ -121,13 +121,12 @@ class SearchMap extends Component{
                 japo = marker.getPosition()
                 wedo = japo.getLat();
                 gyeongdo = japo.getLng();
-                console.log(japo)
-                console.log(wedo)
+
                 that.setState({
                     roomlatitude:wedo,
                     roomlongitude:gyeongdo
                 })
-                console.log(gyeongdo)
+
                 geocoder.coord2Address(gyeongdo, wedo, callback);
                 
 

@@ -57,7 +57,7 @@ class Profile extends React.Component {
 
   componentDidMount(){
     
-    console.log("라이프사이클 로직실행")
+
     
      const headers = {
         'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ class Profile extends React.Component {
     axios.get(`/member/mypage/${id}`,  {headers:headers})
         .then(res =>{
             //alert('통신성공  url:')
-         console.log(res.data)
+     
           
          let uInfo =res.data.uInfo
    
@@ -114,7 +114,7 @@ class Profile extends React.Component {
     }
 
     reciveEmit=(type)=>{
-      console.log(type)
+     
       this.setState({
         profileimage:type
       })

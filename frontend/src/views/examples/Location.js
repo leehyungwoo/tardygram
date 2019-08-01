@@ -33,7 +33,7 @@ import {
   
 
   calcDistance=()=>{
-    console.log("1",this)
+  
     let that = this
     var startPos;
     var geoOptions = {
@@ -41,7 +41,7 @@ import {
     }
     
     var geoError = function(error) {
-      console.log("2",'Error occurred. Error code: ' + error.code);
+     
       // error.code can be:
       //   0: unknown error
       //   1: permission denied
@@ -56,7 +56,7 @@ import {
           latitude: startPos.coords.latitude,
           longitude: startPos.coords.longitude
         })
-        console.log("2","that.setState 실행");
+       
   
         var EARTH_R, Rad, radLat1, radLat2, radDist; 
         var distance, ret;
@@ -64,7 +64,7 @@ import {
         EARTH_R = 6371000.0;
         Rad 	= Math.PI/180;
         radLat1 = Rad * that.state.longitude;
-        console.log(that.state.longitude)
+   
         radLat2 = Rad * 126.95633090000005;   
         //목적지 경도
         radDist = Rad * (that.state.latitude - 37.563398);
@@ -84,7 +84,7 @@ import {
         //    rtn = rtn + " km";
         // }
         // ${place_name}
-        console.log("3",`현재위치와  목적지 사이의 거리는 ${rtn}M 입니다.`  );
+       
         that.setState({
           dist : rtn,
         })
@@ -99,20 +99,17 @@ CheckTardy = () =>{
   // this.getLocation();
   // this.calcDistance()
 
-  console.log("4","체크타디 실행");
-  console.log(this.state.longitude);
-  console.log(this.state.latitude);
+
   // 1. 거리 확인
 
-  console.log(`거리값은 : ${this.state.dist}`)
+
   if(this.state.dist < 50){
   this.distance  =	true
   let gotTime = new Date ("2019-07-29T19:40+0900")
   //약속시간
   let nowTime = new Date();
   //현재시간
-  console.log(`현재시간 : ${nowTime}`)
-  console.log(`약속시간 : ${gotTime}`)
+
   let myTime = gotTime.getTime() - nowTime.getTime()
     if(myTime > 1){
       alert("도착하셨습니다.")

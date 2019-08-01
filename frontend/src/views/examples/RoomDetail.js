@@ -59,7 +59,6 @@ class Profile extends React.Component {
   componentDidMount(){
 
 
-    console.log(this.props.match.params.id)
     var len =this.state.selectuser.length;
     this.setState({
       roompenaltyall:this.state.roompenaltyall*len
@@ -69,7 +68,7 @@ class Profile extends React.Component {
     }
     axios.get(`/room/selectone/${this.props.match.params.id}`,  {headers:headers})
       .then(res=>{
-        console.log(res.data)
+    
     let {roomno,
         roomtitle,
         roomdetail,
@@ -86,8 +85,8 @@ class Profile extends React.Component {
         roompenaltyall
     } = res.data.selecthost;
 
-    console.log("+++++++++++++++++++++++++++")
-    console.log(res.data)
+
+    
        let { selectuser} = res.data;
  
         this.setState({
@@ -107,14 +106,11 @@ class Profile extends React.Component {
           selectuser,
           roompenaltyall
         });
-        console.log("스테이트")
-        console.log(this.state)
+
 
         var that = this;
         this.state.selectuser.forEach((user)=>{
-          console.log(user)
-          console.log(user.memberid)
-          console.log(user.memberid)
+
           if(user.memberid === localStorage.getItem("loginId")){
             that.setState({
               flag:false
@@ -174,7 +170,6 @@ class Profile extends React.Component {
   joinBtn=(e)=>{
   
     if(this.state.roomhostid !== localStorage.getItem("loginId")){
-      console.log("버튼",this.state.flag)
         if(this.state.flag){
           return (
             <Button className="float-right" color="default" href="#pablo" size="sm" onClick={this.enterbtn}>
@@ -213,16 +208,13 @@ class Profile extends React.Component {
             alert(res.data.msg)
       
        
-            console.log('m2나와 : ' +res.data.m2.memberid)
-            console.log('m2 이미지 : ' + res.data.m2.profileimage)
-            console.log(this.state.roompenaltyall)
+
             this.setState({
               selectuser:[...this.state.selectuser,{tardystate:res.data.m2.tardystate,profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}],
               flag:false,
               roompenaltyall:this.state.roompenaltyall+this.state.roomcharge
             })
 
-            console.log(this.state.selectuser)
          
 
           }else{
@@ -242,9 +234,7 @@ class Profile extends React.Component {
     if(tardystate==="arrived"){
       return alert("이미 도착 하셨습니다")
    }
-    console.log("0", roomno)
-    console.log("0", memberid)
-    console.log("1",this)
+   
     let that = this
     var startPos;
     var geoOptions = {
@@ -252,7 +242,6 @@ class Profile extends React.Component {
     }
     
     var geoError = function(error) {
-      console.log("2",'Error occurred. Error code: ' + error.code);
       // error.code can be:
       //   0: unknown error
       //   1: permission denied
@@ -267,7 +256,7 @@ class Profile extends React.Component {
           latitude: startPos.coords.latitude,
           longitude: startPos.coords.longitude
         })
-        console.log("2","that.setState 실행");
+        
   
         var EARTH_R, Rad, radLat1, radLat2, radDist; 
         var distance, ret;
@@ -275,7 +264,7 @@ class Profile extends React.Component {
         EARTH_R = 6371000.0;
         Rad 	= Math.PI/180;
         radLat1 = Rad * that.state.longitude;
-        console.log(that.state.longitude)
+        
         radLat2 = Rad * that.state.roomlongitude;   
         //목적지 경도
         radDist = Rad * (that.state.latitude - that.state.roomlatitude);
@@ -295,7 +284,7 @@ class Profile extends React.Component {
         //    rtn = rtn + " km";
         // }
         // ${place_name}
-        console.log("3",`현재위치와  목적지 사이의 거리는 ${rtn}M 입니다.`  );
+        
         that.setState({
           dist : rtn,
         })
@@ -308,7 +297,7 @@ class Profile extends React.Component {
    
 }
 reciveEmit=(type)=>{
-    console.log("넘어온값",type)
+    
     this.setState({
       roomphoto:type
     })
@@ -320,26 +309,21 @@ CheckTardy = () =>{
   // this.getLocation();
   // this.calcDistance()
 
-  console.log("4","체크타디 실행");
-  console.log(this.state.longitude);
-  console.log(this.state.latitude);
+
   // 1. 거리 확인
 
-  console.log(`거리값은 : ${this.state.dist}`)
+  
   if(this.state.dist < 500){
   this.distance  =	true
   let gotTime = new Date (this.state.roomdate)
-  console.log(`도착해야하는 시간은 : ${gotTime}`)
+ 
   //약속시간
   let nowTime = new Date();
   //현재시간
-  console.log(`현재시간 : ${nowTime}`)
-  console.log(`약속시간 : ${gotTime}`)
+
   let myTime = gotTime.getTime() - nowTime.getTime()
     if(myTime > 1){
       alert("도착하셨습니다.")
-      alert(this.state.roomno)
-      alert(localStorage.getItem('loginId'))
         const headers = {
           'Content-Type': 'application/json',
         }
@@ -349,7 +333,7 @@ CheckTardy = () =>{
         // }
         axios.put(`/room/checkroom/${localStorage.getItem('loginId')}`, {headers:headers})
               .then(res =>{
-                alert('성공')   
+                 
 
                 // {tardystate:"-",profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid} //wating
                 var id = localStorage.getItem("loginId")                
@@ -366,14 +350,12 @@ CheckTardy = () =>{
                       
                     }
 
-
                 })
-                
-                
+                             
                
               })
               .catch(res =>{
-                alert('실패')
+                
               })
     }else{
       alert("지각이에요.")
@@ -396,16 +378,14 @@ closeroom=(e)=>{
   const headers = {
     'Content-Type': 'application/json',
   }
-  console.log(this.state.roomno)
-  console.log(this.state.roompenaltyall)
+
   axios.delete(`/room/closeroom/${this.state.roomno}/${this.state.roompenaltyall}`,  {headers:headers})
-      .then(res =>{
-        alert('통신성공')
-        alert(res.data)
+      .then(res =>{       
+        alert('모임방 마감에 성공하셨습니다.')
         this.props.history.push("/admin/roomlist")
       })
       .catch(res =>{
-          alert('통신 실패')
+          
       })
 }
 
@@ -509,7 +489,7 @@ closeroom=(e)=>{
                               <tbody>
           
                                {this.state.selectuser.map((user,index)=>{
-                                 console.log(user)
+                                
                                   return(<tr key={index}>
                                     <th scope="row">
                                       <Media className="align-items-center">
