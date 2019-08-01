@@ -5,53 +5,53 @@ body {
     text-align: center;
   }
   
-  .App-logo {
+  .main .App-logo {
     height: 80px;
   }
   
-  .App-header {
+  .main .App-header {
     background-color: #222;
     padding: 20px;
     color: white;
   }
   
-  .App-header .title{
+  .main  .App-header .title{
     margin-top: 40px;
   }
   
-  .App-header a{
+  .main  .App-header a{
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     transition: .2s all;
   }
-  .App-header a:hover{
+  .main  .App-header a:hover{
     opacity: .7;
   }
   
-  .githubIcon{
+  .main .githubIcon{
     height: 30px;
     margin-right: 5px;
   }
   
-  .Countdown{
+  .main .Countdown{
     margin: 10px auto;
     padding-bottom: 20px;
   }
   
-  .Countdown-col{
+  .main .Countdown-col{
     display: inline-block;
   }
   
-  .Countdown-col-element{
+  .main .Countdown-col-element{
     display: inline-block;
     margin: 0 20px;
     display: flex;
     flex-direction: column;
   }
   
-  .Countdown-col-element strong{
+  .main .Countdown-col-element strong{
     font-size: 50px;
   }
   
