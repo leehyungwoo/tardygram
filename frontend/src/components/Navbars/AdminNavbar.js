@@ -108,7 +108,7 @@ class AdminNavbar extends React.Component {
                     e.preventDefault();
                     localStorage.removeItem("loginId")
                     this.props.history.push("/auth/login")
-                    
+                    clearInterval(window.timer)
                   }}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>

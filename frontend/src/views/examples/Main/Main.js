@@ -1,13 +1,19 @@
 import React, {Component} from "react";
 import axios from 'axios'
+
 import MainHeader from "components/Headers/MainHeader.js";
-import Moment from 'react-moment';
+
+
+
+
 // import './DevClock.css'
 import './NewClock.css'
 
 import 'moment-timezone';
 // import Countdown from './CountDown'
 import GoodClock from './GoodClock'
+
+import ChartGraph from '../ChartGraph'
 
 import {
   Card,
@@ -19,6 +25,7 @@ import {
 } from "reactstrap";
 
 var inc = 1000;
+
 class Main extends Component {
   constructor(props){
     super(props)
@@ -80,9 +87,11 @@ class Main extends Component {
   componentDidMount(){
     // setInterval(this.clock, inc);
     // this.clock();
-    setInterval(this.setDate, inc);
-    this.setDate();
-
+ 
+    if(localStorage.getItem("loginId")){
+      window.timer = setInterval(this.setDate, inc);
+      
+  } 
 
     const headers = {
       'Content-Type': 'application/json',
@@ -147,17 +156,16 @@ class Main extends Component {
 
   }
 
-  viewTime = ()=>{
-     setInterval(function(){
-      return "hi" 
-    },1000)
-  }
+ 
   render() {
     const currentDate = new Date();
     const year = (currentDate.getMonth() === 11 && currentDate.getDate() > 23) ? currentDate.getFullYear() + 1 : currentDate.getFullYear();
     return (
-      <>
+<>
         <MainHeader />  
+
+      <div className="main">
+
         <Container className="mt--7" fluid>
           <Row>
             <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
@@ -228,7 +236,7 @@ class Main extends Component {
 
                         {console.log(`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T00:00:00`)}
                     <GoodClock date={`${year}-${this.state.roomGmonth}-${this.state.roomGdate}T${this.state.roomGtime}:00:00`} />
-                     {this.viewTime()} 
+                   
                     <div>
                       asdfasdfasdf
                     </div>
@@ -236,13 +244,14 @@ class Main extends Component {
              
                     </div>
                     <hr className="my-4" />
-                   
+                      <ChartGraph></ChartGraph>
                 </CardBody>
               </Card>
             </Col>
           </Row>
         </Container>
       
+      </div>
       </>
     );
   }
