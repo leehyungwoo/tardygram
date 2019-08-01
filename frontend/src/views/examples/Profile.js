@@ -4,7 +4,6 @@ import axios from 'axios'
 import {Link } from "react-router-dom";
 import Upload from '../../components/Upload/Upload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
-import moment from 'moment';
 import Moment from 'react-moment';
 import 'moment-timezone';
 // reactstrap components
@@ -25,7 +24,6 @@ import {
   Badge
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
 
 
 function hostRedirect(target){
@@ -58,8 +56,7 @@ class Profile extends React.Component {
 
 
   componentDidMount(){
-    console.log(moment().format('YYYY MM Do , hh:mm:ss a'))
-    console.log(moment().format('llll'))
+    
     console.log("라이프사이클 로직실행")
     
      const headers = {
@@ -67,7 +64,7 @@ class Profile extends React.Component {
     }
    
     let id = localStorage.getItem("loginId");
-    axios.get(`http://localhost:9000/member/mypage/${id}`,  {headers:headers})
+    axios.get(`/member/mypage/${id}`,  {headers:headers})
         .then(res =>{
             //alert('통신성공  url:')
          console.log(res.data)
@@ -164,7 +161,38 @@ class Profile extends React.Component {
   render() {
     return (
       <>
-        <UserHeader />
+               <div
+          className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+          style={{
+            minHeight: "600px",
+            backgroundImage:
+              "url(" + require("assets/img/theme/profile-cover.jpg") + ")",
+            backgroundSize: "cover",
+            backgroundPosition: "center top"
+          }}
+        >
+          {/* Mask */}
+          <span className="mask bg-gradient-default opacity-8" />
+          {/* Header container */}
+          <Container className="d-flex align-items-center" fluid>
+            <Row>
+              <Col lg="7" md="10">
+                <h1 className="display-2 text-white">Hello {this.state.name}</h1>
+                <p className="text-white mt-0 mb-5">
+                  This is your profile page. You can see the progress you've
+                  made with your work and manage your projects or assigned tasks
+                </p>
+                {/* <Button
+                  color="info"
+                  href="#pablo"
+                  onClick={e => e.preventDefault()}
+                >
+                  Edit profile
+                </Button> */}
+              </Col>
+            </Row>
+          </Container>
+        </div>
         {/* Page content */}
         <Container className="mt--7" fluid>
           <Row>
@@ -212,7 +240,7 @@ class Profile extends React.Component {
                       <span className="font-weight-light">({this.state.gender})</span>
                     </h3>
                     <div className="h5 font-weight-450">                 
-                    birthday : <Moment format="YYYY년 M월 DD일 h:mm">{this.state.birthday}</Moment><br/>
+                    birthday : <Moment format="YYYY년 M월 DD일 H:MM">{this.state.birthday}</Moment><br/>
                       tardycash : {this.state.money}<br/>
                       <input type="text" placeholder="금액" onChange={this.amount}></input>                  
                       <Button color="warning" outline type="button" size="sm" onClick={this.Kakaopay}>충전</Button>
@@ -221,7 +249,7 @@ class Profile extends React.Component {
                     <hr className="my-4" />
                       
                       <div>                      
-                        파일업로드<br/>
+                        이미지 업로드<br/>
    
                         <Upload emit={this.reciveEmit}></Upload>
                       </div>

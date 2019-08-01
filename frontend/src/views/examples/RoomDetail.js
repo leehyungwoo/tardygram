@@ -167,13 +167,7 @@ class Profile extends React.Component {
       
   //   }
   // }
-  reciveEmit=(type)=>{
-    console.log(type)
-    this.setState({
-      roomBgimage:type
-    })
-    
-  }
+
   joinBtn=(e)=>{
   
     if(this.state.roomhostid !== localStorage.getItem("loginId")){
@@ -310,8 +304,12 @@ class Profile extends React.Component {
 
    
 }
-reciveEmit=()=>{
-  console.log("자식이 부모를 건드는")
+reciveEmit=(type)=>{
+    console.log("넘어온값",type)
+    this.setState({
+      roomBgimage:type
+    })
+    
 }
 
 //여기는 시간체크하는곳
@@ -350,7 +348,7 @@ CheckTardy = () =>{
               .then(res =>{
                 alert('성공')   
 
-                // {tardystate:"waiting",profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid}
+                // {tardystate:"-",profileimage:res.data.m2.profileimage,memberid:res.data.m2.memberid} //wating
                 var id = localStorage.getItem("loginId")                
                 var that = this;
                 this.state.selectuser.forEach((user,index)=>{
@@ -391,28 +389,28 @@ CheckTardy = () =>{
   render() {
     return (
       <>
-  
-  <div
-          className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-          style={{
-            minHeight: "600px",
-            backgroundImage:
-              "url(" + require("assets/img/theme/profile-cover.jpg") + ")",
-              //"url(" + require() + ")",
-            backgroundSize: "cover",
-            backgroundPosition: "center top"
-          }}
-        >
+
+      <div
+              className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+              style={{
+                minHeight: "600px",
+                backgroundImage:
+                  "url(" + this.state.roomBgimage + ")",
+                  //"url(" + require() + ")",
+                backgroundSize: "cover",
+                backgroundPosition: "center top"
+              }}
+              
+            >
           {/* Mask */}
           <span className="mask bg-gradient-default opacity-8" />
           {/* Header container */}
           <Container className="d-flex align-items-center" fluid>
             <Row>
-              <Col lg="7" md="10">
+              <Col lg="7" md="10" style={{minWidth:"200px"}}>
                 <h1 className="display-2 text-white">{this.state.roomtitle}</h1>
                 <p className="text-white mt-0 mb-5">
-                  This is your profile page. You can see the progress you've
-                  made with your work and manage your projects or assigned tasks
+                  {this.state.roomdetail}
                 </p>
           
                   <RoomUpload keyparams={this.props.match.params.id} emit={this.reciveEmit} ></RoomUpload>
@@ -443,7 +441,7 @@ CheckTardy = () =>{
                                 모임시간
                               </Button>
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>                           
-                            <Moment format="YYYY년 M월 DD일 h:mm">{this.state.roomdate}</Moment>
+                            <Moment format="YYYY년 M월 DD일 H:MM">{this.state.roomdate}</Moment>
                             </h5>
                             </Col>
                             

@@ -1,21 +1,5 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React,{createRef} from "react";
+import React from "react";
 import axios from "axios"
 
 // reactstrap components
@@ -45,7 +29,6 @@ class Login extends React.Component {
   }
 
 
-  email=createRef();
 
 
   
@@ -95,7 +78,7 @@ class Login extends React.Component {
             {/* </CardHeader> */}
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
+                <small>sign in with credentials</small>
               </div>
               <Form role="form">
                 <FormGroup className="mb-3">
@@ -105,8 +88,8 @@ class Login extends React.Component {
                         <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email"  
-                      ref={ref => { this.email = ref }}
+                    <Input placeholder="Id" type="text"  
+       
                       onChange={(e)=>{
                         this.setState({
                           memberid:e.target.value
