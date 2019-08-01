@@ -51,7 +51,7 @@ class Profile extends React.Component {
       longitude : "",
       distance : false,
       dist:100,
-      roomBgimage:""
+      roomphoto:""
     }
   }
  
@@ -85,9 +85,11 @@ class Profile extends React.Component {
         roompwd,
         roompenaltyall
     } = res.data.selecthost;
-    console.log(res.data.selectuser)
+
+    console.log("+++++++++++++++++++++++++++")
+    console.log(res.data)
        let { selectuser} = res.data;
-        console.log(selectuser)
+ 
         this.setState({
           roomno,
           roomtitle,
@@ -105,6 +107,7 @@ class Profile extends React.Component {
           selectuser,
           roompenaltyall
         });
+        console.log("스테이트")
         console.log(this.state)
 
         var that = this;
@@ -163,7 +166,7 @@ class Profile extends React.Component {
 
   }
   // imageTag=()=>{
-  //   if(this.state.roomBgimage){
+  //   if(this.state.roomphoto){
       
   //   }
   // }
@@ -307,7 +310,7 @@ class Profile extends React.Component {
 reciveEmit=(type)=>{
     console.log("넘어온값",type)
     this.setState({
-      roomBgimage:type
+      roomphoto:type
     })
     
 }
@@ -395,7 +398,7 @@ CheckTardy = () =>{
               style={{
                 minHeight: "600px",
                 backgroundImage:
-                  "url(" + this.state.roomBgimage + ")",
+                  "url(" + this.state.roomphoto + ")",
                   //"url(" + require() + ")",
                 backgroundSize: "cover",
                 backgroundPosition: "center top"
