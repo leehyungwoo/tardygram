@@ -123,4 +123,12 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
     )
     public void changeState(String memberid);
 
+
+    //룸 이미지 업데이트 메소드
+    @Query(
+        value = "update tbl_room set roomphoto = :path where roomno=:roomno"
+        , nativeQuery = true
+    )
+    public Room roomphotoUpdate(String path, String roomno);
+
 }

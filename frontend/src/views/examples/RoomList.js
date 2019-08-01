@@ -102,7 +102,7 @@ class RoomList extends React.Component {
                        return(
                       <Col className="mb-3" xs="12" sm="6" lg="4" key={index}>
                        <Card >
-                         <Card.Img variant="top" src={contact.roomphoto} />
+                         <Card.Img variant="top" src={contact.roomphoto}  />
                          <Card.Body>
                            <Card.Title>{contact.roomtitle}</Card.Title>
                            <Card.Text>
