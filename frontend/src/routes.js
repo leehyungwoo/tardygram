@@ -8,6 +8,8 @@ import MakeRoom from "views/examples/MakeRoom.js"
 import RoomDetail from "views/examples/RoomDetail.js"
 import DoneHost from "views/examples/DoneHost.js"
 import Main from "views/examples/Main/Main.js"
+import ChartGraph from "views/examples/ChartGraph"
+import ChartGraph2 from "views/examples/ChartGraph2"
 
 
 var routes = [
@@ -65,6 +67,20 @@ var routes = [
     name: "DoneHost",
     icon: "ni ni-circle-08 text-blue",
     component: DoneHost,
+    layout: "/admin"
+  },
+  {
+    path: "/chartgraph",
+    name: "DoneHost",
+    icon: "ni ni-circle-08 text-blue",
+    component: ChartGraph,
+    layout: "/admin"
+  },
+  {
+    path: "/chartgraph2",
+    name: "DoneHost",
+    icon: "ni ni-circle-08 text-blue",
+    component: ChartGraph2,
     layout: "/admin"
   }
 

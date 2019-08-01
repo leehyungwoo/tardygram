@@ -23,9 +23,9 @@ class AdminNavbar extends React.Component {
           expand="md"
         >
           <Container className="px-4">
-            <NavbarBrand to="/" tag={Link}>
-              <img alt="..." src={require("assets/img/brand/argon-react-white.png")} />
-            </NavbarBrand>
+             
+              <span style={{color:"#fff", fontSize:"20px",fontWeight:"bold"}}>TardyGram</span>
+         
             <button className="navbar-toggler" id="navbar-collapse-main">
               <span className="navbar-toggler-icon" />
             </button>
