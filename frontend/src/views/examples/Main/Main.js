@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import axios from 'axios'
 import Header from "components/Headers/Header.js";
 import Moment from 'react-moment';
+// import './DevClock.css'
+import './NewClock.css'
+
 import 'moment-timezone';
 // import Countdown from './CountDown'
 import GoodClock from './GoodClock'
@@ -14,6 +17,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
+
+var inc = 1000;
 class Main extends Component {
   constructor(props){
     super(props)
@@ -27,11 +32,58 @@ class Main extends Component {
     }
    
   }
+ 
+
+//시계 1  
+  //  clock=()=> {
+  //   const date = new Date();
+  
+  //   const hours = ((date.getHours() + 11) % 12 + 1);
+  //   const minutes = date.getMinutes();
+  //   const seconds = date.getSeconds();
+    
+  //   const hour = hours * 30;
+  //   const minute = minutes * 6;
+  //   const second = seconds * 6;
+    
+  //   document.querySelector('.hour').style.transform = `rotate(${hour}deg)`
+  //   document.querySelector('.minute').style.transform = `rotate(${minute}deg)`
+  //   document.querySelector('.second').style.transform = `rotate(${second}deg)`
+  // }
+  
+//시계 2
+
+
+      setDate=()=> {
+        const now = new Date();
+        const secondHand = document.querySelector('.second-hand');
+        const minsHand = document.querySelector('.min-hand');
+        const hourHand = document.querySelector('.hour-hand');
+        
+        const seconds = now.getSeconds();
+        const secondsDegrees = ((seconds / 60) * 360) + 90;
+        secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+        const mins = now.getMinutes();
+        const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
+        minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+        const hour = now.getHours();
+        const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
+        hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+
+
+      }
 
   
+  
   componentDidMount(){
+    // setInterval(this.clock, inc);
+    // this.clock();
+    setInterval(this.setDate, inc);
+    this.setDate();
 
-    
+
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -113,7 +165,6 @@ class Main extends Component {
                 <Row className="justify-content-center">
                   <Col className="order-lg-2" lg="3">
                     <div className="card-profile-image">
-                  ASDFS
                     </div>
                   </Col>
                 </Row>
@@ -122,7 +173,29 @@ class Main extends Component {
                   <Row>
                     <div className="col">
                       <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                     asdASD                  
+                      {/* <div className="devClock">
+                        <div className="clock">
+                          <div className="wrap">
+                            <span className="hour"></span>
+                            <span className="minute"></span>
+                            <span className="second"></span>
+                            <span className="dot"></span>
+                          </div>
+                        </div> 
+                      </div>                         */}
+                      <div className="clock">
+                        <div className="outer-clock-face">
+                          <div className="marking marking-one"></div>
+                          <div className="marking marking-two"></div>
+                          <div className="marking marking-three"></div>
+                          <div className="marking marking-four"></div>
+                          <div className="inner-clock-face">
+                            <div className="hand hour-hand"></div>
+                            <div className="hand min-hand"></div>
+                            <div className="hand second-hand"></div>
+                          </div>
+                        </div>
+                      </div>
                       </div>
                     </div>
                   </Row>
@@ -138,7 +211,7 @@ class Main extends Component {
               <Card className="bg-secondary shadow">
                 <CardHeader className="bg-white border-0">
                   <Row className="align-items-center">
-                    <Col xs="8">
+                    <Col xs="12">
                       <h3 className="mb-0">tardygram에 오신것을 환영합니다.</h3>
                     </Col>               
                   </Row>
@@ -160,7 +233,7 @@ class Main extends Component {
                       asdfasdfasdf
                     </div>
                     <div>
-                    {this.state.clock}
+             
                     </div>
                     <hr className="my-4" />
                    
