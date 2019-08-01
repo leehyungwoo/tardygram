@@ -32,7 +32,7 @@ class Upload extends Component{
       }
 
       let id = localStorage.getItem("loginId")
-      axios.post(`http://localhost:9000/member/upload/${id}`, data ,{ headers
+      axios.post(`member/upload/${id}`, data ,{ headers
         })
         .then(res => {
         

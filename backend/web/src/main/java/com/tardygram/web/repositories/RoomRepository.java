@@ -168,4 +168,17 @@ public interface RoomRepository extends JpaRepository<Room, Long>{
         value = "select roomcharge from tbl_room ", nativeQuery = true
     )
     public int[] roomCharge();
+
+
+    //tardystate -로 변경
+    @Query(
+        value = "update tbl_members set tardystate='-' where memberid=:id", nativeQuery = true
+    )
+    public void tardystateChange(String id);
+
+    //string[]로 방에 참여한 멤버들 아이디 출력
+    @Query(
+        value = "select mr.members_memberid from tbl_room tr JOIN tbl_members_rooms mr ON tr.roomno=mr.rooms_roomno where tr.roomno=:roomno ", nativeQuery = true
+    )
+    public String[] memberidArray(String roomno);
 }

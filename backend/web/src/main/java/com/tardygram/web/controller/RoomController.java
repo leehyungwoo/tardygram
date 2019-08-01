@@ -232,12 +232,16 @@ public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long room
             for(int i=0; i<arrivedMember.length; i++){
             System.out.println(arrivedMember[i]);
             roomrepo.turnTardycashe(deviceCharge, arrivedMember[i]);
+            
+            String[] memberidArray = roomrepo.memberidArray(roomno);
+            for(int j=0; j<memberidArray.length; j++){
+                roomrepo.tardystateChange(memberidArray[j]);
+            }
         }
         }catch(ArithmeticException e){
 
         }
-        
-        
+           
         roomrepo.deleteRoom(roomno);
         roomrepo.deleteFinalRoom(roomno);
 

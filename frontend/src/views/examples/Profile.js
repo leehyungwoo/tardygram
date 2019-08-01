@@ -147,7 +147,7 @@ class Profile extends React.Component {
     alert(data.amount);
     alert(data.memberid);
  
-    axios.post('http://localhost:9000/kakaoPay', JSON.stringify(data), {headers:headers})
+    axios.post('kakaoPay', JSON.stringify(data), {headers:headers})
         .then(res =>{
             alert('kakaopay성공  url:'+res.data)
             hostRedirect(res.data);
