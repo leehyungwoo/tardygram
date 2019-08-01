@@ -165,7 +165,7 @@ class Login extends React.Component {
               </Form>
             </CardBody>
           </Card>
-          <Row className="mt-3">
+          {/* <Row className="mt-3">
             <Col xs="6">
               <a
                 className="text-light"
@@ -184,7 +184,7 @@ class Login extends React.Component {
                 <small>Create new account</small>
               </a>
             </Col>
-          </Row>
+          </Row> */}
         </Col>
       </>
     );

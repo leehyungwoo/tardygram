@@ -51,7 +51,7 @@ class Profile extends React.Component {
       longitude : "",
       distance : false,
       dist:100,
-      roomBgimage:""
+      roomphoto:""
     }
   }
  
@@ -85,9 +85,11 @@ class Profile extends React.Component {
         roompwd,
         roompenaltyall
     } = res.data.selecthost;
-    console.log(res.data.selectuser)
+
+    console.log("+++++++++++++++++++++++++++")
+    console.log(res.data)
        let { selectuser} = res.data;
-        console.log(selectuser)
+ 
         this.setState({
           roomno,
           roomtitle,
@@ -105,6 +107,7 @@ class Profile extends React.Component {
           selectuser,
           roompenaltyall
         });
+        console.log("스테이트")
         console.log(this.state)
 
         var that = this;
@@ -163,7 +166,7 @@ class Profile extends React.Component {
 
   }
   // imageTag=()=>{
-  //   if(this.state.roomBgimage){
+  //   if(this.state.roomphoto){
       
   //   }
   // }
@@ -307,7 +310,7 @@ class Profile extends React.Component {
 reciveEmit=(type)=>{
     console.log("넘어온값",type)
     this.setState({
-      roomBgimage:type
+      roomphoto:type
     })
     
 }
@@ -380,9 +383,30 @@ CheckTardy = () =>{
   }
 
   
-
-
 }
+
+
+closebtn=(e)=>{
+  return <Button className="float-right" color="default" size="sm" onClick={this.closeroom}>
+          마감
+         </Button>
+}
+
+closeroom=(e)=>{
+  const headers = {
+    'Content-Type': 'application/json',
+  }
+  console.log(this.state.roomno)
+  console.log(this.state.roompenaltyall)
+  axios.delete(`/room/closeroom/${this.state.roomno}/${this.state.roompenaltyall}`,  {headers:headers})
+      .then(res =>{
+        alert('통신성공')
+      })
+      .catch(res =>{
+          alert('통신 실패')
+      })
+}
+
 
 
 
@@ -395,7 +419,7 @@ CheckTardy = () =>{
               style={{
                 minHeight: "600px",
                 backgroundImage:
-                  "url(" + this.state.roomBgimage + ")",
+                  "url(" + this.state.roomphoto + ")",
                   //"url(" + require() + ")",
                 backgroundSize: "cover",
                 backgroundPosition: "center top"
@@ -449,6 +473,7 @@ CheckTardy = () =>{
                             <Button className="float-left" color="danger" href="#pablo" size="sm">
                               벌금총액
                             </Button>
+                            {this.closebtn()}
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
                                 {this.state.roompenaltyall} 원
                             </h5>
