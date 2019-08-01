@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from 'axios'
-import Header from "components/Headers/Header.js";
+import MainHeader from "components/Headers/MainHeader.js";
 import Moment from 'react-moment';
 // import './DevClock.css'
 import './NewClock.css'
@@ -157,7 +157,7 @@ class Main extends Component {
     const year = (currentDate.getMonth() === 11 && currentDate.getDate() > 23) ? currentDate.getFullYear() + 1 : currentDate.getFullYear();
     return (
       <>
-        <Header />  
+        <MainHeader />  
         <Container className="mt--7" fluid>
           <Row>
             <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
