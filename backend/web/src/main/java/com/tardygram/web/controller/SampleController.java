@@ -1,17 +1,13 @@
 package com.tardygram.web.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import com.tardygram.web.domain.KakaoPayApprovalVO;
 import com.tardygram.web.entities.Member;
 import com.tardygram.web.repositories.MemberRepository;
 import com.tardygram.web.service.KakaoPay;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +22,7 @@ import lombok.extern.java.Log;
 
 
 @CrossOrigin("http://localhost:3000")
-@Log
+
 @RestController
 @Data
 public class SampleController {
