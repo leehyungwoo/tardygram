@@ -133,7 +133,8 @@ class Login extends React.Component {
 
                  
                         let headers= {
-                          "Content-type":"application/json;charset=UTF-8"
+                          "Content-type":"application/json",
+                          'Access-Control-Allow-Origin':'*'
                         }
                         axios.post(`/member/select`, 
                           this.state,

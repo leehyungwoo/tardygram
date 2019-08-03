@@ -28,6 +28,7 @@ class AdminNavbar extends React.Component {
       
     const headers = {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'*'
     }
   
     let id = localStorage.getItem("loginId");

@@ -12,7 +12,7 @@ import AuthLayout from "layouts/Auth.js";
 
 
 axios.defaults.baseURL = 'http://localhost:9000';
-
+ 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>

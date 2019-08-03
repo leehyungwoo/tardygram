@@ -28,7 +28,8 @@ class Upload extends Component{
       data.append('file', event[event.length-1])
 
       const headers ={
-        "Content-Type":'multipart/form-data'
+        "Content-Type":'multipart/form-data',
+        'Access-Control-Allow-Origin':'*'
       }
 
       let id = localStorage.getItem("loginId")

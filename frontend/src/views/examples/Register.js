@@ -143,9 +143,12 @@ class Register extends React.Component {
     }
    
     
-    const headers = {
-      'Content-Type': 'application/json',
-      }
+   
+    let headers= {
+      "Content-type":"application/json",
+      'Access-Control-Allow-Origin':'*'
+    }
+    console.log(data)
     axios.post("/member/join",data,{headers})
     .then(res=>{
       alert('회원가입 성공')

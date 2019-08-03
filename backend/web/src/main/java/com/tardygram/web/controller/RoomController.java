@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
 * MemberController
 */
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/room")
 public class RoomController {
@@ -42,11 +42,11 @@ public class RoomController {
 
    private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\frontend\\public\\image\\room\\";
 
-   @GetMapping("/sucess")
-   public String add() {
-        System.out.println("성공시 컨트롤러"); 
-        return "localhost:3000";       
-    }
+//    @GetMapping("/sucess")
+//    public String add() {
+//         System.out.println("성공시 컨트롤러"); 
+//         return "localhost:3000";       
+//     }
     
 
      
@@ -83,12 +83,12 @@ public class RoomController {
         System.out.println("컨트롤러 도착");
         System.out.println("room : " + data);
 
-        Room room = new Room();
+ 
         data.setRoomprogress(1);
         data.setRoomphoto("/image/room/kakaofriends.jpg");
         Member member = memberrepo.findById(data.getRoomhostid()).get();
         System.out.println("member : " + member);
-        member.setTardystate("-"); //wating
+        member.setTardystate("-"); 
         HashMap<String,Object> map =new HashMap<>();
       
 
@@ -160,7 +160,7 @@ public class RoomController {
         System.out.println("모임방전체출력 컨트롤러 ");
         List<Room> mList = roomrepo.selectall();
         System.out.println("mList : " + mList);
-        HashMap map = new HashMap<>();
+        HashMap <String, Object> map = new HashMap<>();
         map.put("mList", mList);
 
         return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
@@ -256,7 +256,7 @@ public ResponseEntity<HashMap<String, Object>> selectone(@PathVariable Long room
     int totalMember = memberrepo.totalMember();
     int totalRoom = roomrepo.totalRoom();
 
-    HashMap map = new HashMap<>();
+    HashMap <String,Object> map = new HashMap<>();
     map.put("totalMember", totalMember);
     map.put("totalRoom", totalRoom);
 

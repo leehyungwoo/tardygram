@@ -29,6 +29,7 @@ class RoomList extends React.Component {
 
     const headers = {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'*'
     }
  
     axios.get(`/room/selectall`,  {headers:headers})

@@ -61,6 +61,7 @@ class Profile extends React.Component {
     
      const headers = {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*'
     }
    
     let id = localStorage.getItem("loginId");
@@ -135,7 +136,7 @@ class Profile extends React.Component {
     alert("카카오페이 버튼클릭"); 
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization' : 'e523b4aefc19df61c38d857920fc96a3',
+        'Authorization' : '44be8b0eacbaaed2af85aaf3c1a2b34a',
         'Access-Control-Allow-Origin': '*'
     }
   

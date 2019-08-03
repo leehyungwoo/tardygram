@@ -29,9 +29,11 @@ public class KakaoPay {
     
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
-    
+
+
     public String kakaoPayReady(HashMap<String, String> data) {
         RestTemplate restTemplate = new RestTemplate();      
+        System.out.println("여기2");
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "e523b4aefc19df61c38d857920fc96a3");
@@ -60,6 +62,7 @@ public class KakaoPay {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }     
+        System.out.println("여기3");
         return "/pay";     
     }
 

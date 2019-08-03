@@ -37,7 +37,8 @@ class RoomUpload extends Component{
     
  
     const headers ={
-      "Content-Type":'multipart/form-data'
+      "Content-Type":'multipart/form-data',
+      'Access-Control-Allow-Origin':'*'
     }
    
     let roomno = this.props.keyparams 

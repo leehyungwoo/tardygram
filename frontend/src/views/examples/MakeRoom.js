@@ -314,10 +314,10 @@ class CreateHost extends Component {
              'Access-Control-Allow-Origin':'*'
              }
            
-                         
-             
+             console.log(JSON.stringify(this.state))
+
              axios.post("room/create",
-                this.state,
+                 JSON.stringify(this.state),
                 {headers: headers})
                 .then(res=>{
                 

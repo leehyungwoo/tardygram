@@ -34,7 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * MemberController
  */
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/member")
 @Transactional

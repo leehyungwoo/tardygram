@@ -94,6 +94,7 @@ class Main extends Component {
 
     const headers = {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin':'*'
     }
 
     

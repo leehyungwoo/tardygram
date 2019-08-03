@@ -18,10 +18,10 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import lombok.Data;
 import lombok.Setter;
-import lombok.extern.java.Log;
 
 
-@CrossOrigin("http://localhost:3000")
+
+@CrossOrigin("*")
 
 @RestController
 @Data
@@ -54,6 +54,7 @@ public class SampleController {
         amount = data.get("amount");
         memberid = data.get("memberid");
         System.out.println(amount);
+        System.out.println("여기1");
         return kakaopay.kakaoPayReady(data);
     }
     
@@ -71,7 +72,7 @@ public class SampleController {
         memberrepo.save(m);
 
 
-        return new RedirectView("http://localhost:3000/admin/user-profile");
+        return new RedirectView("http://web.tardygram1.com.s3-website.ap-northeast-2.amazonaws.com/admin/user-profile");
         
     }
     
