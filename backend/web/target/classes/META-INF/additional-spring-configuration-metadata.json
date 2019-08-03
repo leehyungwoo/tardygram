@@ -1,0 +1,13 @@
+{"properties": [{
+  "name": "spring.datasource.tomcat.characterEncoding",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.datasource.tomcat.characterEncoding'"
+}]}{"properties": [{
+  "name": "spring.datasource.tomcat.useUnicode",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.datasource.tomcat.useUnicode'"
+}]}{"properties": [{
+  "name": "spring.datasource.tomcat.useUnicode",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.datasource.tomcat.useUnicode'"
+}]}
