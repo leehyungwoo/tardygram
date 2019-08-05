@@ -132,30 +132,29 @@ class Register extends React.Component {
 
 
   submitHandler=()=>{
-    var data ={
-        memberid: document.getElementById("uid").value,
-        pwd: document.getElementById("upwd").value,
-        name: document.getElementById("uname").value,
-        birthday: this.state.birthday,
-        gender: this.state.gender,
-        phone: document.getElementById("uphone").value,
-        email: document.getElementById("uemail").value
-    }
-   
+      
+      var data ={
+          memberid: document.getElementById("uid").value,
+          pwd: document.getElementById("upwd").value,
+          name: document.getElementById("uname").value,
+          birthday: this.state.birthday,
+          gender: this.state.gender,
+          phone: document.getElementById("uphone").value,
+          email: document.getElementById("uemail").value
+      }
     
-   
-    let headers= {
-      "Content-type":"application/json",
-      'Access-Control-Allow-Origin':'*'
-    }
-    console.log(data)
-    axios.post("/member/join",data,{headers})
-    .then(res=>{
-      alert('회원가입 성공')
-      this.props.history.push("/")
-    }).catch(e=>{
-       alert('회원가입 실패')
-    })
+      let headers= {
+        "Content-type":"application/json",
+        'Access-Control-Allow-Origin':'*'
+      }
+
+      axios.post("/member/join" ,data ,{headers})
+      .then(res=>{
+        alert('회원가입 성공')
+        this.props.history.push("/")
+      }).catch(e=>{
+        alert('회원가입 실패')
+      })
 
   
 

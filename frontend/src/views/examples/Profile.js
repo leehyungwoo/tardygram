@@ -144,9 +144,7 @@ class Profile extends React.Component {
         amount : this.state.amount,
         memberid : localStorage.getItem("loginId")
     }
-  
-    alert(data.amount);
-    alert(data.memberid);
+
  
     axios.post('kakaoPay', JSON.stringify(data), {headers:headers})
         .then(res =>{

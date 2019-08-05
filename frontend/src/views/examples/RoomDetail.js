@@ -86,7 +86,6 @@ class Profile extends React.Component {
     } = res.data.selecthost;
 
 
-    
        let { selectuser} = res.data;
  
         this.setState({
@@ -107,7 +106,8 @@ class Profile extends React.Component {
           roompenaltyall
         });
 
-
+    
+    
         var that = this;
         this.state.selectuser.forEach((user)=>{
 
@@ -388,7 +388,12 @@ closeroom=(e)=>{
           
       })
 }
+hostBtn=()=>{
+  if(this.state.roomhostid === localStorage.getItem("loginId")){
+    return this.closebtn()
+  }
 
+}
 
 
 
@@ -455,7 +460,10 @@ closeroom=(e)=>{
                             <Button className="float-left" color="danger" href="#pablo" size="sm">
                               벌금총액
                             </Button>
-                            {this.closebtn()}
+                           
+                            
+                              {this.hostBtn()}
+                          
                             <h5 className="float-left text-muted mb-3" style={{lineHeight:"2"}}>
                                 {this.state.roompenaltyall} 원
                             </h5>
@@ -515,7 +523,7 @@ closeroom=(e)=>{
                                     <td>
                                       <Badge color="" className="badge-dot mr-4">
                                       {(()=>{if(user.tardystate === "arrived"){
-                                        return (<i className="bg-success" />)
+                                        return (<span><i className="ni ni-check-bold" style={{color:"green",lineHeight:"0.5"}}></i></span>)
                                       }else{
                                         return (<i className="bg-warning" />)
                                       }})()}

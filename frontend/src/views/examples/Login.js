@@ -21,17 +21,11 @@ class Login extends React.Component {
 
   constructor(props){
     super(props)
-   this.state={
-    memberid:'',
-    pwd:''
+      this.state={
+        memberid:'',
+        pwd:''
+      }
   }
-  }
-
-
-
-
-  
-
 
   
   render() {
@@ -128,9 +122,6 @@ class Login extends React.Component {
                 </div> */}
                 <div className="text-center">
                   <Button className="my-4" color="primary" type="button" onClick={(e)=>{
-                          
-
-                 
                         let headers= {
                           "Content-type":"application/json",
                           'Access-Control-Allow-Origin':'*'

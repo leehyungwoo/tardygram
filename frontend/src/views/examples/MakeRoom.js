@@ -19,7 +19,6 @@ import {
   } from "reactstrap";
 
 import SearchMap from './SearchMap'
-
 import Header from "components/Headers/Header.js";
 
 
