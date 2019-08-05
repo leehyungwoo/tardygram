@@ -41,7 +41,7 @@ class Profile extends React.Component {
       roomcharge:null,
       roomlatitude:null,
       roomlongitude:null,
-      roomphoto:null,
+      // roomphoto:null,
       roomhostid:null,
       roompwd:null,
       selectuser:[],

@@ -9,7 +9,7 @@ import RoomDetail from "views/examples/RoomDetail.js"
 import DoneHost from "views/examples/DoneHost.js"
 import Main from "views/examples/Main/Main.js"
 import ChartGraph from "views/examples/ChartGraph"
-import ChartGraph2 from "views/examples/ChartGraph2"
+
 
 
 var routes = [
@@ -75,14 +75,8 @@ var routes = [
     icon: "ni ni-circle-08 text-blue",
     component: ChartGraph,
     layout: "/admin"
-  },
-  {
-    path: "/chartgraph2",
-    name: "DoneHost",
-    icon: "ni ni-circle-08 text-blue",
-    component: ChartGraph2,
-    layout: "/admin"
   }
+ 
 
 ]
 export default routes

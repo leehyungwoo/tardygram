@@ -200,7 +200,7 @@ class Main extends Component {
                 <CardHeader className="bg-white border-0">
                   <Row className="align-items-center">
                     <Col xs="12">
-                      <h3 className="mb-0"></h3>
+                     
                     </Col>               
                   </Row>
                 </CardHeader>

@@ -72,7 +72,7 @@ public class SampleController {
         memberrepo.save(m);
 
 
-        return new RedirectView("http://web.tardygram1.com.s3-website.ap-northeast-2.amazonaws.com/admin/user-profile");
+        return new RedirectView("http://localhost:3000/admin/user-profile");
         
     }
     
