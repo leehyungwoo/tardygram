@@ -423,6 +423,7 @@ class ChartGraph extends React.Component {
 
 
   render() {
+   
     return (
       <>
         <Card>

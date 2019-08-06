@@ -14,15 +14,12 @@ axios.defaults.baseURL = 'http://localhost:9000';
 
 
 
-
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
- 
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/auth" render={props => <AuthLayout {...props} />} />
       <Redirect from="/" to="/auth/login" />
- 
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

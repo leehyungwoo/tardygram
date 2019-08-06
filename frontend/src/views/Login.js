@@ -29,6 +29,7 @@ class Login extends React.Component {
 
   
   render() {
+ 
     return (
       <>
         <Col lg="5" md="7">

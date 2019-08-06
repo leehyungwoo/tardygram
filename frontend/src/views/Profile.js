@@ -2,7 +2,7 @@
 import React from "react";
 import axios from 'axios'
 import {Link } from "react-router-dom";
-import Upload from '../../components/Upload/Upload'
+import Upload from '../components/Upload/Upload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -133,7 +133,7 @@ class Profile extends React.Component {
    Kakaopay = e =>{
     e.preventDefault()
     //this.setState({submitted: true})
-    alert("카카오페이 버튼클릭"); 
+  
     const headers = {
         'Content-Type': 'application/json',
         'Authorization' : '44be8b0eacbaaed2af85aaf3c1a2b34a',
@@ -148,7 +148,7 @@ class Profile extends React.Component {
  
     axios.post('kakaoPay', JSON.stringify(data), {headers:headers})
         .then(res =>{
-            alert('kakaopay성공  url:'+res.data)
+            alert('kakaopay성공')
             hostRedirect(res.data);
             // location.href=res.data
         })
@@ -158,6 +158,7 @@ class Profile extends React.Component {
   }
 
   render() {
+  
     return (
       <>
                <div

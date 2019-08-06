@@ -43,7 +43,7 @@ public class MemberController {
     MemberRepository memberrepo;
     @Autowired
     RoomRepository roomrepo;
-
+ 
     private static String UPLOADED_FOLDER = "C:\\Users\\user\\Desktop\\tardygram\\frontend\\public\\image\\member\\";
     // private static String UPLOADED_FOLDER = "../../components/Upload/ProfileImage/";
 

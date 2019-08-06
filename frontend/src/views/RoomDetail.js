@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import Moment from 'react-moment';
 import 'moment-timezone';
-import RoomUpload from '../../components/Upload/RoomUpload'
+import RoomUpload from '../components/Upload/RoomUpload'
 // import Crown from '../../components/Upload/ProfileImage/crown.png'
 
 // reactstrap components
@@ -194,7 +194,7 @@ class Profile extends React.Component {
  
   enterbtn = e => {
     e.preventDefault()
-    alert('참여버튼클릭');
+
 
     const headers = {
       'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ class Profile extends React.Component {
     let id = localStorage.getItem("loginId")   
     axios.post(`/room/enter/${id}/${this.state.roomno}/${this.state.roomcharge}`, {headers:headers})
         .then(res =>{
-          alert("통신성공")
+   
           if(res.data.status === "00"){
             alert(res.data.msg)
       
@@ -398,6 +398,7 @@ hostBtn=()=>{
 
 
   render() {
+    console.clear()
     return (
       <>
 

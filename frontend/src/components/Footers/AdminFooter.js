@@ -19,7 +19,7 @@ class Footer extends React.Component {
                
                 rel="noopener noreferrer"
               >
-                Creative CodesCombine
+                Creative MCodesCombine
               </span>
             </div>
           </Col>

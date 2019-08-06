@@ -348,6 +348,7 @@ class CreateHost extends Component {
 
 
         render() {
+            console.clear()
         return (
             <>
             <Header/>

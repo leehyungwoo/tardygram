@@ -126,6 +126,7 @@ CheckTardy = () =>{
 
   //  <Location />
   render() {
+ 
     return (
       <div className="App">
            약속 시간은

@@ -63,7 +63,7 @@ class RoomList extends React.Component {
           }
     }
   render() {
-
+    console.clear()
     return (
       <>
         <Header />
